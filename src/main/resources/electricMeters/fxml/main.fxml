@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MainController">
+<VBox prefHeight="720.0" prefWidth="1024.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MainController">
 
     <TabPane tabMinWidth="60.0" VBox.vgrow="ALWAYS">
         <Tab text="Акты">
@@ -28,10 +28,10 @@
                           <JsonColumn field="id" text="ID" />
                           <JsonColumn field="profileNum" prefWidth="116.0" text="Номер профиля" />
                           <JsonColumn field="meterId" prefWidth="82.0" text="id счетчика" />
-                          <JsonColumn field="consumer" prefWidth="98.0" text="Потребитель" />
-                          <JsonColumn field="date" prefWidth="78.0" text="Дата" />
-                          <JsonColumn field="time" prefWidth="74.0" text="Время" />
-                          <JsonColumn field="consumer:1" prefWidth="192.0" text="Потребитель по счетчику" />
+                          <JsonColumn field="consumer" prefWidth="200.0" text="Потребитель" />
+                          <JsonColumn field="date" text="Дата" />
+                          <JsonColumn field="time" text="Время" />
+                          <JsonColumn field="consumer:1" prefWidth="200.0" text="Потребитель по счетчику" />
                       </columns>
                   </JsonTable>
                   <JsonTable fx:id="detailsTable">
