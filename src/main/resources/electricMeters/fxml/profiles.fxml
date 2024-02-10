@@ -10,26 +10,26 @@
         <items>
             <JsonTable fx:id="table">
                 <columns>
-                    <JsonColumn field="id" text="ID" />
-                    <JsonColumn field="profileNum" prefWidth="116.0" text="Номер профиля" />
-                    <JsonColumn field="meterId" prefWidth="82.0" text="id счетчика" />
-                    <JsonColumn field="consumer" prefWidth="200.0" text="Потребитель" />
-                    <JsonColumn field="date" text="Дата" />
-                    <JsonColumn field="time" text="Время" />
-                    <JsonColumn field="consumer:1" prefWidth="200.0" text="Потребитель по счетчику" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="profileNum" prefWidth="116.0" text="Номер профиля" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="meterId" prefWidth="82.0" text="id счетчика" />
+                    <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="200.0" text="Потребитель" />
+                    <JsonColumn alignment="CENTER" field="date" text="Дата" />
+                    <JsonColumn alignment="CENTER" field="time" text="Время" />
+                    <JsonColumn alignment="CENTER_LEFT" field="consumer:1" prefWidth="200.0" text="Потребитель по счетчику" />
                 </columns>
             </JsonTable>
             <JsonTable fx:id="detailsTable">
                 <columns>
-                    <JsonColumn field="id" text="ID" />
-                    <JsonColumn field="date" text="Дата" />
-                    <JsonColumn field="time" text="Время" />
-                    <JsonColumn field="aPos" text="aPos" />
-                    <JsonColumn field="aNeg" text="aNeg" />
-                    <JsonColumn field="rPos" text="rPos" />
-                    <JsonColumn field="rNeg" text="rNeg" />
-                    <JsonColumn field="status" text="Статус" />
-                    <JsonColumn field="profileEMInfo" text="id профиля" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID" />
+                    <JsonColumn alignment="CENTER" field="date" text="Дата" />
+                    <JsonColumn alignment="CENTER" field="time" text="Время" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="aPos" text="aPos" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="aNeg" text="aNeg" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="rPos" text="rPos" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="rNeg" text="rNeg" />
+                    <JsonColumn alignment="CENTER_LEFT" field="status" text="Статус" />
+                    <JsonColumn alignment="CENTER_RIGHT" field="profileEMInfo" text="id профиля" />
                 </columns>
             </JsonTable>
         </items>
