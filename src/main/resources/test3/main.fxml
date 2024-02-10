@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test3.MainController">
+
+    <TabPane tabMinWidth="60.0" VBox.vgrow="ALWAYS">
+        <Tab text="Акты">
+
+        </Tab>
+        <Tab text="Инфо">
+
+        </Tab>
+        <Tab text="Приборы учета">
+
+        </Tab>
+        <Tab text="Записи">
+         <content>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+               <items>
+                  <TableView fx:id="table" />
+                  <TableView fx:id="detailsTable" />
+               </items>
+            </SplitPane>
+         </content></Tab>
+        <Tab text="Показатели">
+
+        </Tab>
+        <Tab text="Тарифы">
+
+        </Tab>
+    </TabPane>
+
+</VBox>

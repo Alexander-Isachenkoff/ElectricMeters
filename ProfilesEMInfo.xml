@@ -1,0 +1,9 @@
+<tableInfo>
+    <column title="ID" field="id" width="50" alignment="CENTER_RIGHT"/>
+    <column title="Номер профиля" field="profileNum" width="120" alignment="CENTER_RIGHT"/>
+    <column title="id счетчика" field="meterId" width="100" alignment="CENTER_RIGHT"/>
+    <column title="Потребитель" field="consumer" width="200"/>
+    <column title="Дата" field="date" width="100" alignment="CENTER"/>
+    <column title="Время" field="time" width="100" alignment="CENTER"/>
+    <column title="Потребитель по счетчику" field="consumer:1" width="200" alignment="CENTER"/>
+</tableInfo>
