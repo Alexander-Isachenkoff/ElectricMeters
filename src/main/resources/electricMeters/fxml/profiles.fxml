@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import electricMeters.controls.JsonColumn?>
-<?import electricMeters.controls.JsonTable?>
+<?import electricMeters.controls.*?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.ProfilesController">
+<VBox prefHeight="720.0" prefWidth="1024.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.ProfilesController">
     <SplitPane dividerPositions="0.5" orientation="VERTICAL">
         <items>
-            <JsonTable fx:id="table">
-                <columns>
-                    <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="profileNum" prefWidth="116.0" text="Номер профиля" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="meterId" prefWidth="82.0" text="id счетчика" />
-                    <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="200.0" text="Потребитель" />
-                    <JsonColumn alignment="CENTER" field="date" text="Дата" />
-                    <JsonColumn alignment="CENTER" field="time" text="Время" />
-                    <JsonColumn alignment="CENTER_LEFT" field="consumer:1" prefWidth="200.0" text="Потребитель по счетчику" />
-                </columns>
-            </JsonTable>
-            <JsonTable fx:id="detailsTable">
-                <columns>
-                    <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID" />
-                    <JsonColumn alignment="CENTER" field="date" text="Дата" />
-                    <JsonColumn alignment="CENTER" field="time" text="Время" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="aPos" text="aPos" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="aNeg" text="aNeg" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="rPos" text="rPos" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="rNeg" text="rNeg" />
-                    <JsonColumn alignment="CENTER_LEFT" field="status" text="Статус" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="profileEMInfo" text="id профиля" />
-                </columns>
-            </JsonTable>
+            <TableWrapper onAdd="#onProfileAdd" onDelete="#onProfileDelete" title="Профили">
+                <JsonTable fx:id="table">
+                    <columns>
+                        <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="profileNum" prefWidth="116.0" text="Номер профиля"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="meterId" prefWidth="82.0" text="id счетчика"/>
+                        <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="200.0" text="Потребитель"/>
+                        <JsonColumn alignment="CENTER" field="date" text="Дата"/>
+                        <JsonColumn alignment="CENTER" field="time" text="Время"/>
+                        <JsonColumn alignment="CENTER_LEFT" field="consumer:1" prefWidth="200.0"
+                                    text="Потребитель по счетчику"/>
+                    </columns>
+                </JsonTable>
+            </TableWrapper>
+
+            <TableWrapper addEnabled="false" deleteEnabled="false" title="Показатели">
+                <JsonTable fx:id="detailsTable">
+                    <columns>
+                        <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID"/>
+                        <JsonColumn alignment="CENTER" field="date" text="Дата"/>
+                        <JsonColumn alignment="CENTER" field="time" text="Время"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="aPos" text="aPos"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="aNeg" text="aNeg"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="rPos" text="rPos"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="rNeg" text="rNeg"/>
+                        <JsonColumn alignment="CENTER_LEFT" field="status" text="Статус"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="profileEMInfo" text="id профиля"/>
+                    </columns>
+                </JsonTable>
+            </TableWrapper>
         </items>
     </SplitPane>
 </VBox>

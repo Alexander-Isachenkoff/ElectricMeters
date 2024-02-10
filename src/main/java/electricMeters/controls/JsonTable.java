@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Getter
 public class JsonTable extends TableView<JSONObject> {
@@ -31,6 +32,14 @@ public class JsonTable extends TableView<JSONObject> {
     
     public void clear() {
         getItems().clear();
+    }
+    
+    public void addSelectedListener(Consumer<JSONObject> onSelected) {
+        getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> onSelected.accept(newValue));
+    }
+    
+    public JSONObject getSelectedItem() {
+        return getSelectionModel().getSelectedItem();
     }
     
 }

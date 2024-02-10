@@ -82,3 +82,23 @@
     -fx-padding: 0;
     -fx-background-insets: 0;
 }
+
+.tool-button {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-padding: 0;
+    -fx-font-size: 1;
+    -fx-background-insets: 0;
+}
+
+.line {
+    -fx-stroke: grey;
+    -fx-stroke-width: 2;
+}
+
+.tool-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.12);
+}
+
+.tool-button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}

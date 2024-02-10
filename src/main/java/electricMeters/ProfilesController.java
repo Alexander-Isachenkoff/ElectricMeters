@@ -15,7 +15,7 @@ public class ProfilesController {
         table.setSqlFile("ProfileView.sql");
         detailsTable.setSqlFile("ProfilesEM.sql");
         
-        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        table.addSelectedListener(newValue -> {
             if (newValue != null) {
                 int id = newValue.getInt("id");
                 detailsTable.setParams(id);
@@ -26,6 +26,16 @@ public class ProfilesController {
         });
         
         table.reload();
+    }
+    
+    @FXML
+    private void onProfileAdd() {
+        System.out.println("add");
+    }
+    
+    @FXML
+    private void onProfileDelete() {
+        System.out.println(table.getSelectedItem());
     }
     
 }
