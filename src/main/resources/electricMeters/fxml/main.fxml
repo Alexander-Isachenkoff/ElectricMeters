@@ -1,61 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import electricMeters.controls.JsonColumn?>
-<?import electricMeters.controls.JsonTable?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="720.0" prefWidth="1024.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MainController">
+   <MenuBar>
+     <menus>
+       <Menu fx:id="menu" mnemonicParsing="false" text="Меню" />
+     </menus>
+   </MenuBar>
 
-    <TabPane tabMinWidth="60.0" VBox.vgrow="ALWAYS">
-        <Tab text="Акты">
-
-        </Tab>
-        <Tab text="Инфо">
-
-        </Tab>
-        <Tab text="Приборы учета">
-
-        </Tab>
-        <Tab text="Записи">
-         <content>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL">
-               <items>
-                  <JsonTable fx:id="table">
-                      <columns>
-                          <JsonColumn field="id" text="ID" />
-                          <JsonColumn field="profileNum" prefWidth="116.0" text="Номер профиля" />
-                          <JsonColumn field="meterId" prefWidth="82.0" text="id счетчика" />
-                          <JsonColumn field="consumer" prefWidth="200.0" text="Потребитель" />
-                          <JsonColumn field="date" text="Дата" />
-                          <JsonColumn field="time" text="Время" />
-                          <JsonColumn field="consumer:1" prefWidth="200.0" text="Потребитель по счетчику" />
-                      </columns>
-                  </JsonTable>
-                  <JsonTable fx:id="detailsTable">
-                      <columns>
-                          <JsonColumn field="id" text="ID" />
-                          <JsonColumn field="date" text="Дата" />
-                          <JsonColumn field="time" text="Время" />
-                          <JsonColumn field="aPos" text="aPos" />
-                          <JsonColumn field="aNeg" text="aNeg" />
-                          <JsonColumn field="rPos" text="rPos" />
-                          <JsonColumn field="rNeg" text="rNeg" />
-                          <JsonColumn field="status" text="Статус" />
-                          <JsonColumn field="profileEMInfo" text="id профиля" />
-                      </columns>
-                  </JsonTable>
-               </items>
-            </SplitPane>
-         </content></Tab>
-        <Tab text="Показатели">
-
-        </Tab>
-        <Tab text="Тарифы">
-
-        </Tab>
-    </TabPane>
+    <TabPane fx:id="tabPane" tabMinWidth="60.0" VBox.vgrow="ALWAYS" />
 
 </VBox>
