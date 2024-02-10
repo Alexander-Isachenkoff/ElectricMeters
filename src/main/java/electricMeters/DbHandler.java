@@ -4,6 +4,11 @@ import org.json.JSONObject;
 import org.sqlite.JDBC;
 import org.sqlite.jdbc4.JDBC4ResultSet;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +25,9 @@ public class DbHandler {
     }
 
     public static synchronized DbHandler getInstance() throws SQLException {
-        if (instance == null)
+        if (instance == null) {
             instance = new DbHandler();
+        }
         return instance;
     }
 
@@ -41,17 +47,30 @@ public class DbHandler {
     public List<JSONObject> getAllFrom(String tableName) {
         return runSqlSelect("SELECT * FROM " + tableName);
     }
+    
+    public List<JSONObject> runSqlSelectFile(String sqlFile, Object... params) {
+        try {
+            Path path = Paths.get(Main.class.getResource("sql/" + sqlFile).toURI());
+            String sql = String.join(" ", Files.readAllLines(path));
+            return runSqlSelect(sql, params);
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    public List<JSONObject> runSqlSelect(String sql) {
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+    public List<JSONObject> runSqlSelect(String sql, Object... params) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 1; i <= params.length; i++) {
+                statement.setObject(i, params[i-1]);
+            }
+            ResultSet resultSet = statement.executeQuery();
             return toJSON((JDBC4ResultSet) resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private List<JSONObject> toJSON(JDBC4ResultSet resultSet) {
+    private static List<JSONObject> toJSON(JDBC4ResultSet resultSet) {
         List<JSONObject> list = new ArrayList<>();
         try {
             while (resultSet.next()) {

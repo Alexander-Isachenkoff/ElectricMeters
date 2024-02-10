@@ -28,7 +28,7 @@ public class MainController {
     private void initialize() {
         table.getColumns().setAll(TableInfo.createColumns("ProfilesEMInfo.xml"));
 
-        List<JSONObject> profiles = db.getAllFrom("ProfileView");
+        List<JSONObject> profiles = db.runSqlSelectFile("ProfileView.sql");
         table.getItems().setAll(profiles);
 
         detailsTable.getColumns().add(UtilTable.createColumn("id", "id", 100, Pos.CENTER_LEFT));
@@ -44,7 +44,7 @@ public class MainController {
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 int id = newValue.getInt("id");
-                detailsTable.getItems().setAll(db.runSqlSelect("SELECT * FROM ProfilesEM WHERE profileEMInfo = " + id));
+                detailsTable.getItems().setAll(db.runSqlSelectFile("ProfilesEM.sql", id));
             } else {
                 detailsTable.getItems().clear();
             }
