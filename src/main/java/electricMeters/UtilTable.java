@@ -1,4 +1,4 @@
-package test3;
+package electricMeters;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;

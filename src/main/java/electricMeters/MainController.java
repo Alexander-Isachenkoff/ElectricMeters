@@ -1,4 +1,4 @@
-package test3;
+package electricMeters;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;

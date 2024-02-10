@@ -1,4 +1,4 @@
-package test3;
+package electricMeters;
 
 import org.json.JSONObject;
 import org.sqlite.JDBC;

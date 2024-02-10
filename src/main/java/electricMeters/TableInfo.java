@@ -1,4 +1,4 @@
-package test3;
+package electricMeters;
 
 
 import javafx.scene.control.TableColumn;

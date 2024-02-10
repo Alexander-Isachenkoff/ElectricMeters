@@ -1,4 +1,4 @@
-package test3;
+package electricMeters;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +16,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = new FXMLLoader(getClass().getResource("main.fxml")).load();
-        primaryStage.setTitle("Test 3");
+        Parent root = new FXMLLoader(getClass().getResource("fxml/main.fxml")).load();
+        primaryStage.setTitle("Учет показаний электрических счетчиков");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

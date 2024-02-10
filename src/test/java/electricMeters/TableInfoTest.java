@@ -1,10 +1,8 @@
-package test3;
+package electricMeters;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TableInfoTest {
 

@@ -1,4 +1,4 @@
-package test3;
+package electricMeters;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
