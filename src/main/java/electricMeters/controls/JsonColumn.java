@@ -30,7 +30,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
     
     public void setAlignment(Pos alignment) {
         this.alignment = alignment;
-        setStyle(getStyle() + getAlignmentStyleString(alignment));
+        setStyle((getStyle() == null ? "" : getStyle()) + getAlignmentStyleString(alignment));
     }
     
     private static String getAlignmentStyleString(Pos alignment) {
