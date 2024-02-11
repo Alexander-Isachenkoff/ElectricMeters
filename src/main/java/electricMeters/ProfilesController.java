@@ -2,7 +2,10 @@ package electricMeters;
 
 import electricMeters.controls.JsonTable;
 import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
 import org.json.JSONObject;
+
+import java.io.File;
 
 public class ProfilesController {
     
@@ -31,7 +34,10 @@ public class ProfilesController {
     
     @FXML
     private void onProfileAdd() {
-        System.out.println("add");
+        File file = new FileChooser().showOpenDialog(table.getScene().getWindow());
+        JSONObject json = ProfileParser.readDataFromFile(file);
+        DbHandler.getInstance().insert(json, "ProfileEMInfo");
+        table.reload();
     }
     
     @FXML

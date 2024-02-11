@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DbHandler {
 
@@ -93,23 +94,25 @@ public class DbHandler {
         return list;
     }
 
-    //    // Добавление продукта в БД
-    //    public void addProduct(Product product) {
-    //        // Создадим подготовленное выражение, чтобы избежать SQL-инъекций
-    //        try (PreparedStatement statement = this.connection.prepareStatement(
-    //                "INSERT INTO Products(`good`, `price`, `category_name`) " +
-    //                        "VALUES(?, ?, ?)")) {
-    //            statement.setObject(1, product.good);
-    //            statement.setObject(2, product.price);
-    //            statement.setObject(3, product.category_name);
-    //            // Выполняем запрос
-    //            statement.execute();
-    //        } catch (SQLException e) {
-    //            e.printStackTrace();
-    //        }
-    //    }
-    //
-
+    public void insert(JSONObject json, String table) {
+        List<String> fields = json.keySet().stream().sorted().collect(Collectors.toList());
+        String insertFields = fields.stream()
+                .map(key -> "'" + key + "'")
+                .collect(Collectors.joining(", "));
+        String insertParams = fields.stream()
+                .map(key -> "?")
+                .collect(Collectors.joining(", "));
+        String sql = String.format("INSERT INTO %s (%s) VALUES (" + insertParams + ")", table, insertFields);
+        try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
+            for (int i = 0; i < fields.size(); i++) {
+                statement.setObject(i + 1, json.get(fields.get(i)));
+            }
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public void delete(int id, String table) {
         try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM " + table + " WHERE id = ?")) {
             statement.setObject(1, id);
