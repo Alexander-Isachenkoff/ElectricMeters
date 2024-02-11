@@ -1,5 +1,6 @@
 package electricMeters;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.sqlite.JDBC;
 import org.sqlite.jdbc4.JDBC4ResultSet;
@@ -10,8 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DbHandler {
@@ -94,7 +94,7 @@ public class DbHandler {
         return list;
     }
 
-    public void insert(JSONObject json, String table) {
+    public int insert(JSONObject json, String table) {
         List<String> fields = json.keySet().stream().sorted().collect(Collectors.toList());
         String insertFields = fields.stream()
                 .map(key -> "'" + key + "'")
@@ -102,10 +102,51 @@ public class DbHandler {
         String insertParams = fields.stream()
                 .map(key -> "?")
                 .collect(Collectors.joining(", "));
-        String sql = String.format("INSERT INTO %s (%s) VALUES (" + insertParams + ")", table, insertFields);
+        String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", table, insertFields, insertParams);
         try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
             for (int i = 0; i < fields.size(); i++) {
                 statement.setObject(i + 1, json.get(fields.get(i)));
+            }
+            statement.execute();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void insertList(JSONArray jsonArray, String table) {
+        Set<String> fieldsSet = new HashSet<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            fieldsSet.addAll(jsonArray.getJSONObject(i).keySet());
+        }
+        List<String> fields = new ArrayList<>(fieldsSet);
+        
+        String insertFields = fields.stream()
+                .map(key -> "'" + key + "'")
+                .collect(Collectors.joining(", "));
+        String insertParamsLine = fields.stream()
+                .map(key -> "?")
+                .collect(Collectors.joining(", ", "(", ")"));
+        String insertParamsClause = jsonArray.toList().stream()
+                .map(object -> insertParamsLine)
+                .collect(Collectors.joining(",\n"));
+        String sql = String.format("INSERT INTO %s (%s) VALUES %s", table, insertFields, insertParamsClause);
+        
+        try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                for (int j = 0; j < fields.size(); j++) {
+                    String key = fields.get(j);
+                    int parameterIndex = i * fields.size() + j + 1;
+                    Object value = json.has(key) ? json.get(key) : null;
+                    statement.setObject(parameterIndex, value);
+                }
             }
             statement.execute();
         } catch (SQLException e) {
