@@ -30,13 +30,9 @@ public class JsonTable extends TableView<JSONObject> {
         progress.showProgress();
         new Thread(() -> {
             List<JSONObject> objects;
-            try {
-                isLoading = true;
-                objects = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
-                isLoading = false;
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            isLoading = true;
+            objects = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
+            isLoading = false;
             Platform.runLater(() -> {
                 this.getItems().setAll(objects);
                 progress.hideProgress();

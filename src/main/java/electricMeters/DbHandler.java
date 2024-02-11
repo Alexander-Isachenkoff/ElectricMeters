@@ -19,12 +19,16 @@ public class DbHandler {
     private static DbHandler instance;
     private final Connection connection;
 
-    private DbHandler() throws SQLException {
-        DriverManager.registerDriver(new JDBC());
-        connection = DriverManager.getConnection(CON_STR);
+    private DbHandler() {
+        try {
+            DriverManager.registerDriver(new JDBC());
+            connection = DriverManager.getConnection(CON_STR);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static synchronized DbHandler getInstance() throws SQLException {
+    public static synchronized DbHandler getInstance() {
         if (instance == null) {
             instance = new DbHandler();
         }
@@ -105,16 +109,14 @@ public class DbHandler {
     //        }
     //    }
     //
-    //    // Удаление продукта по id
-    //    public void deleteProduct(int id) {
-    //        try (PreparedStatement statement = this.connection.prepareStatement(
-    //                "DELETE FROM Products WHERE id = ?")) {
-    //            statement.setObject(1, id);
-    //            // Выполняем запрос
-    //            statement.execute();
-    //        } catch (SQLException e) {
-    //            e.printStackTrace();
-    //        }
-    //    }
+
+    public void delete(int id, String table) {
+        try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM " + table + " WHERE id = ?")) {
+            statement.setObject(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

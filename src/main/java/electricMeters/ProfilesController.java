@@ -2,6 +2,7 @@ package electricMeters;
 
 import electricMeters.controls.JsonTable;
 import javafx.fxml.FXML;
+import org.json.JSONObject;
 
 public class ProfilesController {
     
@@ -35,7 +36,13 @@ public class ProfilesController {
     
     @FXML
     private void onProfileDelete() {
-        System.out.println(table.getSelectedItem());
+        JSONObject item = table.getSelectedItem();
+        if (item != null) {
+            if (UtilAlert.showDeleteConfirmation()) {
+                DbHandler.getInstance().delete(item.getInt("id"), "ProfileEMInfo");
+                table.reload();
+            }
+        }
     }
     
 }
