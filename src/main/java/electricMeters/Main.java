@@ -18,6 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = new FXMLLoader(getClass().getResource("fxml/main.fxml")).load();
         primaryStage.setTitle("Учет показаний электрических счетчиков");
+        //оставляю ерунду чисто для проверки
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
