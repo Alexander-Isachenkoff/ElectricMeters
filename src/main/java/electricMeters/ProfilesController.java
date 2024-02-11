@@ -47,6 +47,10 @@ public class ProfilesController {
     private void onProfileAdd() {
         List<File> files = new FileChooser().showOpenMultipleDialog(table.getScene().getWindow());
         
+        if (files == null) {
+            return;
+        }
+        
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/progress.fxml"));
         VBox root = loader.load();
         Stage stage = new Stage(StageStyle.UNDECORATED);
@@ -67,9 +71,7 @@ public class ProfilesController {
             for (File file : files) {
                 ProfileUtil.readAndSave(file);
                 count.incrementAndGet();
-                Platform.runLater(() -> {
-                    controller.setDone(count.get());
-                });
+                Platform.runLater(() -> controller.setDone(count.get()));
             }
             table.reload();
         }).start();
