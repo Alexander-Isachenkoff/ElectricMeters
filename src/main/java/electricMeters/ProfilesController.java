@@ -6,6 +6,7 @@ import javafx.stage.FileChooser;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.List;
 
 public class ProfilesController {
     
@@ -34,10 +35,12 @@ public class ProfilesController {
     
     @FXML
     private void onProfileAdd() {
-        File file = new FileChooser().showOpenDialog(table.getScene().getWindow());
-        JSONObject json = ProfileParser.readDataFromFile(file);
-        DbHandler.getInstance().insert(json, "ProfileEMInfo");
-        table.reload();
+        List<File> files = new FileChooser().showOpenMultipleDialog(table.getScene().getWindow());
+        for (File file : files) {
+            JSONObject json = ProfileParser.readDataFromFile(file);
+            DbHandler.getInstance().insert(json, "ProfileEMInfo");
+            table.reload();
+        }
     }
     
     @FXML
