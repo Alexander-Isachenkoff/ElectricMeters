@@ -40,6 +40,14 @@ public class TableWrapper extends VBox {
         deleteButton.managedProperty().bind(deleteEnabled);
     }
     
+    @FXML
+    private void onReload() {
+        getChildren().stream()
+                .filter(node -> node instanceof JsonTable)
+                .map(node -> (JsonTable) node)
+                .forEach(JsonTable::reload);
+    }
+    
     public void setOnAdd(EventHandler<ActionEvent> onAdd) {
         addButton.setOnAction(onAdd);
     }
