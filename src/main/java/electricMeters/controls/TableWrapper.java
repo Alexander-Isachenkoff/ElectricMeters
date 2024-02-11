@@ -22,8 +22,8 @@ public class TableWrapper extends VBox {
     @FXML
     private Button deleteButton;
     
-    private final BooleanProperty addEnabled = new SimpleBooleanProperty(true);
-    private final BooleanProperty deleteEnabled = new SimpleBooleanProperty(true);
+    private final BooleanProperty addEnabled = new SimpleBooleanProperty(false);
+    private final BooleanProperty deleteEnabled = new SimpleBooleanProperty(false);
     
     public TableWrapper() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/TableWrapper.fxml"));

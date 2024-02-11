@@ -7,14 +7,14 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.ProfilesController">
     <SplitPane dividerPositions="0.5" orientation="VERTICAL">
         <items>
-            <TableWrapper onAdd="#onProfileAdd" onDelete="#onProfileDelete" title="Профили">
+            <TableWrapper addEnabled="true" deleteEnabled="true" onAdd="#onProfileAdd" onDelete="#onProfileDelete" title="Профили">
                 <JsonTable fx:id="table">
                     <columns>
                         <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID"/>
                         <JsonColumn alignment="CENTER_RIGHT" field="profileNum" prefWidth="116.0" text="Номер профиля"/>
                         <JsonColumn alignment="CENTER_RIGHT" field="meterId" prefWidth="82.0" text="id счетчика"/>
                         <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="200.0" text="Потребитель"/>
-                        <JsonColumn alignment="CENTER" field="date" text="Дата"/>
+                        <JsonColumn alignment="CENTER" field="date" text="Дата" dataType="DATE"/>
                         <JsonColumn alignment="CENTER" field="time" text="Время"/>
                         <JsonColumn alignment="CENTER_LEFT" field="consumer:1" prefWidth="200.0"
                                     text="Потребитель по счетчику"/>
@@ -22,16 +22,16 @@
                 </JsonTable>
             </TableWrapper>
 
-            <TableWrapper addEnabled="false" deleteEnabled="false" title="Показатели">
+            <TableWrapper title="Показатели">
                 <JsonTable fx:id="detailsTable">
                     <columns>
                         <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID"/>
-                        <JsonColumn alignment="CENTER" field="date" text="Дата"/>
+                        <JsonColumn alignment="CENTER" field="date" text="Дата" dataType="DATE"/>
                         <JsonColumn alignment="CENTER" field="time" text="Время"/>
-                        <JsonColumn alignment="CENTER_RIGHT" field="aPos" text="aPos"/>
-                        <JsonColumn alignment="CENTER_RIGHT" field="aNeg" text="aNeg"/>
-                        <JsonColumn alignment="CENTER_RIGHT" field="rPos" text="rPos"/>
-                        <JsonColumn alignment="CENTER_RIGHT" field="rNeg" text="rNeg"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="aPos" text="aPos" dataType="REAL"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="aNeg" text="aNeg" dataType="REAL"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="rPos" text="rPos" dataType="REAL"/>
+                        <JsonColumn alignment="CENTER_RIGHT" field="rNeg" text="rNeg" dataType="REAL"/>
                         <JsonColumn alignment="CENTER_LEFT" field="status" text="Статус"/>
                         <JsonColumn alignment="CENTER_RIGHT" field="profileEMInfo" text="id профиля"/>
                     </columns>
