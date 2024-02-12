@@ -3,6 +3,7 @@ package electricMeters.controls;
 import electricMeters.DbHandler;
 import javafx.application.Platform;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Pane;
@@ -11,7 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +25,10 @@ public class JsonTable extends TableView<JSONObject> {
     private String sqlFile;
     private Object[] params = new Object[0];
     private boolean isLoading;
+    
+    public JsonTable() {
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
     
     public void reload() {
         progress.showProgress();
@@ -54,6 +58,10 @@ public class JsonTable extends TableView<JSONObject> {
     
     public JSONObject getSelectedItem() {
         return getSelectionModel().getSelectedItem();
+    }
+    
+    public List<JSONObject> getSelectedItems() {
+        return getSelectionModel().getSelectedItems();
     }
     
     private class Progress {

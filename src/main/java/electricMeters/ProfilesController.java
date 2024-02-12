@@ -79,10 +79,12 @@ public class ProfilesController {
     
     @FXML
     private void onProfileDelete() {
-        JSONObject item = mainTable.getSelectedItem();
-        if (item != null) {
+        List<JSONObject> items = mainTable.getSelectedItems();
+        if (!items.isEmpty()) {
             if (UtilAlert.showDeleteConfirmation()) {
-                DbHandler.getInstance().delete(item.getInt("id"), "ProfileEMInfo");
+                for (JSONObject item : items) {
+                    DbHandler.getInstance().delete(item.getInt("id"), "ProfileEMInfo");
+                }
                 mainTable.reload();
             }
         }
