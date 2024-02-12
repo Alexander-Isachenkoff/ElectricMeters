@@ -20,16 +20,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProfilesController {
     
     @FXML
-    private JsonTable table;
+    private JsonTable mainTable;
     @FXML
     private JsonTable detailsTable;
     
     @FXML
     private void initialize() {
-        table.setSqlFile("ProfileView.sql");
+        mainTable.setSqlFile("ProfileView.sql");
         detailsTable.setSqlFile("ProfilesEM.sql");
         
-        table.addSelectedListener(newValue -> {
+        mainTable.addSelectedListener(newValue -> {
             if (newValue != null) {
                 int id = newValue.getInt("id");
                 detailsTable.setParams(id);
@@ -39,13 +39,13 @@ public class ProfilesController {
             }
         });
         
-        table.reload();
+        mainTable.reload();
     }
     
     @SneakyThrows
     @FXML
     private void onProfileAdd() {
-        List<File> files = new FileChooser().showOpenMultipleDialog(table.getScene().getWindow());
+        List<File> files = new FileChooser().showOpenMultipleDialog(mainTable.getScene().getWindow());
         
         if (files == null) {
             return;
@@ -73,17 +73,17 @@ public class ProfilesController {
                 count.incrementAndGet();
                 Platform.runLater(() -> controller.setDone(count.get()));
             }
-            table.reload();
+            mainTable.reload();
         }).start();
     }
     
     @FXML
     private void onProfileDelete() {
-        JSONObject item = table.getSelectedItem();
+        JSONObject item = mainTable.getSelectedItem();
         if (item != null) {
             if (UtilAlert.showDeleteConfirmation()) {
                 DbHandler.getInstance().delete(item.getInt("id"), "ProfileEMInfo");
-                table.reload();
+                mainTable.reload();
             }
         }
     }
