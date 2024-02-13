@@ -48,7 +48,7 @@ public class ExcelUtil {
             }
 
             for (int i = 0; i < columns.size(); i++) {
-                sheet.autoSizeColumn(i);
+                sheet.setColumnWidth(i, (int) (columns.get(i).getWidth() * 40));
             }
 
             File file = new File("export.xlsx");
