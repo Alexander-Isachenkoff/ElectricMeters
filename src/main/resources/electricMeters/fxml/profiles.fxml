@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import electricMeters.controls.JsonColumn?>
-<?import electricMeters.controls.JsonTable?>
-<?import electricMeters.controls.TableHeader?>
+<?import electricMeters.core.controls.JsonColumn?>
+<?import electricMeters.core.controls.JsonTable?>
+<?import electricMeters.core.controls.TableHeader?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.VBox?>
 

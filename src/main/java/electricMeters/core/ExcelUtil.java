@@ -1,7 +1,7 @@
-package electricMeters;
+package electricMeters.core;
 
-import electricMeters.controls.JsonColumn;
-import electricMeters.controls.JsonTable;
+import electricMeters.core.controls.JsonColumn;
+import electricMeters.core.controls.JsonTable;
 import javafx.collections.ObservableList;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;

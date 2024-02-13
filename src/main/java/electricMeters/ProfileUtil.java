@@ -1,5 +1,6 @@
 package electricMeters;
 
+import electricMeters.core.DbHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

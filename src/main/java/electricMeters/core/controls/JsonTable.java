@@ -1,6 +1,6 @@
-package electricMeters.controls;
+package electricMeters.core.controls;
 
-import electricMeters.DbHandler;
+import electricMeters.core.DbHandler;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

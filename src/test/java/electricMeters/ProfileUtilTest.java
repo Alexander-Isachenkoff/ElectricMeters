@@ -1,11 +1,10 @@
 package electricMeters;
 
+import electricMeters.core.DbHandler;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ProfileUtilTest {
     

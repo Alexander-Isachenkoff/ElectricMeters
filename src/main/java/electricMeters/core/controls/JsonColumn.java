@@ -1,4 +1,4 @@
-package electricMeters.controls;
+package electricMeters.core.controls;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;

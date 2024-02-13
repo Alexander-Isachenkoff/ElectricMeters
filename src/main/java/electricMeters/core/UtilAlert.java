@@ -1,4 +1,4 @@
-package electricMeters;
+package electricMeters.core;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;

@@ -1,5 +1,6 @@
-package electricMeters;
+package electricMeters.core;
 
+import electricMeters.Main;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.sqlite.JDBC;
