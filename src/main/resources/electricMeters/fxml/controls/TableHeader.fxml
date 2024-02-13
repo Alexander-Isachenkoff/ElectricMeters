@@ -16,8 +16,8 @@
       </font>
      </Label>
    <Label fx:id="countLabel" text="(0)" textFill="#777777" />
-    <HBox alignment="CENTER_RIGHT" spacing="4.0" HBox.hgrow="ALWAYS">
-        <Button fx:id="addButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+    <HBox fx:id="toolBar" alignment="CENTER_RIGHT" spacing="4.0" HBox.hgrow="ALWAYS">
+        <Button fx:id="addButton" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -26,7 +26,7 @@
             </ImageView>
          </graphic>
         </Button>
-        <Button fx:id="deleteButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+        <Button fx:id="deleteButton" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -36,7 +36,7 @@
          </graphic>
         </Button>
       <TextField fx:id="searchField" maxWidth="120.0" prefHeight="22.0" style="-fx-padding: 1 4 2 4;" />
-      <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#onSearch" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+      <Button onAction="#onSearch" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,14 +45,14 @@
             </ImageView>
          </graphic>
       </Button>
-        <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#onReload" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+        <Button onAction="#onReload" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
            <graphic>
                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                    <Image url="@../../icons/reload.png" />
                </ImageView>
            </graphic>
         </Button>
-      <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#onExportExcel" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+      <Button onAction="#onExportExcel" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -3,10 +3,12 @@ package electricMeters;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.DbHandler;
 import electricMeters.core.UtilAlert;
+import electricMeters.core.controls.TableHeader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -20,7 +22,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProfilesController {
-    
+
+    @FXML
+    private TableHeader mainTableHeader;
     @FXML
     private JsonTable mainTable;
     @FXML
@@ -28,6 +32,8 @@ public class ProfilesController {
     
     @FXML
     private void initialize() {
+        mainTableHeader.addToolButton("import.png", this::onImport);
+
         mainTable.setSqlFile("ProfileView.sql");
         detailsTable.setSqlFile("ProfilesEM.sql");
         
@@ -45,8 +51,7 @@ public class ProfilesController {
     }
     
     @SneakyThrows
-    @FXML
-    private void onProfileAdd() {
+    private void onImport() {
         List<File> files = new FileChooser().showOpenMultipleDialog(mainTable.getScene().getWindow());
         
         if (files == null) {

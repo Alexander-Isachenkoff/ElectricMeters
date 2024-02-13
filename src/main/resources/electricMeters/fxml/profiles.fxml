@@ -9,8 +9,7 @@
 <VBox prefHeight="720.0" prefWidth="1024.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.ProfilesController">
     <SplitPane dividerPositions="0.5" orientation="VERTICAL" VBox.vgrow="ALWAYS">
         <VBox>
-            <TableHeader table="${mainTable}" addEnabled="true" deleteEnabled="true"
-                         onAdd="#onProfileAdd" onDelete="#onProfileDelete" title="Профили"/>
+            <TableHeader fx:id="mainTableHeader" table="${mainTable}" addEnabled="false" deleteEnabled="true" onDelete="#onProfileDelete" title="Профили"/>
             <JsonTable fx:id="mainTable" VBox.vgrow="ALWAYS">
                 <columns>
                     <JsonColumn alignment="CENTER_RIGHT" field="id" text="ID"/>

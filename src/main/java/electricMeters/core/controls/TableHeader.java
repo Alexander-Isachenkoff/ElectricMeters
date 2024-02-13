@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import org.json.JSONObject;
@@ -39,6 +41,8 @@ public class TableHeader extends HBox {
     private Button addButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private HBox toolBar;
 
     public TableHeader() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/controls/TableHeader.fxml"));
@@ -107,6 +111,14 @@ public class TableHeader extends HBox {
     @FXML
     private void onExportExcel() {
         ExcelUtil.exportExcel(getTable());
+    }
+
+    public void addToolButton(String iconFileName, Runnable onAction) {
+        Button button = new Button();
+        button.getStyleClass().add("tool-button");
+        button.setOnAction(event -> onAction.run());
+        button.setGraphic(new ImageView(new Image(Main.class.getResourceAsStream("icons/" + iconFileName))));
+        toolBar.getChildren().add(0, button);
     }
 
     public JsonTable getTable() {

@@ -95,11 +95,10 @@
     -fx-padding: 0;
     -fx-font-size: 1;
     -fx-background-insets: 0;
-}
-
-.line {
-    -fx-stroke: grey;
-    -fx-stroke-width: 2;
+    -fx-pref-width: 22;
+    -fx-pref-height: 22;
+    -fx-min-width: 22;
+    -fx-min-height: 22;
 }
 
 .tool-button:hover {
