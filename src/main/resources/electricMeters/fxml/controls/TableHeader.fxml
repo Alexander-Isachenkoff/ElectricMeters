@@ -19,16 +19,6 @@
      </Label>
    <Label fx:id="countLabel" text="(0)" textFill="#181818" />
     <HBox alignment="CENTER_RIGHT" spacing="4.0" HBox.hgrow="ALWAYS">
-      <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#onSearch" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
-         <graphic>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../icons/magnifier.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <TextField fx:id="searchField" maxWidth="120.0" prefHeight="22.0" style="-fx-padding: 1 4 2 4;" />
         <Button fx:id="addButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
             <graphic>
                 <Group>
@@ -44,6 +34,16 @@
                 </Group>
             </graphic>
         </Button>
+      <TextField fx:id="searchField" maxWidth="120.0" prefHeight="22.0" style="-fx-padding: 1 4 2 4;" />
+      <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#onSearch" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/magnifier.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
         <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#onReload" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
            <graphic>
                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
@@ -51,6 +51,15 @@
                </ImageView>
            </graphic>
         </Button>
+      <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#onExportExcel" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/report-excel.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </HBox>
      <padding>
          <Insets bottom="3.0" left="6.0" right="3.0" top="3.0" />

@@ -86,6 +86,10 @@ public class JsonTable extends TableView<JSONObject> {
         return getSelectionModel().getSelectedItems();
     }
 
+    public List<JsonColumn> getJsonColumns() {
+        return getColumns().stream().map(col -> (JsonColumn) col).collect(Collectors.toList());
+    }
+
     private class Progress {
 
         private Pane parent;
@@ -120,7 +124,6 @@ public class JsonTable extends TableView<JSONObject> {
                 }
             }, 100);
         }
-
     }
 
 }

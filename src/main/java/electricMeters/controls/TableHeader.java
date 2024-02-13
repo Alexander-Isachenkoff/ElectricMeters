@@ -1,5 +1,6 @@
 package electricMeters.controls;
 
+import electricMeters.ExcelUtil;
 import electricMeters.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -101,6 +102,11 @@ public class TableHeader extends HBox {
             });
         }
         timeline.play();
+    }
+
+    @FXML
+    private void onExportExcel() {
+        ExcelUtil.exportExcel(getTable());
     }
 
     public JsonTable getTable() {
