@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class JsonTable extends TableView<JSONObject> {
-    
+
     private final Progress progress = new Progress();
     private final StringProperty filter = new SimpleStringProperty("");
     @Setter
@@ -31,69 +31,67 @@ public class JsonTable extends TableView<JSONObject> {
     private Object[] params = new Object[0];
     private boolean isLoading;
     private List<JSONObject> allItems = new ArrayList<>();
-    
+
     public JsonTable() {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         filter.addListener((observable, oldValue, newValue) -> updateVisibleItems());
     }
-    
+
     private static boolean hasValue(JSONObject json, String value) {
         return json.keySet().stream()
                 .anyMatch(key -> String.valueOf(json.get(key)).toLowerCase().contains(value.toLowerCase()));
     }
-    
+
     private void updateVisibleItems() {
         List<JSONObject> filteredItems = allItems.stream()
                 .filter(json -> hasValue(json, filter.getValue()))
                 .collect(Collectors.toList());
         getItems().setAll(filteredItems);
     }
-    
+
     public StringProperty filterProperty() {
         return filter;
     }
-    
+
     public void reload() {
         progress.showProgress();
         new Thread(() -> {
-            List<JSONObject> objects;
             isLoading = true;
-            objects = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
+            allItems = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
             isLoading = false;
             Platform.runLater(() -> {
-                allItems = objects;
                 updateVisibleItems();
                 progress.hideProgress();
             });
         }).start();
     }
-    
+
     public void setParams(Object... params) {
         this.params = params;
     }
-    
+
     public void clear() {
         getItems().clear();
     }
-    
+
     public void addSelectedListener(Consumer<JSONObject> onSelected) {
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> onSelected.accept(newValue));
     }
-    
+
     public JSONObject getSelectedItem() {
         return getSelectionModel().getSelectedItem();
     }
-    
+
     public List<JSONObject> getSelectedItems() {
         return getSelectionModel().getSelectedItems();
     }
-    
+
     private class Progress {
-        
+
         private Pane parent;
         private int i;
         private boolean showing;
-        
+
         private void hideProgress() {
             if (showing) {
                 setEffect(null);
@@ -101,7 +99,7 @@ public class JsonTable extends TableView<JSONObject> {
                 showing = false;
             }
         }
-        
+
         private void showProgress() {
             new Timer(true).schedule(new TimerTask() {
                 @Override
@@ -122,7 +120,7 @@ public class JsonTable extends TableView<JSONObject> {
                 }
             }, 100);
         }
-        
+
     }
-    
+
 }
