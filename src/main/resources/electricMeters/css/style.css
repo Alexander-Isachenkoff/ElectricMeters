@@ -63,13 +63,21 @@
     -fx-border-color: none;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
+.table-view:focused .table-row-cell:filled:selected {
     -fx-background-color: rgb(204, 232, 255);
-    -fx-table-cell-border-color: transparent;
+    -fx-table-cell-border-color: lightgray;
+    -fx-border-color: SKYBLUE;
+    -fx-border-insets: -2 0 0 0;
+    -fx-padding: 0 -2 -2 -2;
+    -fx-border-width: 2;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected .text {
+.table-view .table-row-cell .text {
     -fx-fill: #181818;
+}
+
+.table-view:focused .table-row-cell:filled:selected .text {
+    -fx-fill: black;
 }
 
 .table-view:focused {
