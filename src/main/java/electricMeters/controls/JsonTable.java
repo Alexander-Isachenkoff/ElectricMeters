@@ -2,6 +2,8 @@ package electricMeters.controls;
 
 import electricMeters.DbHandler;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
@@ -12,22 +14,43 @@ import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Getter
 public class JsonTable extends TableView<JSONObject> {
     
     private final Progress progress = new Progress();
+    private final StringProperty filter = new SimpleStringProperty("");
     @Setter
     private String sqlFile;
     private Object[] params = new Object[0];
     private boolean isLoading;
+    private List<JSONObject> allItems = new ArrayList<>();
     
     public JsonTable() {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        filter.addListener((observable, oldValue, newValue) -> updateVisibleItems());
+    }
+    
+    private static boolean hasValue(JSONObject json, String value) {
+        return json.keySet().stream()
+                .anyMatch(key -> String.valueOf(json.get(key)).toLowerCase().contains(value.toLowerCase()));
+    }
+    
+    private void updateVisibleItems() {
+        List<JSONObject> filteredItems = allItems.stream()
+                .filter(json -> hasValue(json, filter.getValue()))
+                .collect(Collectors.toList());
+        getItems().setAll(filteredItems);
+    }
+    
+    public StringProperty filterProperty() {
+        return filter;
     }
     
     public void reload() {
@@ -38,7 +61,8 @@ public class JsonTable extends TableView<JSONObject> {
             objects = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
             isLoading = false;
             Platform.runLater(() -> {
-                this.getItems().setAll(objects);
+                allItems = objects;
+                updateVisibleItems();
                 progress.hideProgress();
             });
         }).start();

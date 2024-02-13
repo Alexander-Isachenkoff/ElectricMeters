@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import org.json.JSONObject;
 
@@ -28,6 +29,8 @@ public class TableHeader extends HBox {
     private Label titleLabel;
     @FXML
     private Label countLabel;
+    @FXML
+    private TextField searchField;
     @FXML
     private Button addButton;
     @FXML
@@ -47,11 +50,21 @@ public class TableHeader extends HBox {
         deleteButton.visibleProperty().bind(deleteEnabled);
         deleteButton.managedProperty().bind(deleteEnabled);
         
+        searchField.visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if (!searchField.isVisible()) {
+                searchField.clear();
+            }
+        });
+        searchField.setVisible(false);
+        searchField.setManaged(false);
+        
         table.addListener((observable, oldValue, newValue) -> {
             if (oldValue != null) {
                 oldValue.getItems().removeListener(listChangeListener);
+                oldValue.filterProperty().unbindBidirectional(searchField.textProperty());
             }
             newValue.getItems().addListener(listChangeListener);
+            newValue.filterProperty().bind(searchField.textProperty());
         });
     }
     
@@ -66,6 +79,12 @@ public class TableHeader extends HBox {
         if (getTable() != null) {
             getTable().reload();
         }
+    }
+    
+    @FXML
+    private void onSearch() {
+        searchField.setVisible(!searchField.isVisible());
+        searchField.setManaged(!searchField.isManaged());
     }
     
     public JsonTable getTable() {
