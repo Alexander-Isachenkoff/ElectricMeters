@@ -46,7 +46,7 @@ public class PriceCategory3Controller {
     private void onApply() {
         table.setParams(
                 yearCmb.getSelectionModel().getSelectedItem(),
-                monthCmb.getSelectionModel().getSelectedItem().getValue() + 1,
+                monthCmb.getSelectionModel().getSelectedItem().getValue(),
                 rateTypeCmb.getSelectedItem().getInt("ID"),
                 voltageLevelCmb.getSelectedItem().getInt("ID")
         );
