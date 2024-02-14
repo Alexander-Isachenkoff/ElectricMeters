@@ -51,5 +51,9 @@ public class JsonComboBox extends ComboBox<JSONObject> {
             loaded = true;
         }
     }
+    
+    public JSONObject getSelectedItem() {
+        return getSelectionModel().getSelectedItem();
+    }
 
 }
