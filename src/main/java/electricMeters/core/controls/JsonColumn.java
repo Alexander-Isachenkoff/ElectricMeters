@@ -17,11 +17,11 @@ import java.util.function.Function;
 @Setter
 @Getter
 public class JsonColumn extends TableColumn<JSONObject, Object> {
-    
+
     private String field;
     private Pos alignment;
     private DataType dataType = DataType.DEFAULT;
-    
+
     public JsonColumn() {
         this.setCellValueFactory(param -> {
             JSONObject jsonObject = param.getValue();
@@ -46,16 +46,16 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
             }
         });
     }
-    
+
+    private static String getAlignmentStyleString(Pos alignment) {
+        return "-fx-alignment: " + alignment + ";";
+    }
+
     public void setAlignment(Pos alignment) {
         this.alignment = alignment;
         setStyle((getStyle() == null ? "" : getStyle()) + getAlignmentStyleString(alignment));
     }
-    
-    private static String getAlignmentStyleString(Pos alignment) {
-        return "-fx-alignment: " + alignment + ";";
-    }
-    
+
     @AllArgsConstructor
     public enum DataType {
         DEFAULT(),
@@ -63,20 +63,25 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
         DATE(
                 object -> Constants.dateConverter.fromString(object.toString()),
                 object -> Constants.dateConverter.toString((Date) object)
+        ),
+        MONTH(
+                Function.identity(),
+                object -> Constants.monthNames[(Integer) object - 1]
         );
-        
+
         private final Function<Object, Object> dataConverter;
         private final Function<Object, String> stringConverter;
-        
+
         DataType() {
             this.dataConverter = Function.identity();
             this.stringConverter = Object::toString;
         }
-        
+
         private static class Constants {
             private static final DateStringConverter dateConverter = new DateStringConverter("dd.MM.yy");
             private static final DecimalFormat decimalFormat = new DecimalFormat("#.###");
+            private static final String[] monthNames = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
         }
     }
-    
+
 }
