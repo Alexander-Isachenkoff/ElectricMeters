@@ -11,7 +11,10 @@ import lombok.Setter;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.Date;
+import java.util.Locale;
 import java.util.function.Function;
 
 @Setter
@@ -59,18 +62,20 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
     @AllArgsConstructor
     public enum DataType {
         DEFAULT(),
-        REAL(Function.identity(), Constants.decimalFormat::format),
+        REAL(Constants.decimalFormat::format),
         DATE(
                 object -> Constants.dateConverter.fromString(object.toString()),
                 object -> Constants.dateConverter.toString((Date) object)
         ),
-        MONTH(
-                Function.identity(),
-                object -> Constants.monthNames[(Integer) object - 1]
-        );
+        MONTH(object -> Month.of((Integer) object).getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
 
         private final Function<Object, Object> dataConverter;
         private final Function<Object, String> stringConverter;
+
+        DataType(Function<Object, String> stringConverter) {
+            this.dataConverter = Function.identity();
+            this.stringConverter = stringConverter;
+        }
 
         DataType() {
             this.dataConverter = Function.identity();
@@ -80,7 +85,6 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
         private static class Constants {
             private static final DateStringConverter dateConverter = new DateStringConverter("dd.MM.yy");
             private static final DecimalFormat decimalFormat = new DecimalFormat("#.###");
-            private static final String[] monthNames = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
         }
     }
 
