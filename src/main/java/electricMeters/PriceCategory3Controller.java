@@ -30,8 +30,20 @@ public class PriceCategory3Controller {
     @FXML
     private void initialize() {
         monthCmb.getItems().addAll(Month.values());
+        monthCmb.getSelectionModel().select(LocalDate.now().getMonth());
+
         yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().collect(Collectors.toList()));
+        yearCmb.getSelectionModel().select((Integer) LocalDate.now().getYear());
+
+        rateTypeCmb.reload();
+        rateTypeCmb.getSelectionModel().selectLast();
+
+        voltageLevelCmb.reload();
+        voltageLevelCmb.getSelectionModel().selectFirst();
+
         table.setSqlFile("HOURLY_RATE_VALUES.sql");
+
+        onApply();
     }
     
     @FXML

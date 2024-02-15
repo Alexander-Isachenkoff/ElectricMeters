@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import electricMeters.core.controls.JsonColumn?>
+<?import electricMeters.core.controls.JsonComboBox?>
 <?import electricMeters.core.controls.JsonTable?>
 <?import electricMeters.core.controls.TableHeader?>
 <?import javafx.geometry.Insets?>
@@ -12,9 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<?import electricMeters.core.controls.JsonComboBox?>
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.PriceCategory3Controller">
+<VBox stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.PriceCategory3Controller">
    <GridPane hgap="8.0" vgap="1.0">
      <columnConstraints>
        <ColumnConstraints />
@@ -36,8 +35,8 @@
          <Button mnemonicParsing="false" onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2" />
          <Label text="Ставка" GridPane.columnIndex="2" />
          <Label text="Уровень напряжения" GridPane.columnIndex="3" />
-         <JsonComboBox tableName="POWER_RATE_TYPES" field="NAME" fx:id="rateTypeCmb" prefWidth="500.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-         <JsonComboBox tableName="VOLTAGE_LEVELS" field="NAME" fx:id="voltageLevelCmb" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+         <JsonComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="POWER_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         <JsonComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       </children>
       <padding>
          <Insets bottom="8.0" left="8.0" right="8.0" top="6.0" />
@@ -45,7 +44,7 @@
    </GridPane>
    <VBox VBox.vgrow="ALWAYS">
       <children>
-         <TableHeader table="${table}" title="Почасовая ставка" addEnabled="true" onAdd="#onAdd"/>
+         <TableHeader addEnabled="true" onAdd="#onAdd" table="${table}" title="Почасовая ставка" />
          <JsonTable fx:id="table" VBox.vgrow="ALWAYS">
             <columns>
                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="DAY_OF_MONTH" text="Число" />

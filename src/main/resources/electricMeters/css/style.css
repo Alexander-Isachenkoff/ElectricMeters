@@ -117,3 +117,40 @@
 .tool-button:pressed {
     -fx-background-color: rgba(0, 0, 0, 0.2);
 }
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 3;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 3;
+    -fx-border-insets: 0;
+}
+
+.combo-box .text {
+    -fx-fill: #181818;
+}
+
+.combo-box:hover {
+    -fx-border-color: rgb(192,192,192);
+}
+
+.combo-box:pressed {
+    -fx-background-color: rgb(240,240,240);
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: lightgray;
+}
+
+.combo-box .list-view .list-cell:selected .text {
+    -fx-fill: #181818;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: rgb(0, 120, 215);
+}
+
+.combo-box .list-view .list-cell:hover .text {
+    -fx-fill: white;
+}

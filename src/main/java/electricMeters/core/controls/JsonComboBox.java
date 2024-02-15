@@ -39,7 +39,7 @@ public class JsonComboBox extends ComboBox<JSONObject> {
         setButtonCell(getCellFactory().call(null));
     }
 
-    private void reload() {
+    public void reload() {
         if (!loaded) {
             List<JSONObject> jsonObjects = new ArrayList<>();
             if (sqlFile != null) {
@@ -51,7 +51,7 @@ public class JsonComboBox extends ComboBox<JSONObject> {
             loaded = true;
         }
     }
-    
+
     public JSONObject getSelectedItem() {
         return getSelectionModel().getSelectedItem();
     }
