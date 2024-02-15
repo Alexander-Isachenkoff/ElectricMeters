@@ -148,7 +148,7 @@
 }
 
 .combo-box .list-view .list-cell:hover {
-    -fx-background-color: rgb(0, 120, 215);
+    -fx-background-color: rgb(81, 129, 184);
 }
 
 .combo-box .list-view .list-cell:hover .text {
