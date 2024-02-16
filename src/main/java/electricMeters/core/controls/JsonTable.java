@@ -34,6 +34,7 @@ public class JsonTable extends TableView<JSONObject> {
 
     public JsonTable() {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        getSelectionModel().setCellSelectionEnabled(true);
         filter.addListener((observable, oldValue, newValue) -> updateVisibleItems());
     }
 

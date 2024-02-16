@@ -1,6 +1,7 @@
 package electricMeters.core.controls;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -41,6 +42,13 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
                 } else {
                     setText("");
                 }
+            }
+
+            @Override
+            public void updateSelected(boolean selected) {
+                super.updateSelected(selected);
+                boolean rowSelected = getTableView().getSelectionModel().getSelectedIndices().contains(getTableRow().getIndex());
+                getTableRow().pseudoClassStateChanged(PseudoClass.getPseudoClass("selected"), rowSelected);
             }
         });
         styleProperty().addListener((observable, oldValue, newValue) -> {
