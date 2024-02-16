@@ -1,3 +1,7 @@
+* {
+    -highlight-color: rgb(81, 129, 184);
+}
+
 .button:focused, .combo-box:focused, .increment-arrow-button:focused {
     -fx-focus-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
     -fx-faint-focus-color: transparent;
@@ -8,7 +12,7 @@
     -fx-background-color: white;
     -fx-border-color: #AAA;
     -fx-border-width: 1;
-    -fx-highlight-fill: rgb(81, 129, 184);
+    -fx-highlight-fill: -highlight-color;
 }
 
 .tab-pane .tab:top {
@@ -27,7 +31,7 @@
 
 .tab-pane .tab:top:selected {
     -fx-background-color: white;
-    -fx-border-color: rgb(81, 129, 184);
+    -fx-border-color: -highlight-color;
 }
 
 .tab-pane .headers-region {
@@ -35,7 +39,7 @@
 }
 
 .tab-pane .tab-header-area {
-    -fx-padding: 8 0 0 0;
+    -fx-padding: -1 0 0 0;
     -fx-background-color: white;
 }
 
@@ -55,7 +59,7 @@
 }
 
 .tab-pane .tab:top .tab-label {
-    -fx-padding: 0 5;
+    -fx-padding: 0;
 }
 
 .tab-pane:focused .tab:selected .focus-indicator {
@@ -148,9 +152,17 @@
 }
 
 .combo-box .list-view .list-cell:hover {
-    -fx-background-color: rgb(81, 129, 184);
+    -fx-background-color: -highlight-color;
 }
 
 .combo-box .list-view .list-cell:hover .text {
     -fx-fill: white;
+}
+
+.menu:hover, .menu:showing {
+    -fx-background-color: -highlight-color;
+}
+
+.menu-item:hover, .menu-item:focused {
+    -fx-background-color: -highlight-color;
 }
