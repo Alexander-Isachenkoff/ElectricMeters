@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import electricMeters.core.controls.JsonColumn?>
+<?import electricMeters.core.controls.JsonTable?>
+<?import electricMeters.core.controls.TableHeader?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MetersController">
+   <children>
+      <TableHeader table="${table}" title="Счётчики" />
+      <JsonTable fx:id="table" VBox.vgrow="ALWAYS">
+         <columns>
+            <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="91.33334600925446" text="Потребитель" />
+            <JsonColumn alignment="CENTER_LEFT" field="number" minWidth="6.666656494140625" prefWidth="58.666648864746094" text="№ счетчика" />
+            <JsonColumn alignment="CENTER_LEFT" field="location" minWidth="0.0" prefWidth="54.666656494140625" text="Локация" />
+            <JsonColumn alignment="CENTER_LEFT" field="dataCD" prefWidth="42.66668701171875" text="ДатаЦД" />
+            <JsonColumn alignment="CENTER_LEFT" field="addressCD" prefWidth="55.99995422363281" text="АдресЦД" />
+            <JsonColumn alignment="CENTER_LEFT" field="comPort" prefWidth="45.33331298828125" text="комПорт" />
+            <JsonColumn alignment="CENTER_LEFT" field="ipAddress" prefWidth="81.33331298828125" text="ip" />
+            <JsonColumn alignment="CENTER_LEFT" field="issueYear" prefWidth="95.33334350585938" text="год производства" />
+            <JsonColumn alignment="CENTER_LEFT" field="isRemoteCapture" prefWidth="86.6666259765625" text="год замены" />
+            <JsonColumn alignment="CENTER_LEFT" field="isUsed" prefWidth="57.33331298828125" text="изюзд" />
+            <JsonColumn alignment="CENTER_LEFT" field="type" prefWidth="51.33331298828125" text="тип" />
+         </columns>
+      </JsonTable>
+   </children>
+</VBox>

@@ -24,6 +24,7 @@ public class MainController {
         //menuFxmlMap.put("Приборы учета", "fxml/empty.fxml");
         menuFxmlMap.put("Записи", "fxml/profiles.fxml");
         menuFxmlMap.put("Третья ценовая категория", "fxml/3_price_category.fxml");
+        menuFxmlMap.put("Счётчики", "fxml/meters.fxml");
         //menuFxmlMap.put("Показатели", "fxml/empty.fxml");
         //menuFxmlMap.put("Тарифы", "fxml/empty.fxml");
     }

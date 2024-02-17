@@ -84,7 +84,7 @@ public class DbHandler {
                 JSONObject json = new JSONObject();
                 for (int i = 1; i <= resultSet.getColumnCount(); i++) {
                     String key = resultSet.getColumnName(i);
-                    String typeName = resultSet.getColumnTypeName(i);
+                    String typeName = resultSet.getColumnTypeName(i).trim();
                     Object value = getValue(resultSet, key, typeName);
                     json.put(key, value);
                 }
