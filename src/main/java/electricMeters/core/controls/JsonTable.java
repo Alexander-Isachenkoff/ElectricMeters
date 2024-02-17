@@ -21,13 +21,16 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-@Getter
 public class JsonTable extends TableView<JSONObject> {
 
     private final Progress progress = new Progress();
     private final StringProperty filter = new SimpleStringProperty("");
+    @Getter
     @Setter
     private String sqlFile;
+    @Getter
+    @Setter
+    private String tableName;
     private Object[] params = new Object[0];
     private boolean isLoading;
     private List<JSONObject> allItems = new ArrayList<>();
@@ -58,7 +61,11 @@ public class JsonTable extends TableView<JSONObject> {
         progress.showProgress();
         new Thread(() -> {
             isLoading = true;
-            allItems = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
+            if (sqlFile != null) {
+                allItems = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
+            } else if (tableName != null) {
+                allItems = DbHandler.getInstance().getAllFrom(tableName);
+            }
             isLoading = false;
             Platform.runLater(() -> {
                 updateVisibleItems();

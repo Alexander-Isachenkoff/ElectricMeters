@@ -9,7 +9,6 @@ public class MetersController {
 
     @FXML
     private void initialize() {
-        table.setSqlFile("Meters.sql");
         table.reload();
     }
 }

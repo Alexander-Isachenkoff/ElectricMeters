@@ -5,10 +5,10 @@
 <?import electricMeters.core.controls.TableHeader?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MetersController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MetersController">
    <children>
       <TableHeader table="${table}" title="Счётчики" />
-      <JsonTable fx:id="table" VBox.vgrow="ALWAYS">
+      <JsonTable fx:id="table" VBox.vgrow="ALWAYS" tableName="Meters">
          <columns>
             <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="91.33334600925446" text="Потребитель" />
             <JsonColumn alignment="CENTER_LEFT" field="number" minWidth="6.666656494140625" prefWidth="58.666648864746094" text="№ счетчика" />
