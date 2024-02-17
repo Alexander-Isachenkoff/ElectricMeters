@@ -8,7 +8,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -46,10 +47,19 @@ public class ProfilesController {
                 detailsTable.clear();
             }
         });
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem reportItem = new MenuItem("Сформировать отчёт");
+        reportItem.setOnAction(event -> {
+            int id = mainTable.getSelectedItem().getInt("id");
+            ProfileHourlyReport.createAndWrite(id);
+        });
+        contextMenu.getItems().add(reportItem);
+        mainTable.setContextMenu(contextMenu);
         
         mainTable.reload();
     }
-    
+
     @SneakyThrows
     private void onImport() {
         List<File> files = new FileChooser().showOpenMultipleDialog(mainTable.getScene().getWindow());

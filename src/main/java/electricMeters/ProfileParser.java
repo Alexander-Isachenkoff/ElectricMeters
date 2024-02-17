@@ -24,7 +24,7 @@ public class ProfileParser {
         List<String> restOfLines = lines.subList(5, lines.size());
         int beginIndex = header.get(0).indexOf('№') + 1;
         int profileNum = Integer.parseInt(header.get(0).substring(beginIndex, beginIndex+1));
-        int meterId = Integer.parseInt(header.get(1).split("№")[1].split(",")[0].trim());
+        int meterNumber = Integer.parseInt(header.get(1).split("№")[1].split(",")[0].trim());
         String consumer = header.get(1).substring(header.get(1).indexOf('-') + 1).trim();
         beginIndex = header.get(2).indexOf(' ') + 1;
         String date = header.get(2).substring(beginIndex, beginIndex + 8);
@@ -32,7 +32,7 @@ public class ProfileParser {
         
         JSONObject mainJson = new JSONObject()
                 .put("ProfileNum", profileNum)
-                .put("MeterId", meterId)
+                .put("MeterNumber", meterNumber)
                 .put("Consumer", consumer)
                 .put("Date", date)
                 .put("Time", time);

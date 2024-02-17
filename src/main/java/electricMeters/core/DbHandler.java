@@ -44,6 +44,7 @@ public class DbHandler {
             case "TEXT":
                 return resultSet.getString(key);
             case "REAL":
+            case "FLOAT":
                 return resultSet.getDouble(key);
             default:
                 return JSONObject.NULL;
