@@ -19,12 +19,13 @@ public class MainController {
     
     static {
         menuFxmlMap = new LinkedHashMap<>();
-        menuFxmlMap.put("Акты", "fxml/empty.fxml");
-        menuFxmlMap.put("Инфо", "fxml/empty.fxml");
-        menuFxmlMap.put("Приборы учета", "fxml/empty.fxml");
+       //menuFxmlMap.put("Акты", "fxml/empty.fxml");
+        //menuFxmlMap.put("Инфо", "fxml/empty.fxml");
+        //menuFxmlMap.put("Приборы учета", "fxml/empty.fxml");
         menuFxmlMap.put("Записи", "fxml/profiles.fxml");
-        menuFxmlMap.put("Показатели", "fxml/empty.fxml");
-        menuFxmlMap.put("Тарифы", "fxml/empty.fxml");
+        menuFxmlMap.put("Третья ценовая категория", "fxml/3_price_category.fxml");
+        //menuFxmlMap.put("Показатели", "fxml/empty.fxml");
+        //menuFxmlMap.put("Тарифы", "fxml/empty.fxml");
     }
 
     @FXML

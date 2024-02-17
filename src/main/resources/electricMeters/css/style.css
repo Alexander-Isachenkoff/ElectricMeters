@@ -1,3 +1,7 @@
+* {
+    -highlight-color: rgb(81, 129, 184);
+}
+
 .button:focused, .combo-box:focused, .increment-arrow-button:focused {
     -fx-focus-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
     -fx-faint-focus-color: transparent;
@@ -5,11 +9,10 @@
 }
 
 .text-field {
-    -fx-background-radius: 4;
-    -fx-border-radius: 4;
     -fx-background-color: white;
-    -fx-border-color: lightgray;
-    -fx-highlight-fill: rgb(0, 120, 215);
+    -fx-border-color: #AAA;
+    -fx-border-width: 1;
+    -fx-highlight-fill: -highlight-color;
 }
 
 .tab-pane .tab:top {
@@ -28,7 +31,7 @@
 
 .tab-pane .tab:top:selected {
     -fx-background-color: white;
-    -fx-border-color: rgb(81, 129, 184);
+    -fx-border-color: -highlight-color;
 }
 
 .tab-pane .headers-region {
@@ -36,7 +39,7 @@
 }
 
 .tab-pane .tab-header-area {
-    -fx-padding: 8 0 0 0;
+    -fx-padding: -1 0 0 0;
     -fx-background-color: white;
 }
 
@@ -56,20 +59,43 @@
 }
 
 .tab-pane .tab:top .tab-label {
-    -fx-padding: 0 5;
+    -fx-padding: 0;
 }
 
 .tab-pane:focused .tab:selected .focus-indicator {
     -fx-border-color: none;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
+.table-view:focused .table-row-cell:filled:selected {
     -fx-background-color: rgb(204, 232, 255);
-    -fx-table-cell-border-color: transparent;
+    -fx-table-cell-border-color: lightgray;
+    -fx-border-color: SKYBLUE;
+    -fx-border-insets: -1 0 0 0;
+    -fx-padding: 0 -1 -1 -1;
+    -fx-border-width: 1;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected .text {
+.table-view .table-row-cell {
+    -fx-cell-size: 22;
+}
+
+.table-column {
+    -fx-padding: 0 3 1 3;
+}
+
+.table-cell:selected {
+    -fx-background-color: rgb(166, 210, 255);
+    -fx-border-color: transparent;
+    -fx-background-insets: 0 0 1 0;
+    -fx-padding: 0 3 1 3;
+}
+
+.table-view .table-row-cell .text {
     -fx-fill: #181818;
+}
+
+.table-view:focused .table-row-cell:filled:selected .text {
+    -fx-fill: black;
 }
 
 .table-view:focused {
@@ -88,11 +114,10 @@
     -fx-padding: 0;
     -fx-font-size: 1;
     -fx-background-insets: 0;
-}
-
-.line {
-    -fx-stroke: grey;
-    -fx-stroke-width: 2;
+    -fx-pref-width: 22;
+    -fx-pref-height: 22;
+    -fx-min-width: 22;
+    -fx-min-height: 22;
 }
 
 .tool-button:hover {
@@ -101,4 +126,49 @@
 
 .tool-button:pressed {
     -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 3;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 3;
+    -fx-border-insets: 0;
+}
+
+.combo-box .text {
+    -fx-fill: #181818;
+}
+
+.combo-box:hover {
+    -fx-border-color: rgb(192,192,192);
+}
+
+.combo-box:pressed {
+    -fx-background-color: rgb(240,240,240);
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: lightgray;
+}
+
+.combo-box .list-view .list-cell:selected .text {
+    -fx-fill: #181818;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: -highlight-color;
+}
+
+.combo-box .list-view .list-cell:hover .text {
+    -fx-fill: white;
+}
+
+.menu:hover, .menu:showing {
+    -fx-background-color: -highlight-color;
+}
+
+.menu-item:hover, .menu-item:focused {
+    -fx-background-color: -highlight-color;
 }
