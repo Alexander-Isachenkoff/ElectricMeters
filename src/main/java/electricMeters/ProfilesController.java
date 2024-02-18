@@ -19,6 +19,7 @@ import lombok.SneakyThrows;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -30,6 +31,8 @@ public class ProfilesController {
     private JsonTable mainTable;
     @FXML
     private JsonTable detailsTable;
+    @FXML
+    private JsonTable detailsTable1;
     
     @FXML
     private void initialize() {
@@ -39,12 +42,14 @@ public class ProfilesController {
         detailsTable.setSqlFile("ProfilesEM.sql");
         
         mainTable.addSelectedListener(newValue -> {
-            if (newValue != null) {
-                int id = newValue.getInt("id");
-                detailsTable.setParams(id);
-                detailsTable.reload();
-            } else {
-                detailsTable.clear();
+            for (JsonTable childTable : Arrays.asList(detailsTable, detailsTable1)) {
+                if (newValue != null) {
+                    int id = newValue.getInt("id");
+                    childTable.setParams(id);
+                    childTable.reload();
+                } else {
+                    childTable.clear();
+                }
             }
         });
 
