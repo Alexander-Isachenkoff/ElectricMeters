@@ -58,7 +58,7 @@ public class DbHandler {
     public List<JSONObject> runSqlSelectFile(String sqlFile, Object... params) {
         try {
             Path path = Paths.get(Main.class.getResource("sql/" + sqlFile).toURI());
-            String sql = String.join(" ", Files.readAllLines(path));
+            String sql = String.join("\n", Files.readAllLines(path));
             return runSqlSelect(sql, params);
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
