@@ -16,37 +16,38 @@
 }
 
 .tab-pane .tab:top {
-    -fx-padding: 2 6;
-    -fx-background-color: #f2f2f2;
-    -fx-background-radius: 0;
-    -fx-background-insets: 1 1 0 0;
-    -fx-border-color: #bbb;
-    -fx-border-width: 0 0 2 0;
+    -fx-padding: 1 6;
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-insets: 0 2;
+    -fx-border-insets: 0 2;
+    -fx-border-color: lightgray;
+    -fx-border-width: 1 1 1 1;
 }
 
 .tab-pane .tab:top:hover {
-    -fx-background-color: lightgray;
-    -fx-border-color: #aaa;
+    -fx-background-color: rgb(216, 234, 249);
 }
 
 .tab-pane .tab:top:selected {
+    -fx-padding: 3 6;
     -fx-background-color: white;
-    -fx-border-color: -highlight-color;
 }
 
 .tab-pane .headers-region {
-    -fx-background-color: lightgray;
+    -fx-background-color: transparent;
 }
 
 .tab-pane .tab-header-area {
-    -fx-padding: -1 0 0 0;
-    -fx-background-color: white;
+    -fx-padding: 4 0 0 0;
+    -fx-background-color: lightgray;
 }
 
 .tab-pane .tab-header-background {
-    -fx-background-color: #f2f2f2;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: lightgray;
+    -fx-background-color: white;
+    -fx-background-insets: 0 0 1 0;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
 }
 
 .tab-pane .tab-close-button {
@@ -104,7 +105,7 @@
     -fx-background-radius: 0;
 }
 
-.split-pane  {
+.split-pane {
     -fx-padding: 0;
     -fx-background-insets: 0;
 }
@@ -142,11 +143,11 @@
 }
 
 .combo-box:hover {
-    -fx-border-color: rgb(192,192,192);
+    -fx-border-color: rgb(192, 192, 192);
 }
 
 .combo-box:pressed {
-    -fx-background-color: rgb(240,240,240);
+    -fx-background-color: rgb(240, 240, 240);
 }
 
 .combo-box .list-view .list-cell:selected {
