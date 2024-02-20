@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="720.0" prefWidth="1024.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MainController">
-   <MenuBar>
-     <menus>
-       <Menu fx:id="menu" mnemonicParsing="false" text="Меню" />
-     </menus>
-   </MenuBar>
-
-    <TabPane fx:id="tabPane" tabClosingPolicy="ALL_TABS" tabMinWidth="60.0" VBox.vgrow="ALWAYS" />
-
-</VBox>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MainController">
+   <children>
+      <VBox fx:id="accordion" minWidth="-Infinity" prefWidth="220.0" style="-fx-background-color: rgb(44,49,55);">
+         <children>
+          <TitledPane text="untitled 1">
+            <content>
+                  <ListView styleClass="menu-list-view" />
+            </content>
+          </TitledPane>
+          <TitledPane expanded="false" text="untitled 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+          <TitledPane expanded="false" text="untitled 3">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+         </children>
+      </VBox>
+      <StackPane fx:id="contentPane" style="-fx-background-color: rgb(242,243,248);" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+         </padding>
+      </StackPane>
+   </children>
+</HBox>

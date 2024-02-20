@@ -2,32 +2,28 @@ package electricMeters;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainController {
     
-    private static final Map<String, String> menuFxmlMap = new LinkedHashMap<>();
-    
-    static {
-        menuFxmlMap.put("Записи", "fxml/profiles.fxml");
-        menuFxmlMap.put("Суммарный профиль", "fxml/summary_profile.fxml");
-        menuFxmlMap.put("Цены", "fxml/3_price_category.fxml");
-        menuFxmlMap.put("Приборы учета", "fxml/meters.fxml");
-    }
-
-    @FXML
-    private Menu menu;
-    @FXML
-    private TabPane tabPane;
+    private final Map<String, String> menuFxmlMap = new LinkedHashMap<>();
+    private final Map<String, Node> contentCache = new HashMap<>();
+    private final List<ListView<?>> listViews = new ArrayList<>();
+    public StackPane contentPane;
+    public VBox accordion;
     
     private static Parent loadFxml(String s) {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(s));
@@ -42,30 +38,47 @@ public class MainController {
     
     @FXML
     private void initialize() {
-        for (String name : menuFxmlMap.keySet()) {
-            MenuItem menuItem = new MenuItem(name);
-            menuItem.setOnAction(event -> showNewOrSwitchTab(name));
-            menu.getItems().add(menuItem);
+        InputStream in = Main.class.getResourceAsStream("menu/menu.json");
+        String string = new BufferedReader(new InputStreamReader(in)).lines()
+                .collect(Collectors.joining("\n"));
+        JSONObject menuJson = new JSONObject(string);
+        
+        accordion.getChildren().clear();
+        for (Object tab : menuJson.getJSONArray("tabs")) {
+            JSONObject tabJson = (JSONObject) tab;
+            ListView<String> menuList = new ListView<>();
+            menuList.getStyleClass().add("menu-list-view");
+            accordion.getChildren().add(new TitledPane(tabJson.getString("title"), menuList));
+            for (Object item : tabJson.getJSONArray("items")) {
+                JSONObject json = (JSONObject) item;
+                String title = json.getString("title");
+                menuList.getItems().add(title);
+                menuList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        showFxmlOnContentPane(newValue);
+                        for (ListView<?> listView : listViews) {
+                            if (listView != menuList) {
+                                listView.getSelectionModel().clearSelection();
+                            }
+                        }
+                    }
+                });
+                menuFxmlMap.put(title, json.getString("fxml"));
+            }
+            listViews.add(menuList);
+            menuList.setPrefHeight(menuList.getItems().size() * 33 - 1);
         }
     }
     
-    private void showNewOrSwitchTab(String name) {
-        Optional<Tab> optionalTab = tabPane.getTabs().stream()
-                .filter(tab -> tab.getText().equals(name))
-                .findFirst();
-        if (optionalTab.isPresent()) {
-            tabPane.getSelectionModel().select(optionalTab.get());
+    private void showFxmlOnContentPane(String fxml) {
+        Node node;
+        if (contentCache.containsKey(fxml)) {
+            node = contentCache.get(fxml);
         } else {
-            Parent load = loadFxml(menuFxmlMap.get(name));
-            newTab(name, load);
+            node = loadFxml(menuFxmlMap.get(fxml));
+            contentCache.put(fxml, node);
         }
+        contentPane.getChildren().setAll(node);
     }
     
-    private void newTab(String title, Parent load) {
-        Tab signInTab = new Tab(title);
-        signInTab.setContent(load);
-        tabPane.getTabs().add(signInTab);
-        tabPane.getSelectionModel().select(signInTab);
-    }
-
 }

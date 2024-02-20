@@ -1,0 +1,42 @@
+{
+  "tabs" : [
+    {
+      "title": "Данные",
+      "items": [
+        {
+          "title": "Записи",
+          "fxml": "fxml/profiles.fxml"
+        },
+        {
+          "title": "Суммарный профиль",
+          "fxml": "fxml/summary_profile.fxml"
+        },
+        {
+          "title": "Цены",
+          "fxml": "fxml/3_price_category.fxml"
+        },
+        {
+          "title": "Приборы учета",
+          "fxml": "fxml/meters.fxml"
+        }
+      ]
+    },
+    {
+      "title": "Функции",
+      "items": [
+        {
+          "title": "Пункт 1",
+          "fxml": "fxml/profiles.fxml"
+        },
+        {
+          "title": "Пункт 2",
+          "fxml": "fxml/summary_profile.fxml"
+        },
+        {
+          "title": "Пункт 3",
+          "fxml": "fxml/3_price_category.fxml"
+        }
+      ]
+    }
+  ]
+}
