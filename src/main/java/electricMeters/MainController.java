@@ -53,18 +53,19 @@ public class MainController {
                 JSONObject json = (JSONObject) item;
                 String title = json.getString("title");
                 menuList.getItems().add(title);
-                menuList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        showFxmlOnContentPane(newValue);
-                        for (ListView<?> listView : listViews) {
-                            if (listView != menuList) {
-                                listView.getSelectionModel().clearSelection();
-                            }
-                        }
-                    }
-                });
                 menuFxmlMap.put(title, json.getString("fxml"));
             }
+            menuList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    showFxmlOnContentPane(newValue);
+                    System.out.println(newValue);
+                    for (ListView<?> listView : listViews) {
+                        if (listView != menuList) {
+                            listView.getSelectionModel().clearSelection();
+                        }
+                    }
+                }
+            });
             listViews.add(menuList);
             menuList.setPrefHeight(menuList.getItems().size() * 33 - 1);
         }
