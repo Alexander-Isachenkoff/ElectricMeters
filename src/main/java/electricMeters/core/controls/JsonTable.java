@@ -4,6 +4,8 @@ import electricMeters.core.DbHandler;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
@@ -23,8 +25,8 @@ import java.util.stream.Collectors;
 
 public class JsonTable extends TableView<JSONObject> {
 
-    private final Progress progress = new Progress();
     private final StringProperty filter = new SimpleStringProperty("");
+    private final ProgressIndicator progressIndicator = new ProgressIndicator();
     @Getter
     @Setter
     private String sqlFile;
@@ -36,6 +38,7 @@ public class JsonTable extends TableView<JSONObject> {
     private List<JSONObject> allItems = new ArrayList<>();
 
     public JsonTable() {
+        progressIndicator.setMaxSize(60, 60);
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         getSelectionModel().setCellSelectionEnabled(true);
         filter.addListener((observable, oldValue, newValue) -> updateVisibleItems());
@@ -58,7 +61,7 @@ public class JsonTable extends TableView<JSONObject> {
     }
 
     public void reload() {
-        progress.showProgress();
+        showProgress();
         new Thread(() -> {
             isLoading = true;
             if (sqlFile != null) {
@@ -69,7 +72,7 @@ public class JsonTable extends TableView<JSONObject> {
             isLoading = false;
             Platform.runLater(() -> {
                 updateVisibleItems();
-                progress.hideProgress();
+                hideProgress();
             });
         }).start();
     }
@@ -98,40 +101,28 @@ public class JsonTable extends TableView<JSONObject> {
         return getColumns().stream().map(col -> (JsonColumn) col).collect(Collectors.toList());
     }
 
-    private class Progress {
+    private void hideProgress() {
+        setEffect(null);
+        ((Pane) getParent()).getChildren().remove(progressIndicator);
+    }
 
-        private Pane parent;
-        private int i;
-        private boolean showing;
-
-        private void hideProgress() {
-            if (showing) {
-                setEffect(null);
-                parent.getChildren().set(i, JsonTable.this);
-                showing = false;
-            }
-        }
-
-        private void showProgress() {
-            new Timer(true).schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    if (isLoading) {
-                        Platform.runLater(() -> {
-                            setEffect(new GaussianBlur(4));
-                            ProgressIndicator progressIndicator = new ProgressIndicator();
-                            progressIndicator.setMaxSize(60, 60);
-                            parent = (Pane) JsonTable.this.getParent();
-                            StackPane stackPane = new StackPane();
-                            i = parent.getChildren().indexOf(JsonTable.this);
-                            parent.getChildren().set(i, stackPane);
-                            stackPane.getChildren().addAll(JsonTable.this, progressIndicator);
-                            showing = true;
-                        });
-                    }
+    private void showProgress() {
+        new Timer(true).schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (isLoading) {
+                    Platform.runLater(() -> {
+                        setEffect(new GaussianBlur(4));
+                        if (getParent() instanceof StackPane) {
+                            ObservableList<Node> children = ((StackPane) getParent()).getChildren();
+                            if (!children.contains(progressIndicator)) {
+                                children.add(progressIndicator);
+                            }
+                        }
+                    });
                 }
-            }, 100);
-        }
+            }
+        }, 100);
     }
 
 }
