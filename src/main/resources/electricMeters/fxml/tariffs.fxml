@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import electricMeters.core.controls.TableHeader?>
+<?import electricMeters.core.controls.JsonTable?>
+<?import electricMeters.core.controls.JsonColumn?>
+<?import javafx.geometry.Insets?>
+<?import electricMeters.core.controls.JsonComboBox?>
+<VBox fx:controller="electricMeters.TariffsController" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/style.css">
+    <GridPane hgap="8.0" vgap="1.0">
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints minWidth="10.0" />
+            <ColumnConstraints minWidth="10.0" />
+            <ColumnConstraints minWidth="-Infinity" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+            <Label text="Год" GridPane.columnIndex="1" />
+            <Label text="Месяц" />
+            <ComboBox fx:id="monthCmb" prefWidth="120.0" GridPane.rowIndex="2" />
+            <ComboBox fx:id="yearCmb" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label text="Ставка" GridPane.columnIndex="2" />
+            <Label text="Уровень напряжения" GridPane.columnIndex="3" />
+            <JsonComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="POWER_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JsonComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        </children>
+    </GridPane>
+    <VBox VBox.vgrow="ALWAYS">
+        <children>
+            <TableHeader table="${table}" title="Тарифы" />
+            <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <children>
+                    <JsonTable fx:id="table" sqlFile="TARIFF_VW.sql">
+                        <columns>
+                            <JsonColumn alignment="CENTER" field="MONTH" dataType="MONTH" prefWidth="85" text="Месяц" />
+                            <JsonColumn alignment="CENTER" field="YEAR" prefWidth="60.0" text="Год" />
+                            <JsonColumn alignment="CENTER_LEFT" field="PR_TYPE_NAME" prefWidth="450" text="Ставка" />
+                            <JsonColumn alignment="CENTER_LEFT" field="VL_NAME" prefWidth="150" text="Уровень напряжения" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="CAP_RATE" dataType="REAL" prefWidth="150" text="Предельная ставка" />
+                        </columns>
+                    </JsonTable>
+                </children>
+            </StackPane>
+        </children>
+        <padding>
+            <Insets top="12.0" />
+        </padding>
+    </VBox>
+</VBox>

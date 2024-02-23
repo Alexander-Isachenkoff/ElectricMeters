@@ -13,13 +13,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class PriceCategory3Controller {
-    
     @FXML
     private JsonTable table;
     @FXML
@@ -30,7 +28,7 @@ public class PriceCategory3Controller {
     private ComboBox<Month> monthCmb;
     @FXML
     private ComboBox<Integer> yearCmb;
-    
+
     @FXML
     private void initialize() {
         monthCmb.getItems().addAll(Month.values());
@@ -61,7 +59,7 @@ public class PriceCategory3Controller {
 
         onApply();
     }
-    
+
     @FXML
     private void onApply() {
         table.setParams(
@@ -72,7 +70,7 @@ public class PriceCategory3Controller {
         );
         table.reload();
     }
-    
+
     @FXML
     private void onAdd() throws IOException {
         File file = new FileChooser().showOpenDialog(null);

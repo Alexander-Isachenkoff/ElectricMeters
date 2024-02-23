@@ -1,23 +1,11 @@
 {
-  "tabs" : [
+  "tabs": [
     {
-      "title": "Данные",
+      "title": "Учетные данные",
       "items": [
         {
-          "title": "Записи",
+          "title": "Данные с конфигуратора",
           "fxml": "fxml/profiles.fxml"
-        },
-        {
-          "title": "Суммарный профиль",
-          "fxml": "fxml/summary_profile.fxml"
-        },
-        {
-          "title": "Цены",
-          "fxml": "fxml/3_price_category.fxml"
-        },
-        {
-          "title": "Приборы учета",
-          "fxml": "fxml/meters.fxml"
         }
       ]
     },
@@ -25,16 +13,34 @@
       "title": "Функции",
       "items": [
         {
-          "title": "Пункт 1",
-          "fxml": "fxml/profiles.fxml"
-        },
-        {
-          "title": "Пункт 2",
+          "title": "Суммарный профиль",
           "fxml": "fxml/summary_profile.fxml"
+        }
+      ]
+    },
+    {
+      "title": "Справочники",
+      "items": [
+        {
+          "title": "Приборы учета",
+          "fxml": "fxml/meters.fxml"
+        }
+      ]
+    },
+    {
+      "title": "Тарифы",
+      "items": [
+        {
+          "title": "Тарифы 2",
+          "fxml": "fxml/3_price_category.fxml"
         },
         {
-          "title": "Пункт 3",
-          "fxml": "fxml/3_price_category.fxml"
+          "title": "Тарифы",
+          "fxml": "fxml/tariffs.fxml"
+        },
+        {
+          "title": "Цены",
+          "fxml": "fxml/prices.fxml"
         }
       ]
     }

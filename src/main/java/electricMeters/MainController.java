@@ -2,9 +2,11 @@ package electricMeters;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -78,6 +80,11 @@ public class MainController {
         } else {
             node = loadFxml(menuFxmlMap.get(fxml));
             contentCache.put(fxml, node);
+        }
+        if (node instanceof TabPane) {
+            contentPane.setPadding(Insets.EMPTY);
+        } else {
+            contentPane.setPadding(new Insets(12));
         }
         contentPane.getChildren().setAll(node);
     }

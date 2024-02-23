@@ -2,6 +2,8 @@ package electricMeters.core.controls;
 
 import electricMeters.core.DbHandler;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.ComboBoxListCell;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +39,9 @@ public class JsonComboBox extends ComboBox<JSONObject> {
             }
         });
         setButtonCell(getCellFactory().call(null));
+        MenuItem menuItem = new MenuItem("Очистить");
+        menuItem.setOnAction(event -> getSelectionModel().clearSelection());
+        setContextMenu(new ContextMenu(menuItem));
     }
 
     public void reload() {
