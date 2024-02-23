@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="724.0" spacing="12.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.SummaryProfileController">
    <children>
@@ -32,10 +33,10 @@
             <ColumnConstraints />
          </columnConstraints>
       </GridPane>
-      <VBox VBox.vgrow="ALWAYS">
+      <TableHeader table="${table}" title="Суммарное потребление, кВт⋅ч" />
+      <StackPane VBox.vgrow="ALWAYS">
          <children>
-            <TableHeader table="${table}" title="Суммарное потребление, кВт⋅ч" />
-            <JsonTable fx:id="table" sqlFile="ProfileHourlySummaryReport.sql" VBox.vgrow="ALWAYS">
+            <JsonTable fx:id="table" sqlFile="ProfileHourlySummaryReport.sql">
                <columns>
                   <JsonColumn alignment="CENTER" dataType="DATE" field="date" />
                   <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_0" prefWidth="75.0" text="0:00-1:00" />
@@ -65,6 +66,6 @@
                </columns>
             </JsonTable>
          </children>
-      </VBox>
+      </StackPane>
    </children>
 </VBox>
