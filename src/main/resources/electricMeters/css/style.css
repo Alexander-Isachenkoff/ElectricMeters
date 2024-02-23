@@ -1,5 +1,5 @@
 * {
-    -highlight-color: rgb(81, 129, 184);
+    -highlight-color: rgb(55, 153, 253);
 }
 
 .button {
@@ -81,9 +81,19 @@
     -fx-border-color: none;
 }
 
+.table-header {
+    -fx-background-color: white;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-color: lightgray;
+}
+
 .table-view {
-    -fx-background-radius: 0 0 5 5;
-    -fx-border-radius: 0 0 5 5;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 1;
+    -fx-border-color: lightgray;
 }
 
 .table-view:focused .table-row-cell:filled:selected {
@@ -178,9 +188,9 @@
 .combo-box {
     -fx-background-color: white;
     -fx-background-insets: 0;
-    -fx-background-radius: 3;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
     -fx-border-color: lightgray;
-    -fx-border-radius: 3;
     -fx-border-insets: 0;
 }
 

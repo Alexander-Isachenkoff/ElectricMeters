@@ -66,6 +66,7 @@ public class ProfilesController {
     }
 
     @SneakyThrows
+    @FXML
     private void onImport() {
         List<File> files = new FileChooser().showOpenMultipleDialog(mainTable.getScene().getWindow());
         

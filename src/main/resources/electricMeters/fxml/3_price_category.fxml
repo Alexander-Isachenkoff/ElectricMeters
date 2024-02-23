@@ -38,7 +38,7 @@
          <JsonComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       </children>
    </GridPane>
-   <VBox VBox.vgrow="ALWAYS">
+   <VBox styleClass="table-wrapper" VBox.vgrow="ALWAYS">
       <children>
          <TableHeader addEnabled="true" onAdd="#onAdd" table="${table}" title="Почасовая ставка" />
          <JsonTable fx:id="table" VBox.vgrow="ALWAYS">
