@@ -10,7 +10,7 @@
 <?import electricMeters.core.controls.JsonTable?>
 <?import electricMeters.core.controls.JsonColumn?>
 <?import javafx.geometry.Insets?>
-<?import electricMeters.core.controls.JsonComboBox?>
+<?import electricMeters.core.controls.ClearableJComboBox?>
 <VBox fx:controller="electricMeters.TariffsController" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/style.css">
     <GridPane hgap="8.0" vgap="1.0">
         <columnConstraints>
@@ -33,8 +33,8 @@
             <Button mnemonicParsing="false" onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Label text="Ставка" GridPane.columnIndex="2" />
             <Label text="Уровень напряжения" GridPane.columnIndex="3" />
-            <JsonComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="POWER_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <JsonComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ClearableJComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="POWER_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ClearableJComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         </children>
     </GridPane>
     <VBox VBox.vgrow="ALWAYS">

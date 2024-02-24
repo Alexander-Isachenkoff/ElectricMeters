@@ -1,6 +1,6 @@
 package electricMeters;
 
-import electricMeters.core.controls.JsonComboBox;
+import electricMeters.core.controls.ClearableJComboBox;
 import electricMeters.core.controls.JsonTable;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -18,9 +18,9 @@ public class TariffsController {
     @FXML
     private JsonTable table;
     @FXML
-    private JsonComboBox rateTypeCmb;
+    private ClearableJComboBox rateTypeCmb;
     @FXML
-    private JsonComboBox voltageLevelCmb;
+    private ClearableJComboBox voltageLevelCmb;
     @FXML
     private ComboBox<Month> monthCmb;
     @FXML
