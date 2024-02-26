@@ -12,6 +12,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import electricMeters.core.controls.JsonComboBox?>
+<?import electricMeters.core.controls.MonthComboBox?>
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="724.0" spacing="12.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.SummaryProfileController">
    <children>
       <GridPane hgap="8.0" vgap="1.0">
@@ -23,7 +25,7 @@
          <children>
             <Label text="Год" GridPane.columnIndex="1" />
             <Label text="Месяц" />
-            <ComboBox fx:id="monthCmb" prefWidth="120.0" GridPane.rowIndex="2" />
+            <MonthComboBox fx:id="monthCmb" prefWidth="120.0" GridPane.rowIndex="2" />
             <ComboBox fx:id="yearCmb" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#onApply" text="Применить" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
