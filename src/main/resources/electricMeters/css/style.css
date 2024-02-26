@@ -23,13 +23,6 @@
     -fx-background-insets: 0, 1, 2;
 }
 
-.text-field {
-    -fx-background-color: white;
-    -fx-border-color: #AAA;
-    -fx-border-width: 1;
-    -fx-highlight-fill: -highlight-color;
-}
-
 .tab-pane .tab {
     -fx-padding: 10;
     -fx-background-color: white;
@@ -187,18 +180,27 @@
 
 .tool-button:hover {
     -fx-background-color: rgba(0, 0, 0, 0.12);
+    -fx-opacity: 1;
 }
 
 .tool-button:pressed {
     -fx-background-color: rgba(0, 0, 0, 0.2);
 }
 
-.combo-box {
+.text-field, .combo-box {
     -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-width: 1;
+}
+
+.text-field {
+    -fx-highlight-fill: -highlight-color;
+}
+
+.combo-box {
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
-    -fx-border-color: lightgray;
     -fx-border-insets: 0;
 }
 
@@ -206,7 +208,7 @@
     -fx-fill: #181818;
 }
 
-.combo-box:hover {
+.combo-box:hover, .text-field:hover {
     -fx-border-color: rgb(192, 192, 192);
 }
 
