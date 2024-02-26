@@ -6,6 +6,14 @@
         {
           "title": "Данные с конфигуратора",
           "fxml": "fxml/profiles.fxml"
+        },
+        {
+          "title": "Показания счетчиков",
+          "fxml": "fxml/meters-readings.fxml"
+        },
+        {
+          "title": "Акты расхода электроэнергии",
+          "fxml": "fxml/acts-of-electricity-consumption.fxml"
         }
       ]
     },

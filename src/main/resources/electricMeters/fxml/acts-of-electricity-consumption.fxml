@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import electricMeters.core.controls.JsonColumn?>
+<?import electricMeters.core.controls.JsonTable?>
+<?import electricMeters.core.controls.TableHeader?>
+<VBox prefHeight="720.0" prefWidth="1024.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.ActsOfElectricityConsumptionController">
+    <SplitPane dividerPositions="0.3" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+        <VBox>
+            <TableHeader addEnabled="true" deleteEnabled="true" onDelete="#onActDelete" table="${actsTable}" title="Акты расхода электроэнергии" />
+            <StackPane VBox.vgrow="ALWAYS">
+                <children>
+                    <JsonTable fx:id="actsTable">
+                        <columns>
+                            <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="250.0" text="Наименование потребителя" />
+                            <JsonColumn alignment="CENTER" dataType="MONTH" field="MONTH" text="Месяц" />
+                            <JsonColumn alignment="CENTER" field="YEAR" text="Год" />
+                        </columns>
+                    </JsonTable>
+                </children>
+            </StackPane>
+        </VBox>
+
+        <VBox>
+            <TableHeader table="${actStringsTable}" title="Потребители" />
+            <StackPane VBox.vgrow="ALWAYS">
+                <children>
+                    <JsonTable fx:id="actStringsTable">
+                        <columns>
+                            <JsonColumn alignment="CENTER_RIGHT" field="NPP" prefWidth="50.0" text="№ п/п" />
+                            <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="250.0" text="Место установки счетчика" />
+                            <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="120.0" text="Номер счетчика" />
+                            <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="50.0" text="Код точки" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Настоящие показания счетчика" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Предыдущие показания счетчика" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Разность показаний счетчика" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Рассчетный коэффициент" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Рассчет электроэнергии по счетчику" />
+                        </columns>
+                    </JsonTable>
+                </children>
+            </StackPane>
+        </VBox>
+    </SplitPane>
+</VBox>

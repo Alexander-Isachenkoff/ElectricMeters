@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import electricMeters.core.controls.TableHeader?>
+<?import electricMeters.core.controls.JsonColumn?>
+<?import electricMeters.core.controls.JsonTable?>
+<VBox prefHeight="720.0" prefWidth="1024.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MeterReadingsController">
+    <VBox VBox.vgrow="ALWAYS">
+        <TableHeader addEnabled="true" onAdd="#onAdd" table="${metersReadingsTable}" title="Показания счетчиков" />
+        <StackPane VBox.vgrow="ALWAYS">
+            <children>
+                <JsonTable fx:id="metersReadingsTable" tableName="METERS_READINGS_VW">
+                    <columns>
+                        <JsonColumn alignment="CENTER" dataType="MONTH" field="MONTH" text="Месяц" />
+                        <JsonColumn alignment="CENTER" field="YEAR" text="Год" />
+                        <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="250.0" text="Место установки счетчика" />
+                        <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="120.0" text="Номер счетчика" />
+                        <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="READINGS" prefWidth="150.0" text="Показания счетчика" />
+                        <JsonColumn alignment="CENTER_RIGHT" field="CALC_COEFFICIENT" prefWidth="150.0" text="Рассчетный коэффициент" />
+                    </columns>
+                </JsonTable>
+            </children>
+        </StackPane>
+    </VBox>
+</VBox>
