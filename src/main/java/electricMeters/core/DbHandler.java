@@ -54,6 +54,12 @@ public class DbHandler {
     public List<JSONObject> getAllFrom(String tableName) {
         return runSqlSelect("SELECT * FROM " + tableName);
     }
+
+    public JSONObject selectById(String tableName, int id) {
+        String sql = String.format("SELECT * FROM %s WHERE ID = ?", tableName);
+        List<JSONObject> jsonObjects = runSqlSelect(sql, id);
+        return jsonObjects.get(0);
+    }
     
     public List<JSONObject> runSqlSelectFile(String sqlFile, Object... params) {
         try {
