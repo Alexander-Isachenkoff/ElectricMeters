@@ -4,7 +4,6 @@ import electricMeters.Main;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.sqlite.JDBC;
-import org.sqlite.jdbc4.JDBC4ResultSet;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -37,20 +36,6 @@ public class DbHandler {
         return instance;
     }
 
-    private static Object getValue(ResultSet resultSet, String key, String typeName) throws SQLException {
-        switch (typeName) {
-            case "INTEGER":
-                return resultSet.getInt(key);
-            case "TEXT":
-                return resultSet.getString(key);
-            case "REAL":
-            case "FLOAT":
-                return resultSet.getDouble(key);
-            default:
-                return JSONObject.NULL;
-        }
-    }
-
     public List<JSONObject> getAllFrom(String tableName) {
         return runSqlSelect("SELECT * FROM " + tableName);
     }
@@ -60,7 +45,7 @@ public class DbHandler {
         List<JSONObject> jsonObjects = runSqlSelect(sql, id);
         return jsonObjects.get(0);
     }
-    
+
     public List<JSONObject> runSqlSelectFile(String sqlFile, Object... params) {
         try {
             Path path = Paths.get(Main.class.getResource("sql/" + sqlFile).toURI());
@@ -77,22 +62,21 @@ public class DbHandler {
                 statement.setObject(i, params[i-1]);
             }
             ResultSet resultSet = statement.executeQuery();
-            return toJSON((JDBC4ResultSet) resultSet);
+            return toJSON(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static List<JSONObject> toJSON(JDBC4ResultSet resultSet) {
+    private static List<JSONObject> toJSON(ResultSet resultSet) {
         List<JSONObject> list = new ArrayList<>();
         try {
+            ResultSetMetaData metaData = resultSet.getMetaData();
             while (resultSet.next()) {
                 JSONObject json = new JSONObject();
-                for (int i = 1; i <= resultSet.getColumnCount(); i++) {
-                    String key = resultSet.getColumnName(i);
-                    String typeName = resultSet.getColumnTypeName(i).trim();
-                    Object value = getValue(resultSet, key, typeName);
-                    json.put(key, value);
+                for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                    String key = metaData.getColumnName(i);
+                    json.put(key, resultSet.getObject(i));
                 }
                 list.add(json);
             }
@@ -127,14 +111,14 @@ public class DbHandler {
             throw new RuntimeException(e);
         }
     }
-    
+
     public void insertList(JSONArray jsonArray, String table) {
         Set<String> fieldsSet = new HashSet<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             fieldsSet.addAll(jsonArray.getJSONObject(i).keySet());
         }
         List<String> fields = new ArrayList<>(fieldsSet);
-        
+
         String insertFields = fields.stream()
                 .map(key -> "'" + key + "'")
                 .collect(Collectors.joining(", "));
@@ -145,7 +129,7 @@ public class DbHandler {
                 .map(object -> insertParamsLine)
                 .collect(Collectors.joining(",\n"));
         String sql = String.format("INSERT INTO %s (%s) VALUES %s", table, insertFields, insertParamsClause);
-        
+
         try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject json = jsonArray.getJSONObject(i);
@@ -161,7 +145,7 @@ public class DbHandler {
             throw new RuntimeException(e);
         }
     }
-    
+
     public void delete(int id, String table) {
         try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM " + table + " WHERE id = ?")) {
             statement.setObject(1, id);
