@@ -11,6 +11,11 @@ public class ActsOfElectricityConsumptionController {
     private JsonTable actStringsTable;
 
     @FXML
+    private void initialize() {
+        actsTable.reload();
+    }
+
+    @FXML
     private void onActDelete() {
 
     }

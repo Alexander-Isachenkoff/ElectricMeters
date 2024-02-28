@@ -15,9 +15,9 @@
             <TableHeader addEnabled="true" editEnabled="true" deleteEnabled="true" onDelete="#onActDelete" table="${actsTable}" title="Акты расхода электроэнергии" />
             <StackPane VBox.vgrow="ALWAYS">
                 <children>
-                    <JsonTable fx:id="actsTable">
+                    <JsonTable fx:id="actsTable" tableName="REG_ACTS_CONSUMPTION_VW">
                         <columns>
-                            <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="250.0" text="Наименование потребителя" />
+                            <JsonColumn alignment="CENTER_LEFT" field="CONSUMER_NAME" prefWidth="250.0" text="Наименование потребителя" />
                             <JsonColumn alignment="CENTER" dataType="MONTH" field="MONTH" text="Месяц" />
                             <JsonColumn alignment="CENTER" field="YEAR" text="Год" />
                         </columns>
