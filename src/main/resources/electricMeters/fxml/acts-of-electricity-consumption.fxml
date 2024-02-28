@@ -12,7 +12,7 @@
 <VBox prefHeight="720.0" prefWidth="1024.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.ActsOfElectricityConsumptionController">
     <SplitPane dividerPositions="0.3" orientation="VERTICAL" VBox.vgrow="ALWAYS">
         <VBox>
-            <TableHeader addEnabled="true" deleteEnabled="true" onDelete="#onActDelete" table="${actsTable}" title="Акты расхода электроэнергии" />
+            <TableHeader addEnabled="true" editEnabled="true" deleteEnabled="true" onDelete="#onActDelete" table="${actsTable}" title="Акты расхода электроэнергии" />
             <StackPane VBox.vgrow="ALWAYS">
                 <children>
                     <JsonTable fx:id="actsTable">

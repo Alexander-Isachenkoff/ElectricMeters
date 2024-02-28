@@ -28,6 +28,7 @@ import java.io.IOException;
 public class TableHeader extends HBox {
 
     private final BooleanProperty addEnabled = new SimpleBooleanProperty(false);
+    private final BooleanProperty editEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty deleteEnabled = new SimpleBooleanProperty(false);
     private final ObjectProperty<JsonTable> table = new SimpleObjectProperty<>();
     @FXML
@@ -39,6 +40,8 @@ public class TableHeader extends HBox {
     private TextField searchField;
     @FXML
     private Button addButton;
+    @FXML
+    private Button editButton;
     @FXML
     private Button deleteButton;
     @FXML
@@ -55,6 +58,8 @@ public class TableHeader extends HBox {
         }
         addButton.visibleProperty().bind(addEnabled);
         addButton.managedProperty().bind(addEnabled);
+        editButton.visibleProperty().bind(editEnabled);
+        editButton.managedProperty().bind(editEnabled);
         deleteButton.visibleProperty().bind(deleteEnabled);
         deleteButton.managedProperty().bind(deleteEnabled);
 
@@ -140,6 +145,14 @@ public class TableHeader extends HBox {
     public void setOnAdd(EventHandler<ActionEvent> onAdd) {
         addButton.setOnAction(onAdd);
     }
+    
+    public EventHandler<ActionEvent> getOnEdit() {
+        return editButton.getOnAction();
+    }
+    
+    public void setOnEdit(EventHandler<ActionEvent> onEdit) {
+        editButton.setOnAction(onEdit);
+    }
 
     public EventHandler<ActionEvent> getOnDelete() {
         return deleteButton.getOnAction();
@@ -163,6 +176,14 @@ public class TableHeader extends HBox {
 
     public void setAddEnabled(boolean addEnabled) {
         this.addEnabled.set(addEnabled);
+    }
+    
+    public boolean isEditEnabled() {
+        return editEnabled.get();
+    }
+    
+    public void setEditEnabled(boolean enabled) {
+        this.editEnabled.set(enabled);
     }
 
     public boolean isDeleteEnabled() {

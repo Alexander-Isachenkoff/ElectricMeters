@@ -29,6 +29,15 @@
             </ImageView>
          </graphic>
         </Button>
+      <Button fx:id="editButton" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/edit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
         <Button fx:id="deleteButton" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
