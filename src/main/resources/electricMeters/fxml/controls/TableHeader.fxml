@@ -10,14 +10,14 @@
 <?import javafx.scene.text.Font?>
 
 <fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="4.0" styleClass="table-header" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-     <Label fx:id="titleLabel" text="Заголовок" textFill="#181818">
+     <Label fx:id="titleLabel" text="Заголовок" textFill="#3e6ca4">
       <font>
-         <Font size="18.0" />
+         <Font name="System Bold" size="16.0" />
       </font>
      </Label>
    <Label fx:id="countLabel" text="(0)" textFill="#888888">
       <font>
-         <Font size="18.0" />
+         <Font size="16.0" />
       </font></Label>
     <HBox fx:id="toolBar" alignment="CENTER_RIGHT" spacing="4.0" HBox.hgrow="ALWAYS">
         <Button fx:id="addButton" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">

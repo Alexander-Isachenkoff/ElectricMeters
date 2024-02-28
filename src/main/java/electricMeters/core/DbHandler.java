@@ -37,7 +37,7 @@ public class DbHandler {
         return instance;
     }
 
-    private static Object getValue(JDBC4ResultSet resultSet, String key, String typeName) throws SQLException {
+    private static Object getValue(ResultSet resultSet, String key, String typeName) throws SQLException {
         switch (typeName) {
             case "INTEGER":
                 return resultSet.getInt(key);
