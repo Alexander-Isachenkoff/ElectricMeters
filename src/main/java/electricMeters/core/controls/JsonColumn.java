@@ -36,7 +36,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
             @Override
             protected void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
-                if (!empty) {
+                if (!empty && !String.valueOf(item).isEmpty()) {
                     String text = dataType.stringConverter.apply(item);
                     setText(text);
                 } else {

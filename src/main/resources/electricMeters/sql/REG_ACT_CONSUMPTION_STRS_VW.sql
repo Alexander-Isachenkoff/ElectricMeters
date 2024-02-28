@@ -1,0 +1,1 @@
+select * from REG_ACT_CONSUMPTION_STRS_VW where YEAR = ? and MONTH = ?

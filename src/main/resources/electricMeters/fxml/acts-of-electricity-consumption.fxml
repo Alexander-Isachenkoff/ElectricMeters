@@ -30,17 +30,17 @@
             <TableHeader table="${actStringsTable}" title="Потребители" />
             <StackPane VBox.vgrow="ALWAYS">
                 <children>
-                    <JsonTable fx:id="actStringsTable">
+                    <JsonTable fx:id="actStringsTable" sqlFile="REG_ACT_CONSUMPTION_STRS_VW.sql">
                         <columns>
                             <JsonColumn alignment="CENTER_RIGHT" field="NPP" prefWidth="50.0" text="№ п/п" />
                             <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="250.0" text="Место установки счетчика" />
                             <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="120.0" text="Номер счетчика" />
-                            <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="50.0" text="Код точки" />
-                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Настоящие показания счетчика" />
-                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Предыдущие показания счетчика" />
-                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Разность показаний счетчика" />
-                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Рассчетный коэффициент" />
-                            <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Рассчет электроэнергии по счетчику" />
+                            <JsonColumn alignment="CENTER_LEFT" field="" prefWidth="50.0" text="Код точки" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="READINGS_VALUE" dataType="REAL" prefWidth="150.0" text="Настоящие показания счетчика" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="PREV_READINGS_VALUE" dataType="REAL" prefWidth="150.0" text="Предыдущие показания счетчика" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="READINGS_DIFFERENCE" dataType="REAL" prefWidth="150.0" text="Разность показаний счетчика" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="CALC_COEFFICIENT" prefWidth="150.0" text="Рассчетный коэффициент" />
+                            <JsonColumn alignment="CENTER_RIGHT" field="" dataType="REAL" prefWidth="150.0" text="Рассчет электроэнергии по счетчику" />
                         </columns>
                     </JsonTable>
                 </children>

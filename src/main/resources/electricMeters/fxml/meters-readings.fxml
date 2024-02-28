@@ -20,7 +20,7 @@
                         <JsonColumn alignment="CENTER" field="YEAR" text="Год" />
                         <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="250.0" text="Место установки счетчика" />
                         <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="120.0" text="Номер счетчика" />
-                        <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="READINGS" prefWidth="150.0" text="Показания счетчика" />
+                        <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="READINGS_VALUE" prefWidth="150.0" text="Показания счетчика" />
                         <JsonColumn alignment="CENTER_RIGHT" field="CALC_COEFFICIENT" prefWidth="150.0" text="Рассчетный коэффициент" />
                     </columns>
                 </JsonTable>
