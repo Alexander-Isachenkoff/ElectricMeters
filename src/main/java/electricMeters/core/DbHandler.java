@@ -75,7 +75,7 @@ public class DbHandler {
             while (resultSet.next()) {
                 JSONObject json = new JSONObject();
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                    String key = metaData.getColumnName(i);
+                    String key = metaData.getColumnName(i).toUpperCase();
                     json.put(key, resultSet.getObject(i));
                 }
                 list.add(json);

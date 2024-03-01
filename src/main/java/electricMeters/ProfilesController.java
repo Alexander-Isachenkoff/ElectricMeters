@@ -44,7 +44,7 @@ public class ProfilesController {
         mainTable.addSelectedListener(newValue -> {
             for (JsonTable childTable : Arrays.asList(detailsTable, detailsTable1)) {
                 if (newValue != null) {
-                    int id = newValue.getInt("id");
+                    int id = newValue.getInt("ID");
                     childTable.setParams(id);
                     childTable.reload();
                 } else {
@@ -56,7 +56,7 @@ public class ProfilesController {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem reportItem = new MenuItem("Сформировать отчёт");
         reportItem.setOnAction(event -> {
-            int id = mainTable.getSelectedItem().getInt("id");
+            int id = mainTable.getSelectedItem().getInt("ID");
             ProfileHourlyReport.createAndWrite(id);
         });
         contextMenu.getItems().add(reportItem);

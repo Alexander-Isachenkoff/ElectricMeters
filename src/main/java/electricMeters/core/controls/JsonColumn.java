@@ -1,5 +1,6 @@
 package electricMeters.core.controls;
 
+import electricMeters.DateUtil;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
@@ -12,6 +13,7 @@ import lombok.Setter;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Date;
@@ -74,6 +76,10 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
         DATE(
                 object -> Constants.dateConverter.fromString(object.toString()),
                 object -> Constants.dateConverter.toString((Date) object)
+        ),
+        DATE_TIME(
+                object -> DateUtil.toLocalDateTime(object.toString()),
+                object -> DateUtil.toString((LocalDateTime) object)
         ),
         MONTH(object -> Month.of((Integer) object).getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
 

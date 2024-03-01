@@ -24,12 +24,13 @@
             <children>
                   <JsonTable fx:id="mainTable">
                       <columns>
-                          <JsonColumn alignment="CENTER_RIGHT" field="id" prefWidth="50.0" text="ID" />
-                          <JsonColumn alignment="CENTER_RIGHT" field="profileNum" prefWidth="116.0" text="Номер профиля" />
-                          <JsonColumn alignment="CENTER_RIGHT" field="meterNumber" prefWidth="82.0" text="id счетчика" />
-                          <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="200.0" text="Потребитель" />
-                          <JsonColumn alignment="CENTER" dataType="DATE" field="date" text="Дата" />
-                          <JsonColumn alignment="CENTER" field="time" text="Время" />
+                          <JsonColumn alignment="CENTER_RIGHT" field="ID" prefWidth="50.0" text="ID" />
+                          <JsonColumn alignment="CENTER_RIGHT" field="PROFILE_NUM" prefWidth="116.0" text="Номер профиля" />
+                          <JsonColumn alignment="CENTER_RIGHT" field="METER_NUMBER" prefWidth="82.0" text="id счетчика" />
+                          <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="200.0" text="Потребитель" />
+                          <JsonColumn alignment="CENTER" dataType="DATE" field="DATE" text="Дата" />
+                          <JsonColumn alignment="CENTER" field="TIME" text="Время" />
+                          <JsonColumn alignment="CENTER" field="DATE_TIME" dataType="DATE_TIME" prefWidth="125" text="Дата и время" />
                           <JsonColumn alignment="CENTER_LEFT" field="METER_CONSUMER" prefWidth="200.0" text="Потребитель по счетчику" />
                       </columns>
                   </JsonTable>
@@ -54,7 +55,7 @@
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="aNeg" text="А-, кВт" />
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="rPos" text="R+, квар" />
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="rNeg" text="R-, квар" />
-                                    <JsonColumn alignment="CENTER_LEFT" field="status" prefWidth="120.0" text="Статус" />
+                                    <JsonColumn alignment="CENTER_LEFT" dataType="DATE" field="status" prefWidth="120.0" text="Статус" />
                                  </columns>
                               </JsonTable>
                            </children>

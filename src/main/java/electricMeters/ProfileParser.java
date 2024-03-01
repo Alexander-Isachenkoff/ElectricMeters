@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +31,15 @@ public class ProfileParser {
         String date = header.get(2).substring(beginIndex, beginIndex + 8);
         String time = header.get(2).substring(header.get(2).indexOf(' ') + 10);
         
+        String dateTime = LocalDateTime.parse(date + " " + time, DateUtil.PROFILE_DATE_TIME_FORMAT).format(DateUtil.DB_DATE_TIME_FORMAT);
+        
         JSONObject mainJson = new JSONObject()
-                .put("ProfileNum", profileNum)
-                .put("MeterNumber", meterNumber)
-                .put("Consumer", consumer)
-                .put("Date", date)
-                .put("Time", time);
+                .put("PROFILE_NUM", profileNum)
+                .put("METER_NUMBER", meterNumber)
+                .put("CONSUMER", consumer)
+                .put("DATE", date)
+                .put("TIME", time)
+                .put("DATE_TIME", dateTime);
         
         List<JSONObject> childs = new ArrayList<>();
         for (String line : restOfLines) {

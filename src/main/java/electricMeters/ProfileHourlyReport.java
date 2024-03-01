@@ -23,7 +23,7 @@ public class ProfileHourlyReport {
 
     public static void createAndWrite(int profileId) {
         JSONObject report = createReport(profileId);
-        String fileName = String.format("%s_%s.xlsx", report.getString("meterNumber"), report.getString("METER_CONSUMER"));
+        String fileName = String.format("%s_%s.xlsx", report.getString("METER_NUMBER"), report.getString("METER_CONSUMER"));
         fileName = fileName.replaceAll("[/:]", " ");
         File file = new File(fileName);
         write(report, file);
@@ -42,15 +42,15 @@ public class ProfileHourlyReport {
         return new JSONObject()
                 .put("date", monthDate)
                 .put("METER_CONSUMER", profileJson.getString("METER_CONSUMER"))
-                .put("meterNumber", String.valueOf(profileJson.get("meterNumber")))
+                .put("METER_NUMBER", String.valueOf(profileJson.get("METER_NUMBER")))
                 .put("data", jsonObjects);
     }
 
     public static void write(JSONObject json, File file) {
         try (Workbook workbook = WorkbookFactory.create(Main.class.getResourceAsStream(TEMPLATE_XLSX))) {
             Sheet sheet = workbook.getSheetAt(0);
-            workbook.setSheetName(0, json.getString("meterNumber"));
-            String meteringPoint = String.format("%s, счетчик %s", json.getString("METER_CONSUMER"), json.getString("meterNumber"));
+            workbook.setSheetName(0, json.getString("METER_NUMBER"));
+            String meteringPoint = String.format("%s, счетчик %s", json.getString("METER_CONSUMER"), json.getString("METER_NUMBER"));
             sheet.getRow(1).getCell(3).setCellValue(meteringPoint);
             sheet.getRow(5).getCell(1).setCellValue(json.getString("date"));
 
