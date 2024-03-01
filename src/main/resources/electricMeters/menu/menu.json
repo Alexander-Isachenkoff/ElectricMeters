@@ -4,6 +4,10 @@
       "title": "Учетные данные",
       "items": [
         {
+          "title": "Компания",
+          "fxml": "fxml/company.fxml"
+        },
+        {
           "title": "Данные с конфигуратора",
           "fxml": "fxml/profiles.fxml"
         },
