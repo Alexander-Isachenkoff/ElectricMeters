@@ -1,6 +1,6 @@
 package electricMeters.view;
 
-import electricMeters.core.PowerRateParser;
+import electricMeters.service.PowerRateParser;
 import electricMeters.core.controls.JsonComboBox;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.controls.MonthComboBox;

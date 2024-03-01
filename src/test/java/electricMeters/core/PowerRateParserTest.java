@@ -1,5 +1,6 @@
 package electricMeters.core;
 
+import electricMeters.service.PowerRateParser;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
