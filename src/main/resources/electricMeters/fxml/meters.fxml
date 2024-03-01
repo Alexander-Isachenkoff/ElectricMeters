@@ -3,26 +3,26 @@
 <?import electricMeters.core.controls.JsonColumn?>
 <?import electricMeters.core.controls.JsonTable?>
 <?import electricMeters.core.controls.TableHeader?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.StackPane?>
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MetersController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MetersController">
    <children>
       <TableHeader table="${table}" title="Счётчики" />
-      <StackPane VBox.vgrow="ALWAYS" >
+      <StackPane VBox.vgrow="ALWAYS">
          <JsonTable fx:id="table" tableName="REF_METERS">
             <columns>
-               <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="91.33334600925446" text="Потребитель" />
-               <JsonColumn alignment="CENTER_LEFT" field="number" minWidth="6.666656494140625" prefWidth="58.666648864746094" text="№ счетчика" />
-               <JsonColumn alignment="CENTER_LEFT" field="location" minWidth="0.0" prefWidth="54.666656494140625" text="Локация" />
-               <JsonColumn alignment="CENTER_LEFT" field="dataCD" prefWidth="42.66668701171875" text="ДатаЦД" />
-               <JsonColumn alignment="CENTER_LEFT" field="addressCD" prefWidth="55.99995422363281" text="АдресЦД" />
-               <JsonColumn alignment="CENTER_LEFT" field="comPort" prefWidth="45.33331298828125" text="комПорт" />
-               <JsonColumn alignment="CENTER_LEFT" field="ipAddress" prefWidth="81.33331298828125" text="ip" />
-               <JsonColumn alignment="CENTER_LEFT" field="issueYear" prefWidth="95.33334350585938" text="год производства" />
-               <JsonColumn alignment="CENTER_LEFT" field="isRemoteCapture" prefWidth="86.6666259765625" text="год замены" />
-               <JsonColumn alignment="CENTER_LEFT" field="isUsed" prefWidth="57.33331298828125" text="изюзд" />
-               <JsonColumn alignment="CENTER_LEFT" field="type" prefWidth="51.33331298828125" text="тип" />
+               <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="200.0" text="Место установки прибора учета" />
+               <JsonColumn alignment="CENTER_RIGHT" field="METER_NUMBER" minWidth="6.666656494140625" prefWidth="85.0" text="№ прибора учета" />
+               <JsonColumn alignment="CENTER_LEFT" field="DATA_TRANS_DEVICE" prefWidth="120.0" text="Прибор передачи данных" />
+               <JsonColumn alignment="CENTER_LEFT" field="DATA_TRANS_DEVICE_ADDRESS" prefWidth="150.0" text="Адрес прибора передачи" />
+               <JsonColumn alignment="CENTER_LEFT" field="COM_PORT" prefWidth="100.0" text="COM-порт" />
+               <JsonColumn alignment="CENTER_LEFT" field="IP_ADDRESS" prefWidth="60.0" text="ip-адрес" />
+               <JsonColumn alignment="CENTER_LEFT" field="LOCATION_NAME" minWidth="0.0" prefWidth="200.0" text="Наименование точки учета" />
+               <JsonColumn alignment="CENTER" field="YEAR_OF_MANUFACTURE" text="Год выпуска" />
+               <JsonColumn alignment="CENTER_LEFT" field="IS_TECHNICAL" text="Т" prefWidth="40.0" />
+               <JsonColumn alignment="CENTER_LEFT" field="IS_COMMERCIAL" text="К" prefWidth="40.0" />
+               <JsonColumn alignment="CENTER_LEFT" field="IS_PAID" text="П" prefWidth="40.0" />
             </columns>
          </JsonTable>
       </StackPane>
