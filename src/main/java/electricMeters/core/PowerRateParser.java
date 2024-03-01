@@ -20,9 +20,9 @@ public class PowerRateParser {
     private static final int FIRST_CAP_RATE_ROW = 144;
     
     public static void readAndInsertPowerRates(File file) throws IOException {
-        List<JSONObject> powerRates = PowerRateParser.readPowerRate(file);
+        List<JSONObject> powerRates = readPowerRate(file);
         for (JSONObject powerRate : powerRates) {
-            PowerRateParser.insertPowerRate(powerRate);
+            insertPowerRate(powerRate);
         }
     }
     
@@ -88,7 +88,7 @@ public class PowerRateParser {
         return result;
     }
     
-    public static void insertPowerRate(JSONObject powerRate) {
+    private static void insertPowerRate(JSONObject powerRate) {
         DbHandler db = DbHandler.getInstance();
         JSONArray hourlyRates = (JSONArray) powerRate.remove("hourlyRates");
         int powerRateId = db.insert(powerRate, "POWER_RATE");
