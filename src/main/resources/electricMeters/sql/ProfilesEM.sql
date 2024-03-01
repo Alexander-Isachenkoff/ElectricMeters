@@ -1,1 +1,0 @@
-SELECT * FROM ProfilesEM WHERE profileEMInfo = ?

@@ -37,7 +37,7 @@ public class PriceCategory3Controller {
         voltageLevelCmb.reload();
         voltageLevelCmb.getSelectionModel().selectFirst();
 
-        table.setSqlFile("HOURLY_RATE_VALUES.sql");
+        table.setSqlFile("TAR3_HOURLY_RATE_VALUES.sql");
 
         onApply();
     }

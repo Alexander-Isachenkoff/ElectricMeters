@@ -1,0 +1,1 @@
+SELECT * FROM PROFILE_STRS WHERE profileEMInfo = ?

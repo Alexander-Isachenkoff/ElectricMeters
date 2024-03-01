@@ -49,7 +49,7 @@ public class PowerRateParser {
             String value = sheet.getRow(FIRST_CAP_RATE_ROW + (i - 1) * ROWS_PER_HOURLY_POWER_RATE).getCell(8).getStringCellValue();
             double capRate = Double.parseDouble(value.replace(",", "."));
             JSONObject json = new JSONObject()
-                    .put("POWER_RATE_TYPE_ID", i)
+                    .put("RATE_TYPE_ID", i)
                     .put("CAP_RATE", capRate);
             List<JSONObject> hourlyRates = parseHourlyPowerRates(sheet, i);
             json.put("hourlyRates", hourlyRates);
@@ -91,17 +91,17 @@ public class PowerRateParser {
     private static void insertPowerRate(JSONObject powerRate) {
         DbHandler db = DbHandler.getInstance();
         JSONArray hourlyRates = (JSONArray) powerRate.remove("hourlyRates");
-        int powerRateId = db.insert(powerRate, "POWER_RATE");
+        int powerRateId = db.insert(powerRate, "TAR1_MONTHLY_RATES");
         for (Object hourlyRate : hourlyRates) {
             JSONObject hourlyRateJson = (JSONObject) hourlyRate;
-            hourlyRateJson.put("POWER_RATE_ID", powerRateId);
+            hourlyRateJson.put("TAR1_ID", powerRateId);
             JSONArray values = (JSONArray) hourlyRateJson.remove("values");
-            int hourlyPowerRateId = db.insert(hourlyRateJson, "HOURLY_POWER_RATE");
+            int hourlyPowerRateId = db.insert(hourlyRateJson, "TAR2_VOLTAGE_RATES");
             for (Object value : values) {
                 JSONObject valueJson = (JSONObject) value;
-                valueJson.put("HOURLY_POWER_RATE_ID", hourlyPowerRateId);
+                valueJson.put("TAR2_ID", hourlyPowerRateId);
             }
-            db.insertList(values, "HOURLY_RATE_VALUES");
+            db.insertList(values, "TAR3_HOURLY_RATE_VALUES");
         }
     }
     

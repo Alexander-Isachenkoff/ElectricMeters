@@ -35,7 +35,7 @@ public class ProfileHourlyReport {
     }
 
     public static JSONObject createReport(int profileId) {
-        JSONObject profileJson = DbHandler.getInstance().selectById("ProfileView", profileId);
+        JSONObject profileJson = DbHandler.getInstance().selectById("PROFILES_VW", profileId);
         List<JSONObject> jsonObjects = DbHandler.getInstance().runSqlSelectFile("ProfileHourlyReport.sql", profileId);
         LocalDate date = LocalDate.parse(jsonObjects.get(0).getString("date"), DateTimeFormatter.ofPattern("dd.MM.yy"));
         String monthDate = date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()) + " " + date.getYear();

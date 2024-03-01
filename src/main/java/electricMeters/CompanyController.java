@@ -42,7 +42,7 @@ public class CompanyController {
         phoneField2.setText(companyData.getString("CONSUMER_PHONE_NUMBER_2"));
         responsiblePersonField.setText(companyData.getString("RESPONSIBLE_PERSON"));
         positionField.setText(companyData.getString("POSITION"));
-        rateTypeCmb.selectValueById(companyData.optInt("POWER_RATE_TYPE_ID"));
+        rateTypeCmb.selectValueById(companyData.optInt("RATE_TYPE_ID"));
         voltageLevelCmb.selectValueById(companyData.optInt("VOLTAGE_LEVEL_ID"));
     }
 
@@ -62,7 +62,7 @@ public class CompanyController {
                 .put("CONSUMER_PHONE_NUMBER_2", phoneField2.getText())
                 .put("RESPONSIBLE_PERSON", responsiblePersonField.getText())
                 .put("POSITION", positionField.getText())
-                .put("POWER_RATE_TYPE_ID", rateTypeCmb.getSelectedId())
+                .put("RATE_TYPE_ID", rateTypeCmb.getSelectedId())
                 .put("VOLTAGE_LEVEL_ID", voltageLevelCmb.getSelectedId());
     }
 

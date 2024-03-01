@@ -10,7 +10,7 @@
    <children>
       <TableHeader table="${table}" title="Счётчики" />
       <StackPane VBox.vgrow="ALWAYS" >
-         <JsonTable fx:id="table" tableName="Meters">
+         <JsonTable fx:id="table" tableName="REF_METERS">
             <columns>
                <JsonColumn alignment="CENTER_LEFT" field="consumer" prefWidth="91.33334600925446" text="Потребитель" />
                <JsonColumn alignment="CENTER_LEFT" field="number" minWidth="6.666656494140625" prefWidth="58.666648864746094" text="№ счетчика" />

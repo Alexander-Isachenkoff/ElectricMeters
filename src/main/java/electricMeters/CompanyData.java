@@ -41,7 +41,7 @@ public class CompanyData {
                 .put("CONSUMER_PHONE_NUMBER_2", "")
                 .put("RESPONSIBLE_PERSON", "")
                 .put("POSITION", "")
-                .put("POWER_RATE_TYPE_ID", 0)
+                .put("RATE_TYPE_ID", 0)
                 .put("VOLTAGE_LEVEL_ID", 0);
     }
 

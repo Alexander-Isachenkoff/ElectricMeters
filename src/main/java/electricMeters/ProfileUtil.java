@@ -15,11 +15,11 @@ public class ProfileUtil {
     
     static void saveProfile(JSONObject json) {
         JSONArray childs = (JSONArray) json.remove("childs");
-        int id = DbHandler.getInstance().insert(json, "ProfileEMInfo");
+        int id = DbHandler.getInstance().insert(json, "PROFILES");
         for (Object child : childs) {
             ((JSONObject) child).put("profileEMInfo", id);
         }
-        DbHandler.getInstance().insertList(childs, "ProfilesEM");
+        DbHandler.getInstance().insertList(childs, "PROFILE_STRS");
     }
     
 }

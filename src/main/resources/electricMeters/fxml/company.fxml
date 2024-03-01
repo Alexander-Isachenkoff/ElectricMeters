@@ -51,8 +51,8 @@
             <TextField fx:id="positionField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label minWidth="-Infinity" text="Тип ставки" GridPane.rowIndex="7" />
             <Label minWidth="-Infinity" text="Уровень напряжения" GridPane.rowIndex="8" />
-            <JsonComboBox fx:id="rateTypeCmb" field="NAME" maxWidth="1.7976931348623157E308" tableName="POWER_RATE_TYPES" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
-            <JsonComboBox fx:id="voltageLevelCmb" field="NAME" maxWidth="1.7976931348623157E308" tableName="VOLTAGE_LEVELS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" />
+            <JsonComboBox fx:id="rateTypeCmb" field="NAME" maxWidth="1.7976931348623157E308" tableName="CAT_RATE_TYPES" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
+            <JsonComboBox fx:id="voltageLevelCmb" field="NAME" maxWidth="1.7976931348623157E308" tableName="CAT_VOLTAGE_LEVELS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <HBox alignment="TOP_RIGHT">

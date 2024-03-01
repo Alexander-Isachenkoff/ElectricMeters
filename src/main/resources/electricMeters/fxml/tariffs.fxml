@@ -34,8 +34,8 @@
             <Button mnemonicParsing="false" onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Label text="Ставка" GridPane.columnIndex="2" />
             <Label text="Уровень напряжения" GridPane.columnIndex="3" />
-            <ClearableJComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="POWER_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ClearableJComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ClearableJComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="CAT_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ClearableJComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="CAT_VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         </children>
     </GridPane>
     <VBox VBox.vgrow="ALWAYS">

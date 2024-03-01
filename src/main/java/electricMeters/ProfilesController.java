@@ -38,8 +38,8 @@ public class ProfilesController {
     private void initialize() {
         mainTableHeader.addToolButton("import.png", this::onImport);
 
-        mainTable.setSqlFile("ProfileView.sql");
-        detailsTable.setSqlFile("ProfilesEM.sql");
+        mainTable.setSqlFile("PROFILES_VW.sql");
+        detailsTable.setSqlFile("PROFILE_STRS.sql");
         
         mainTable.addSelectedListener(newValue -> {
             for (JsonTable childTable : Arrays.asList(detailsTable, detailsTable1)) {
@@ -106,7 +106,7 @@ public class ProfilesController {
         if (!items.isEmpty()) {
             if (UtilAlert.showDeleteConfirmation()) {
                 for (JSONObject item : items) {
-                    DbHandler.getInstance().delete(item.getInt("id"), "ProfileEMInfo");
+                    DbHandler.getInstance().delete(item.getInt("ID"), "PROFILES");
                 }
                 mainTable.reload();
             }
