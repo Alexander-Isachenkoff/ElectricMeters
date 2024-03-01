@@ -1,8 +1,10 @@
 {
   "POSITION": "Какая-то должность",
+  "POWER_RATE_TYPE_ID": 5,
   "CONTRACT_NUMBER": "659",
   "CONSUMER_PHONE_NUMBER_2": "40-51-95",
   "CONSUMER_PHONE_NUMBER_1": "40-50-73",
+  "VOLTAGE_LEVEL_ID": 1,
   "CONSUMER_ADDRESS": "Лермонтова 83",
   "CONSUMER_NAME": "ФГБОУ ВО ИРНИТУ",
   "RESPONSIBLE_PERSON": "Чеботнягин Л.М."

@@ -47,8 +47,8 @@ public class PriceCategory3Controller {
         table.setParams(
                 yearCmb.getSelectionModel().getSelectedItem(),
                 monthCmb.getSelectionModel().getSelectedItem().getValue(),
-                rateTypeCmb.getSelectedItem().getInt("ID"),
-                voltageLevelCmb.getSelectedItem().getInt("ID")
+                rateTypeCmb.getValue().getInt("ID"),
+                voltageLevelCmb.getValue().getInt("ID")
         );
         table.reload();
     }

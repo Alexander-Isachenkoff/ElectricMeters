@@ -52,8 +52,20 @@ public class JsonComboBox extends ComboBox<JSONObject> {
         }
     }
 
-    public JSONObject getSelectedItem() {
-        return getSelectionModel().getSelectedItem();
+    public int getSelectedId() {
+        JSONObject value = getValue();
+        if (value != null) {
+            return value.getInt("ID");
+        } else {
+            return 0;
+        }
+    }
+
+    public void selectValueById(int id) {
+        getItems().stream()
+                .filter(json -> json.getInt("ID") == id)
+                .findFirst()
+                .ifPresent(json -> getSelectionModel().select(json));
     }
 
 }

@@ -40,8 +40,8 @@ public class TariffsController {
     private void onApply() {
         Integer year = yearCmb.getSelectionModel().getSelectedItem();
         Integer month = monthCmb.getSelectionModel().getSelectedItem() != null ? monthCmb.getSelectionModel().getSelectedItem().getValue() : null;
-        Integer rateTypeId = rateTypeCmb.getSelectedItem() != null ? rateTypeCmb.getSelectedItem().getInt("ID") : null;
-        Integer voltageLevelId = voltageLevelCmb.getSelectedItem() != null ? voltageLevelCmb.getSelectedItem().getInt("ID") : null;
+        Integer rateTypeId = rateTypeCmb.getValue() != null ? rateTypeCmb.getValue().getInt("ID") : null;
+        Integer voltageLevelId = voltageLevelCmb.getValue() != null ? voltageLevelCmb.getValue().getInt("ID") : null;
         table.setParams(
                 year,
                 year,

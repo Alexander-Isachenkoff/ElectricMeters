@@ -1,5 +1,6 @@
 package electricMeters;
 
+import electricMeters.core.controls.JsonComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
@@ -28,9 +29,15 @@ public class CompanyController {
     private TextField responsiblePersonField;
     @FXML
     private TextField positionField;
+    @FXML
+    private JsonComboBox rateTypeCmb;
+    @FXML
+    private JsonComboBox voltageLevelCmb;
 
     @FXML
     private void initialize() throws IOException {
+        rateTypeCmb.reload();
+        voltageLevelCmb.reload();
         loadData();
     }
 
@@ -47,6 +54,8 @@ public class CompanyController {
         phoneField2.setText(jsonObject.getString("CONSUMER_PHONE_NUMBER_2"));
         responsiblePersonField.setText(jsonObject.getString("RESPONSIBLE_PERSON"));
         positionField.setText(jsonObject.getString("POSITION"));
+        rateTypeCmb.selectValueById(jsonObject.optInt("POWER_RATE_TYPE_ID"));
+        voltageLevelCmb.selectValueById(jsonObject.optInt("VOLTAGE_LEVEL_ID"));
     }
 
     @FXML
@@ -64,7 +73,9 @@ public class CompanyController {
                 .put("CONSUMER_PHONE_NUMBER_1", phoneField1.getText())
                 .put("CONSUMER_PHONE_NUMBER_2", phoneField2.getText())
                 .put("RESPONSIBLE_PERSON", responsiblePersonField.getText())
-                .put("POSITION", positionField.getText());
+                .put("POSITION", positionField.getText())
+                .put("POWER_RATE_TYPE_ID", rateTypeCmb.getSelectedId())
+                .put("VOLTAGE_LEVEL_ID", voltageLevelCmb.getSelectedId());
     }
 
 }
