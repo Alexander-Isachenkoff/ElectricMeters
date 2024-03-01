@@ -1,6 +1,6 @@
 package electricMeters.core.controls;
 
-import electricMeters.DateUtil;
+import electricMeters.util.DateUtil;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;

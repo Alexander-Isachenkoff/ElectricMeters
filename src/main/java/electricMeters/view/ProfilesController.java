@@ -1,5 +1,8 @@
-package electricMeters;
+package electricMeters.view;
 
+import electricMeters.Main;
+import electricMeters.report.ProfileHourlyReport;
+import electricMeters.service.ProfileUtil;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.DbHandler;
 import electricMeters.core.UtilAlert;

@@ -1,4 +1,4 @@
-package electricMeters;
+package electricMeters.view;
 
 import electricMeters.core.controls.JsonTable;
 import javafx.fxml.FXML;

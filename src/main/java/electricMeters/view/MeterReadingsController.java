@@ -1,5 +1,6 @@
-package electricMeters;
+package electricMeters.view;
 
+import electricMeters.MeterReadingsEditForm;
 import electricMeters.core.controls.JsonTable;
 import javafx.fxml.FXML;
 

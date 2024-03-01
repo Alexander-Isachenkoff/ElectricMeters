@@ -1,5 +1,6 @@
-package electricMeters;
+package electricMeters.service;
 
+import electricMeters.util.DateUtil;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -10,9 +11,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileParser {
+class ProfileParser {
     
-    public static JSONObject readDataFromFile(File file)
+    static JSONObject readDataFromFile(File file)
     {
         List<String> lines;
         try {

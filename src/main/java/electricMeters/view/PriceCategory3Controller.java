@@ -1,4 +1,4 @@
-package electricMeters;
+package electricMeters.view;
 
 import electricMeters.core.PowerRateParser;
 import electricMeters.core.controls.JsonComboBox;

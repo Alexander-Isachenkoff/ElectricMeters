@@ -1,5 +1,6 @@
-package electricMeters;
+package electricMeters.view;
 
+import electricMeters.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;

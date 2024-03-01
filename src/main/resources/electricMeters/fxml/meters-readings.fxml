@@ -9,7 +9,7 @@
 <?import electricMeters.core.controls.TableHeader?>
 <?import electricMeters.core.controls.JsonColumn?>
 <?import electricMeters.core.controls.JsonTable?>
-<VBox prefHeight="720.0" prefWidth="1024.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.MeterReadingsController">
+<VBox prefHeight="720.0" prefWidth="1024.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.MeterReadingsController">
     <VBox VBox.vgrow="ALWAYS">
         <TableHeader addEnabled="true" onAdd="#onAdd" table="${metersReadingsTable}" title="Показания счетчиков" />
         <StackPane VBox.vgrow="ALWAYS">

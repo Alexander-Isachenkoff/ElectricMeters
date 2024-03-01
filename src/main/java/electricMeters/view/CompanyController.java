@@ -1,5 +1,6 @@
-package electricMeters;
+package electricMeters.view;
 
+import electricMeters.CompanyData;
 import electricMeters.core.controls.JsonComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

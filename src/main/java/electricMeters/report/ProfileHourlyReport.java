@@ -1,5 +1,6 @@
-package electricMeters;
+package electricMeters.report;
 
+import electricMeters.Main;
 import electricMeters.core.DbHandler;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;

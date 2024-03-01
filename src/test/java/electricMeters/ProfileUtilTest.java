@@ -1,6 +1,7 @@
 package electricMeters;
 
 import electricMeters.core.DbHandler;
+import electricMeters.service.ProfileUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

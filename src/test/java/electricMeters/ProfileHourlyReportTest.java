@@ -1,14 +1,12 @@
 package electricMeters;
 
-import org.json.JSONArray;
+import electricMeters.report.ProfileHourlyReport;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ProfileHourlyReportTest {
 
