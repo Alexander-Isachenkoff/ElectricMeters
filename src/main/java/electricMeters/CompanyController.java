@@ -5,15 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
-
 public class CompanyController {
-
-    private static final String COMPANY_JSON_FILE = "company.json";
 
     @FXML
     private TextField nameField;
@@ -35,33 +27,29 @@ public class CompanyController {
     private JsonComboBox voltageLevelCmb;
 
     @FXML
-    private void initialize() throws IOException {
+    private void initialize() {
         rateTypeCmb.reload();
         voltageLevelCmb.reload();
         loadData();
     }
 
-    private void loadData() throws IOException {
-        Path path = Paths.get(COMPANY_JSON_FILE);
-        if (Files.notExists(path)) {
-            onSave();
-        }
-        JSONObject jsonObject = new JSONObject(String.join("\n", Files.readAllLines(path)));
-        nameField.setText(jsonObject.getString("CONSUMER_NAME"));
-        contractNumField.setText(jsonObject.getString("CONTRACT_NUMBER"));
-        addressField.setText(jsonObject.getString("CONSUMER_ADDRESS"));
-        phoneField1.setText(jsonObject.getString("CONSUMER_PHONE_NUMBER_1"));
-        phoneField2.setText(jsonObject.getString("CONSUMER_PHONE_NUMBER_2"));
-        responsiblePersonField.setText(jsonObject.getString("RESPONSIBLE_PERSON"));
-        positionField.setText(jsonObject.getString("POSITION"));
-        rateTypeCmb.selectValueById(jsonObject.optInt("POWER_RATE_TYPE_ID"));
-        voltageLevelCmb.selectValueById(jsonObject.optInt("VOLTAGE_LEVEL_ID"));
+    private void loadData() {
+        JSONObject companyData = CompanyData.getCompanyData();
+        nameField.setText(companyData.getString("CONSUMER_NAME"));
+        contractNumField.setText(companyData.getString("CONTRACT_NUMBER"));
+        addressField.setText(companyData.getString("CONSUMER_ADDRESS"));
+        phoneField1.setText(companyData.getString("CONSUMER_PHONE_NUMBER_1"));
+        phoneField2.setText(companyData.getString("CONSUMER_PHONE_NUMBER_2"));
+        responsiblePersonField.setText(companyData.getString("RESPONSIBLE_PERSON"));
+        positionField.setText(companyData.getString("POSITION"));
+        rateTypeCmb.selectValueById(companyData.optInt("POWER_RATE_TYPE_ID"));
+        voltageLevelCmb.selectValueById(companyData.optInt("VOLTAGE_LEVEL_ID"));
     }
 
     @FXML
-    private void onSave() throws IOException {
+    private void onSave() {
         JSONObject jsonObject = createJsonObject();
-        Files.write(Paths.get(COMPANY_JSON_FILE), Collections.singletonList(jsonObject.toString(2)));
+        CompanyData.saveCompanyData(jsonObject);
         loadData();
     }
 
