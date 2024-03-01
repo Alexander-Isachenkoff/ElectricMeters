@@ -4,6 +4,7 @@ import electricMeters.DateUtil;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.converter.DateStringConverter;
@@ -27,6 +28,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
     private String field;
     private Pos alignment;
     private DataType dataType = DataType.DEFAULT;
+    private DisplayType displayType = DisplayType.DEFAULT;
 
     public JsonColumn() {
         this.setCellValueFactory(param -> {
@@ -38,9 +40,22 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
             @Override
             protected void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
-                if (!empty && !String.valueOf(item).isEmpty()) {
-                    String text = dataType.stringConverter.apply(item);
-                    setText(text);
+                if (!empty) {
+                    // так пишут только говнокодеры
+                    if (displayType == DisplayType.CHECK_BOX) {
+                        CheckBox checkBox = new CheckBox();
+                        checkBox.getStyleClass().add("table-check-box");
+                        checkBox.setDisable(true);
+                        checkBox.setSelected(!item.toString().isEmpty() && Integer.parseInt(item.toString()) == 1);
+                        setGraphic(checkBox);
+                    } else {
+                        if (!String.valueOf(item).isEmpty()) {
+                            String text = dataType.stringConverter.apply(item);
+                            setText(text);
+                        } else {
+                            setText("");
+                        }
+                    }
                 } else {
                     setText("");
                 }
@@ -102,4 +117,8 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
         }
     }
 
+    public enum DisplayType {
+        DEFAULT, CHECK_BOX
+    }
+    
 }

@@ -20,9 +20,9 @@
                <JsonColumn alignment="CENTER_LEFT" field="IP_ADDRESS" prefWidth="60.0" text="ip-адрес" />
                <JsonColumn alignment="CENTER_LEFT" field="LOCATION_NAME" minWidth="0.0" prefWidth="200.0" text="Наименование точки учета" />
                <JsonColumn alignment="CENTER" field="YEAR_OF_MANUFACTURE" text="Год выпуска" />
-               <JsonColumn alignment="CENTER_LEFT" field="IS_TECHNICAL" text="Т" prefWidth="40.0" />
-               <JsonColumn alignment="CENTER_LEFT" field="IS_COMMERCIAL" text="К" prefWidth="40.0" />
-               <JsonColumn alignment="CENTER_LEFT" field="IS_PAID" text="П" prefWidth="40.0" />
+               <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_TECHNICAL" text="Т" prefWidth="35.0" />
+               <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_COMMERCIAL" text="К" prefWidth="35.0" />
+               <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_PAID" text="П" prefWidth="35.0" />
             </columns>
          </JsonTable>
       </StackPane>
