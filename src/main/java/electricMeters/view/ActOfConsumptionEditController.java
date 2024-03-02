@@ -107,15 +107,15 @@ public class ActOfConsumptionEditController {
     }
 
     private JSONObject toMetersReadings(JSONObject json) {
-        JSONObject result = new JSONObject();
-        if (json.has("METERS_READINGS_ID")) {
-            result.put("ID", json.getInt("METERS_READINGS_ID"));
-        }
-        return result
+        JSONObject result = new JSONObject()
                 .put("YEAR", year.get())
                 .put("MONTH", month.getValue())
                 .put("METER_ID", json.getInt("METER_ID"))
                 .put("READINGS_VALUE", json.opt("READINGS_VALUE"));
+        if (json.has("METERS_READINGS_ID")) {
+            result.put("ID", json.getInt("METERS_READINGS_ID"));
+        }
+        return result;
     }
 
 }
