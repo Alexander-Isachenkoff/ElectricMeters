@@ -84,28 +84,34 @@ public class ActOfConsumptionEditController {
 
     @FXML
     private void onSave() {
-        List<JSONObject> jsonObjectsToUpdate = metersTable.getItems().stream()
-                .filter(json -> json.has("METERS_READINGS_ID"))
-                .map(json -> toMetersReadings(json).put("ID", json.getInt("METERS_READINGS_ID")))
-                .collect(Collectors.toList());
-
-        List<JSONObject> jsonObjectsToInsert = metersTable.getItems().stream()
-                .filter(json -> !json.has("METERS_READINGS_ID"))
+        List<JSONObject> dataToSave = metersTable.getItems().stream()
                 .map(this::toMetersReadings)
                 .collect(Collectors.toList());
 
-        for (JSONObject jsonObject : jsonObjectsToUpdate) {
-            DbHandler.getInstance().update(jsonObject, "METERS_READINGS");
+        List<JSONObject> dataToUpdate = dataToSave.stream()
+                .filter(json -> json.has("ID"))
+                .collect(Collectors.toList());
+
+        List<JSONObject> dataToInsert = dataToSave.stream()
+                .filter(json -> !json.has("ID"))
+                .collect(Collectors.toList());
+
+        if (!dataToUpdate.isEmpty()) {
+            DbHandler.getInstance().updateList(dataToUpdate, "METERS_READINGS");
         }
-        if (!jsonObjectsToInsert.isEmpty()) {
-            DbHandler.getInstance().insertList(new JSONArray(jsonObjectsToInsert), "METERS_READINGS");
+        if (!dataToInsert.isEmpty()) {
+            DbHandler.getInstance().insertList(new JSONArray(dataToInsert), "METERS_READINGS");
         }
 
         stage.close();
     }
 
     private JSONObject toMetersReadings(JSONObject json) {
-        return new JSONObject()
+        JSONObject result = new JSONObject();
+        if (json.has("METERS_READINGS_ID")) {
+            result.put("ID", json.getInt("METERS_READINGS_ID"));
+        }
+        return result
                 .put("YEAR", year.get())
                 .put("MONTH", month.getValue())
                 .put("METER_ID", json.getInt("METER_ID"))

@@ -13,7 +13,6 @@ class ProfileUtilTest {
     void readAndSave() {
         DbHandler.getInstance();
         Stream.of(new File("src/test/resources/electricMeters/testProfiles").listFiles())
-                //.parallel()
                 .forEach(ProfileUtil::readAndSave);
     }
     

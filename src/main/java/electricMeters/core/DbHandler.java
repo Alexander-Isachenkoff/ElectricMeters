@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class DbHandler {
 
@@ -113,17 +114,18 @@ public class DbHandler {
     }
 
     public void update(JSONObject json, String table) {
-        List<String> fields = json.keySet().stream().sorted().collect(Collectors.toList());
+        List<String> fields = new ArrayList<>(json.keySet());
         String setClause = fields.stream()
                 .map(key -> key + " = ?")
                 .collect(Collectors.joining(", "));
+
         String sql = String.format("UPDATE %s SET %s WHERE ID = ?", table, setClause);
+
         try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
-            int i;
-            for (i = 0; i < fields.size(); i++) {
+            for (int i = 0; i < fields.size(); i++) {
                 statement.setObject(i + 1, json.get(fields.get(i)));
             }
-            statement.setObject(i + 1, json.getInt("ID"));
+            statement.setObject(fields.size() + 1, json.getInt("ID"));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -131,34 +133,70 @@ public class DbHandler {
     }
 
     public void insertList(JSONArray jsonArray, String table) {
-        Set<String> fieldsSet = new HashSet<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            fieldsSet.addAll(jsonArray.getJSONObject(i).keySet());
-        }
-        List<String> fields = new ArrayList<>(fieldsSet);
-
-        String insertFields = fields.stream()
-                .map(key -> "'" + key + "'")
-                .collect(Collectors.joining(", "));
-        String insertParamsLine = fields.stream()
+        List<String> fields = IntStream.range(0, jsonArray.length())
+                .mapToObj(i -> jsonArray.getJSONObject(i).keySet())
+                .flatMap(Collection::stream)
+                .distinct()
+                .collect(Collectors.toList());
+        String insertFields = String.join(", ", fields);
+        String insertParams = fields.stream()
                 .map(key -> "?")
-                .collect(Collectors.joining(", ", "(", ")"));
-        String insertParamsClause = jsonArray.toList().stream()
-                .map(object -> insertParamsLine)
-                .collect(Collectors.joining(",\n"));
-        String sql = String.format("INSERT INTO %s (%s) VALUES %s", table, insertFields, insertParamsClause);
-
-        try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject json = jsonArray.getJSONObject(i);
-                for (int j = 0; j < fields.size(); j++) {
-                    String key = fields.get(j);
-                    int parameterIndex = i * fields.size() + j + 1;
-                    Object value = json.has(key) ? json.get(key) : null;
-                    statement.setObject(parameterIndex, value);
+                .collect(Collectors.joining(", "));
+        String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", table, insertFields, insertParams);
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        final int BATCH_SIZE = 100;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int k = 1; k <= jsonArray.length(); k++) {
+                JSONObject json = jsonArray.getJSONObject(k - 1);
+                for (int i = 0; i < fields.size(); i++) {
+                    statement.setObject(i + 1, json.opt(fields.get(i)));
+                }
+                statement.addBatch();
+                if (k % BATCH_SIZE == 0 || k == jsonArray.length()) {
+                    statement.executeBatch();
+                    connection.commit();
                 }
             }
-            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateList(List<JSONObject> jsonObjects, String table) {
+        List<String> fields = jsonObjects.stream()
+                .flatMap(json -> json.keySet().stream())
+                .distinct()
+                .collect(Collectors.toList());
+
+        String setClause = fields.stream()
+                .map(key -> key + " = ?")
+                .collect(Collectors.joining(", "));
+
+        String sql = String.format("UPDATE %s SET %s WHERE ID = ?", table, setClause);
+
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        final int BATCH_SIZE = 50;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int k = 1; k <= jsonObjects.size(); k++) {
+                JSONObject json = jsonObjects.get(k - 1);
+                for (int i = 0; i < fields.size(); i++) {
+                    statement.setObject(i + 1, json.opt(fields.get(i)));
+                }
+                statement.setObject(fields.size() + 1, json.getInt("ID"));
+                statement.addBatch();
+                if (k % BATCH_SIZE == 0 || k == jsonObjects.size()) {
+                    statement.executeBatch();
+                    connection.commit();
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
