@@ -95,7 +95,7 @@
     -fx-border-color: lightgray;
 }
 
-.table-view:focused .table-row-cell:filled:selected {
+.table-view .table-row-cell:filled:selected {
     -fx-background-color: rgb(204, 232, 255);
     -fx-table-cell-border-color: lightgray;
     -fx-border-color: SKYBLUE;
@@ -110,6 +110,21 @@
 
 .table-column {
     -fx-padding: 0 4 1 3;
+}
+
+.table-cell:selected {
+    -fx-background-color: rgb(166, 210, 255);
+    -fx-border-color: transparent;
+    -fx-background-insets: 0 0 1 0;
+}
+
+.editing-table-cell {
+    -fx-padding: -1 0 0 -1;
+
+}
+
+.editing-table-cell:selected {
+    -fx-padding: -1 0 0 -1;
 }
 
 .table-column .label {
@@ -145,13 +160,6 @@
     -fx-border-color: lightgray;
     -fx-border-insets: 0 0 0 -1;
     -fx-border-width: 0 0 2 1;
-}
-
-.table-cell:selected {
-    -fx-background-color: rgb(166, 210, 255);
-    -fx-border-color: transparent;
-    -fx-background-insets: 0 0 1 0;
-    -fx-padding: 0 3 1 3;
 }
 
 .table-view .table-row-cell .text {
@@ -202,17 +210,14 @@
     -fx-background-color: white;
     -fx-border-color: lightgray;
     -fx-border-width: 1;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
 }
 
 .text-field {
     -fx-highlight-fill: -highlight-color;
-}
-
-.combo-box {
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-    -fx-border-insets: 0;
 }
 
 .combo-box .text {
@@ -336,5 +341,15 @@
 
 .table-check-box .box {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-text-field {
+    -fx-border-color: transparent;
+    -fx-max-height: 21;
+    -fx-padding: 1 4;
+}
+
+.table-text-field:hover {
     -fx-border-color: transparent;
 }

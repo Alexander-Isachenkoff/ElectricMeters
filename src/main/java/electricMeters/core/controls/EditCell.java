@@ -3,7 +3,6 @@ package electricMeters.core.controls;
 import javafx.event.Event;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
 
 public class EditCell<S, T> extends TableCell<S, T> {
@@ -22,19 +21,14 @@ public class EditCell<S, T> extends TableCell<S, T> {
     // Text field for editing
     // TODO: allow this to be a plugable control.
     private final TextField textField = new TextField();
-    // Converter for converting the text in the text field to the user type, and vice-versa:
+
     private final StringConverter<T> converter;
 
     public EditCell(StringConverter<T> converter) {
+        textField.getStyleClass().add("table-text-field");
+
         this.converter = converter;
 
-        itemProperty().addListener((obx, oldItem, newItem) -> {
-            if (newItem == null) {
-                setText(null);
-            } else {
-                setText(converter.toString(newItem));
-            }
-        });
         setGraphic(textField);
         setContentDisplay(ContentDisplay.TEXT_ONLY);
 
@@ -44,27 +38,41 @@ public class EditCell<S, T> extends TableCell<S, T> {
                 commitEdit(this.converter.fromString(textField.getText()));
             }
         });
-        textField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        textField.setOnKeyTyped(event -> {
+            if (event.getCharacter().equals("\r")) {
+                commitEdit(converter.fromString(textField.getText()));
+                event.consume();
+                getTableView().getSelectionModel().clearAndSelect(getTableRow().getIndex() + 1, getTableColumn());
+            }
+        });
+        textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 textField.setText(converter.toString(getItem()));
                 cancelEdit();
                 event.consume();
             }
+            if (event.getCode() == KeyCode.UP) {
+                commitEdit(converter.fromString(textField.getText()));
+                event.consume();
+                getTableView().getSelectionModel().clearAndSelect(getTableRow().getIndex() - 1, getTableColumn());
+            }
+            if (event.getCode() == KeyCode.DOWN) {
+                commitEdit(converter.fromString(textField.getText()));
+                event.consume();
+                getTableView().getSelectionModel().clearAndSelect(getTableRow().getIndex() + 1, getTableColumn());
+            }
         });
     }
 
-    // set the text of the text field and display the graphic
     @Override
     public void startEdit() {
-        System.out.println("Start Editing");
-
         super.startEdit();
         textField.setText(converter.toString(getItem()));
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        getStyleClass().add("editing-table-cell");
         textField.requestFocus();
     }
 
-    // revert to text display
     @Override
     public void cancelEdit() {
         super.cancelEdit();
@@ -74,8 +82,6 @@ public class EditCell<S, T> extends TableCell<S, T> {
     // commits the edit. Update property if possible and revert to text display
     @Override
     public void commitEdit(T item) {
-        System.out.println("Commit Edit");
-
         // This block is necessary to support commit on losing focus, because the baked-in mechanism
         // sets our editing state to false before we can intercept the loss of focus.
         // The default commitEdit(...) method simply bails if we are not editing...
@@ -84,7 +90,7 @@ public class EditCell<S, T> extends TableCell<S, T> {
             if (table != null) {
                 TableColumn<S, T> column = getTableColumn();
                 TableColumn.CellEditEvent<S, T> event = new TableColumn.CellEditEvent<>(table,
-                        new TablePosition<S, T>(table, getIndex(), column),
+                        new TablePosition<>(table, getIndex(), column),
                         TableColumn.editCommitEvent(), item);
                 Event.fireEvent(column, event);
             }
