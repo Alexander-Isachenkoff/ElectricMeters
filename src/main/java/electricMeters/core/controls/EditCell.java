@@ -77,6 +77,7 @@ public class EditCell<S, T> extends TableCell<S, T> {
     public void cancelEdit() {
         super.cancelEdit();
         setContentDisplay(ContentDisplay.TEXT_ONLY);
+        getStyleClass().remove("editing-table-cell");
     }
 
     // commits the edit. Update property if possible and revert to text display
@@ -99,6 +100,7 @@ public class EditCell<S, T> extends TableCell<S, T> {
         super.commitEdit(item);
 
         setContentDisplay(ContentDisplay.TEXT_ONLY);
+        getStyleClass().remove("editing-table-cell");
     }
 
 }
