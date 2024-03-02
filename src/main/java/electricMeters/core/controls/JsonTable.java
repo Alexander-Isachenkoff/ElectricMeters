@@ -1,15 +1,20 @@
 package electricMeters.core.controls;
 
 import electricMeters.core.DbHandler;
+import electricMeters.core.UtilAlert;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import lombok.Getter;
@@ -42,6 +47,28 @@ public class JsonTable extends TableView<JSONObject> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         getSelectionModel().setCellSelectionEnabled(true);
         filter.addListener((observable, oldValue, newValue) -> updateVisibleItems());
+
+        this.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                TablePosition<JSONObject, ?> editingCell = getEditingCell();
+                if (e.getCode() == KeyCode.ENTER) { // commit should be performed implicitly via focusedProperty, but isn't
+                    if (editingCell != null) {
+                        e.consume();
+                    }
+                    return;
+                }
+
+                // switch to edit mode on keypress, but only if we aren't already in edit mode
+                if (editingCell == null) {
+                    if (e.getCode().isLetterKey() || e.getCode().isDigitKey()) {
+                        TablePosition<JSONObject, Object> focusedCellPosition = getFocusModel().getFocusedCell();
+                        edit(focusedCellPosition.getRow(), focusedCellPosition.getTableColumn());
+                    }
+                }
+
+            }
+        });
     }
 
     private static boolean hasValue(JSONObject json, String value) {
@@ -123,6 +150,18 @@ public class JsonTable extends TableView<JSONObject> {
                 }
             }
         }, 100);
+    }
+
+    public void deleteSelectedItemsWithConfirmation(String tableName) {
+        List<JSONObject> items = this.getSelectedItems();
+        if (!items.isEmpty()) {
+            if (UtilAlert.showDeleteConfirmation()) {
+                for (JSONObject item : items) {
+                    DbHandler.getInstance().delete(item.getInt("ID"), tableName);
+                }
+                this.reload();
+            }
+        }
     }
 
 }

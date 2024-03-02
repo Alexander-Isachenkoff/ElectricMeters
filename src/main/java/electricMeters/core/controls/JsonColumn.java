@@ -5,8 +5,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.util.converter.DateStringConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +15,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.TextStyle;
 import java.util.Date;
-import java.util.Locale;
 import java.util.function.Function;
 
 @Setter
@@ -36,9 +33,9 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
             Object value = jsonObject.has(field) ? dataType.dataConverter.apply(jsonObject.get(field)) : "";
             return new SimpleObjectProperty<>(value);
         });
-        this.setCellFactory(param -> new TableCell<JSONObject, Object>() {
+        this.setCellFactory(param -> new EditCell<JSONObject, Object>(EditCell.DEFAULT_CONVERTER) {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            public void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
                 if (!empty) {
                     // так пишут только говнокодеры
@@ -67,6 +64,15 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
                 boolean rowSelected = getTableView().getSelectionModel().getSelectedIndices().contains(getTableRow().getIndex());
                 getTableRow().pseudoClassStateChanged(PseudoClass.getPseudoClass("selected"), rowSelected);
             }
+
+        });
+        this.setOnEditCommit(event -> {
+            TableView<JSONObject> tableView = event.getTableView();
+            tableView
+                    .getItems()
+                    .get(event.getTablePosition().getRow())
+                    .put(field, event.getNewValue());
+            tableView.refresh();
         });
         styleProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.endsWith(getAlignmentStyleString(this.alignment))) {
@@ -96,7 +102,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
                 object -> DateUtil.toLocalDateTime(object.toString()),
                 object -> DateUtil.toString((LocalDateTime) object)
         ),
-        MONTH(object -> Month.of((Integer) object).getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
+        MONTH(object -> DateUtil.intToMonthName((Integer) object));
 
         private final Function<Object, Object> dataConverter;
         private final Function<Object, String> stringConverter;

@@ -105,15 +105,7 @@ public class ProfilesController {
     
     @FXML
     private void onProfileDelete() {
-        List<JSONObject> items = mainTable.getSelectedItems();
-        if (!items.isEmpty()) {
-            if (UtilAlert.showDeleteConfirmation()) {
-                for (JSONObject item : items) {
-                    DbHandler.getInstance().delete(item.getInt("ID"), "PROFILES");
-                }
-                mainTable.reload();
-            }
-        }
+        mainTable.deleteSelectedItemsWithConfirmation("PROFILES");
     }
     
 }

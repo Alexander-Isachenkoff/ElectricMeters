@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import electricMeters.core.controls.JsonColumn?>
 <?import electricMeters.core.controls.JsonTable?>
-<?import electricMeters.core.controls.TableHeader?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -10,9 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<?import electricMeters.core.controls.JsonColumn?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.ActOfConsumptionEditController">
    <children>
       <GridPane hgap="4.0" vgap="8.0">
         <columnConstraints>
@@ -27,28 +26,24 @@
          <children>
             <Label text="Год" />
             <Label text="Месяц" GridPane.rowIndex="1" />
-            <TextField editable="false" prefWidth="100.0" text="2023" GridPane.columnIndex="2" />
-            <TextField editable="false" prefWidth="100.0" text="Январь" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="yearField" editable="false" prefWidth="100.0" text="2023" GridPane.columnIndex="2" />
+            <TextField fx:id="monthField" editable="false" prefWidth="100.0" text="Январь" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <VBox VBox.vgrow="ALWAYS">
-         <children>
-            <TableHeader title="Потребители" />
-            <JsonTable VBox.vgrow="ALWAYS">
-                <columns>
-                    <JsonColumn alignment="CENTER_RIGHT" field="NPP" prefWidth="50.0" text="№ п/п" />
-                    <JsonColumn alignment="CENTER_LEFT" field="CONSUMER" prefWidth="250.0" text="Место установки счетчика" />
-                    <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="120.0" text="Номер счетчика" />
-                    <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" prefWidth="50.0" text="Код точки" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Настоящие показания счетчика" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Предыдущие показания счетчика" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Разность показаний счетчика" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Рассчетный коэффициент" />
-                    <JsonColumn alignment="CENTER_RIGHT" field="" prefWidth="150.0" text="Рассчет электроэнергии по счетчику" />
-                </columns>
-            </JsonTable>
-         </children>
-      </VBox>
+      <JsonTable fx:id="metersTable" sqlFile="ACT_CONSUMPTION_STRS_2.sql" VBox.vgrow="ALWAYS">
+          <columns>
+              <JsonColumn alignment="CENTER_RIGHT" field="NPP" prefWidth="50.0" text="№ п/п" />
+              <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="250.0" text="Место установки счетчика" />
+              <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" text="Номер счетчика" />
+              <JsonColumn alignment="CENTER_LEFT" field="" prefWidth="45.0" text="Код точки" />
+              <JsonColumn alignment="CENTER_RIGHT" field="READINGS_VALUE" prefWidth="135.0" text="Настоящие показания счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" field="PREV_READINGS" prefWidth="150" text="Предыдущие показания счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" field="READINGS_DIFFERENCE" prefWidth="150" text="Разность показаний счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" field="CALC_COEFFICIENT" prefWidth="100.0" text="Рассчетный коэффициент" />
+              <JsonColumn alignment="CENTER_RIGHT" field="CALC_BY_METER" prefWidth="160.0" text="Рассчет электроэнергии по счетчику" />
+          </columns>
+      </JsonTable>
+      <Button mnemonicParsing="false" onAction="#onSave" text="Сохранить" />
    </children>
    <padding>
       <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />

@@ -112,6 +112,24 @@ public class DbHandler {
         }
     }
 
+    public void update(JSONObject json, String table) {
+        List<String> fields = json.keySet().stream().sorted().collect(Collectors.toList());
+        String setClause = fields.stream()
+                .map(key -> key + " = ?")
+                .collect(Collectors.joining(", "));
+        String sql = String.format("UPDATE %s SET %s WHERE ID = ?", table, setClause);
+        try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
+            int i;
+            for (i = 0; i < fields.size(); i++) {
+                statement.setObject(i + 1, json.get(fields.get(i)));
+            }
+            statement.setObject(i + 1, json.getInt("ID"));
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void insertList(JSONArray jsonArray, String table) {
         Set<String> fieldsSet = new HashSet<>();
         for (int i = 0; i < jsonArray.length(); i++) {
