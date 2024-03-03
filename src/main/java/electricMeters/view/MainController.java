@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class MainController {
     @FXML
     private void initialize() {
         InputStream in = Main.class.getResourceAsStream("menu/menu.json");
-        String string = new BufferedReader(new InputStreamReader(in)).lines()
+        String string = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8)).lines()
                 .collect(Collectors.joining("\n"));
         JSONObject menuJson = new JSONObject(string);
         
