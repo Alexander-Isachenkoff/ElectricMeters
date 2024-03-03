@@ -20,8 +20,16 @@ public class DateUtil {
         return dateTime.format(VIEW_DATE_TIME_FORMAT);
     }
 
-    public static String intToMonthName(int month) {
-        return Month.of(month).getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault());
+    public static String monthName(int month) {
+        return monthName(Month.of(month));
+    }
+
+    public static String monthName(Month month) {
+        return capitalize(month.getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
+    }
+
+    public static String capitalize(String string) {
+        return Character.toUpperCase(string.charAt(0)) + string.substring(1);
     }
     
 }

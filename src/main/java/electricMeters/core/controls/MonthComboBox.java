@@ -1,12 +1,11 @@
 package electricMeters.core.controls;
 
+import electricMeters.util.DateUtil;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.format.TextStyle;
-import java.util.Locale;
 
 public class MonthComboBox extends ComboBox<Month> {
     
@@ -17,7 +16,7 @@ public class MonthComboBox extends ComboBox<Month> {
             protected void updateItem(Month item, boolean empty) {
                 super.updateItem(item, empty);
                 if (!empty) {
-                    setText(item.getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
+                    setText(DateUtil.monthName(item));
                 } else {
                     setText("");
                 }

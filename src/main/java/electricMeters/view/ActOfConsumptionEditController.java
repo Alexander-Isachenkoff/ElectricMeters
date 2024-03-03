@@ -60,7 +60,7 @@ public class ActOfConsumptionEditController {
                 if (object == null) {
                     return "";
                 } else {
-                    return DateUtil.intToMonthName(object);
+                    return DateUtil.monthName(object);
                 }
             }
 

@@ -102,7 +102,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
                 object -> DateUtil.toLocalDateTime(object.toString()),
                 object -> DateUtil.toString((LocalDateTime) object)
         ),
-        MONTH(object -> DateUtil.intToMonthName((Integer) object));
+        MONTH(object -> DateUtil.monthName((Integer) object));
 
         private final Function<Object, Object> dataConverter;
         private final Function<Object, String> stringConverter;
