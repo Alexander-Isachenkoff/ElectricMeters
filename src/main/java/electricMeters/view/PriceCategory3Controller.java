@@ -1,9 +1,9 @@
 package electricMeters.view;
 
-import electricMeters.service.PowerRateParser;
 import electricMeters.core.controls.JsonComboBox;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.controls.MonthComboBox;
+import electricMeters.service.PowerRateParser;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
@@ -11,7 +11,6 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class PriceCategory3Controller {
@@ -28,7 +27,7 @@ public class PriceCategory3Controller {
 
     @FXML
     private void initialize() {
-        yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().collect(Collectors.toList()));
+        yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().toList());
         yearCmb.getSelectionModel().select((Integer) LocalDate.now().getYear());
 
         rateTypeCmb.reload();

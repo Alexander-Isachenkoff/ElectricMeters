@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TariffsController {
@@ -25,7 +24,7 @@ public class TariffsController {
 
     @FXML
     private void initialize() {
-        yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().collect(Collectors.toList()));
+        yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().toList());
 
         rateTypeCmb.reload();
         rateTypeCmb.getSelectionModel().selectLast();

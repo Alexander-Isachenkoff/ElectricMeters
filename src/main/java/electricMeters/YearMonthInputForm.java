@@ -14,7 +14,6 @@ import lombok.Getter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class YearMonthInputForm {
@@ -46,7 +45,7 @@ public class YearMonthInputForm {
         stage.sizeToScene();
 
         int year = LocalDate.now().getYear();
-        yearCmb.getItems().setAll(IntStream.rangeClosed(year - 10, year).boxed().collect(Collectors.toList()));
+        yearCmb.getItems().setAll(IntStream.rangeClosed(year - 10, year).boxed().toList());
         yearCmb.getSelectionModel().select((Integer) year);
     }
 

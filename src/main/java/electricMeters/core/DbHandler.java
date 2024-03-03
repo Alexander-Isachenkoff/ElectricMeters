@@ -11,7 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -88,7 +90,7 @@ public class DbHandler {
     }
 
     public int insert(JSONObject json, String table) {
-        List<String> fields = json.keySet().stream().sorted().collect(Collectors.toList());
+        List<String> fields = json.keySet().stream().sorted().toList();
         String insertFields = fields.stream()
                 .map(key -> "'" + key + "'")
                 .collect(Collectors.joining(", "));
@@ -137,7 +139,7 @@ public class DbHandler {
                 .mapToObj(i -> jsonArray.getJSONObject(i).keySet())
                 .flatMap(Collection::stream)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
         String insertFields = String.join(", ", fields);
         String insertParams = fields.stream()
                 .map(key -> "?")
@@ -170,7 +172,7 @@ public class DbHandler {
         List<String> fields = jsonObjects.stream()
                 .flatMap(json -> json.keySet().stream())
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
 
         String setClause = fields.stream()
                 .map(key -> key + " = ?")

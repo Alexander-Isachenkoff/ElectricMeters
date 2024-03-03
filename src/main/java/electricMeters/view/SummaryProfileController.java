@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SummaryProfileController {
@@ -21,7 +20,7 @@ public class SummaryProfileController {
     @FXML
     private void initialize() {
         monthCmb.getSelectionModel().selectFirst();
-        yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().collect(Collectors.toList()));
+        yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().toList());
         yearCmb.getSelectionModel().select((Integer) LocalDate.now().getYear());
         onApply();
     }

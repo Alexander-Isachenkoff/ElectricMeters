@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ActOfConsumptionEditController {
 
@@ -86,15 +85,15 @@ public class ActOfConsumptionEditController {
     private void onSave() {
         List<JSONObject> dataToSave = metersTable.getItems().stream()
                 .map(this::toMetersReadings)
-                .collect(Collectors.toList());
+                .toList();
 
         List<JSONObject> dataToUpdate = dataToSave.stream()
                 .filter(json -> json.has("ID"))
-                .collect(Collectors.toList());
+                .toList();
 
         List<JSONObject> dataToInsert = dataToSave.stream()
                 .filter(json -> !json.has("ID"))
-                .collect(Collectors.toList());
+                .toList();
 
         if (!dataToUpdate.isEmpty()) {
             DbHandler.getInstance().updateList(dataToUpdate, "METERS_READINGS");

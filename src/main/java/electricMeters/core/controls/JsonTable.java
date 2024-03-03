@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class JsonTable extends TableView<JSONObject> {
 
@@ -79,7 +78,7 @@ public class JsonTable extends TableView<JSONObject> {
     private void updateVisibleItems() {
         List<JSONObject> filteredItems = allItems.stream()
                 .filter(json -> hasValue(json, filter.getValue()))
-                .collect(Collectors.toList());
+                .toList();
         getItems().setAll(filteredItems);
     }
 
@@ -125,7 +124,7 @@ public class JsonTable extends TableView<JSONObject> {
     }
 
     public List<JsonColumn> getJsonColumns() {
-        return getColumns().stream().map(col -> (JsonColumn) col).collect(Collectors.toList());
+        return getColumns().stream().map(col -> (JsonColumn) col).toList();
     }
 
     private void hideProgress() {
