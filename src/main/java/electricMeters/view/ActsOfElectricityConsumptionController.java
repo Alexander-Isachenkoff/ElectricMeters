@@ -2,8 +2,11 @@ package electricMeters.view;
 
 import electricMeters.YearMonthInputForm;
 import electricMeters.core.controls.JsonTable;
+import electricMeters.report.ActOfConsumptionReport;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import org.json.JSONObject;
 
 public class ActsOfElectricityConsumptionController {
@@ -15,6 +18,12 @@ public class ActsOfElectricityConsumptionController {
 
     @FXML
     private void initialize() {
+        MenuItem print = new MenuItem("Печать");
+        print.setOnAction(actionEvent -> {
+            JSONObject selectedItem = actsTable.getSelectedItem();
+            ActOfConsumptionReport.createAndWrite(selectedItem.getInt("YEAR"), selectedItem.getInt("MONTH"));
+        });
+        actsTable.setContextMenu(new ContextMenu(print));
         actsTable.addSelectedListener(jsonObject -> {
             if (jsonObject != null) {
                 actStringsTable.setParams(jsonObject.get("YEAR"), jsonObject.get("MONTH"));
