@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.converter.DateStringConverter;
@@ -45,6 +46,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
                         checkBox.setDisable(true);
                         checkBox.setSelected(!item.toString().isEmpty() && Integer.parseInt(item.toString()) == 1);
                         setGraphic(checkBox);
+                        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                     } else {
                         if (!String.valueOf(item).isEmpty()) {
                             String text = dataType.stringConverter.apply(item);
