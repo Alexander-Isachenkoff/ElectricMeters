@@ -36,7 +36,7 @@
               <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="250.0" text="Место установки счетчика" />
               <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" text="Номер счетчика" />
               <JsonColumn alignment="CENTER_LEFT" field="" prefWidth="45.0" text="Код точки" />
-              <JsonColumn alignment="CENTER_RIGHT" field="READINGS_VALUE" prefWidth="135.0" text="Настоящие показания счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" field="READINGS_VALUE" editable="true" mask="REAL" prefWidth="135.0" text="Настоящие показания счетчика" />
               <JsonColumn alignment="CENTER_RIGHT" field="PREV_READINGS" prefWidth="150" text="Предыдущие показания счетчика" />
               <JsonColumn alignment="CENTER_RIGHT" field="READINGS_DIFFERENCE" prefWidth="150" text="Разность показаний счетчика" />
               <JsonColumn alignment="CENTER_RIGHT" field="CALC_COEFFICIENT" prefWidth="100.0" text="Рассчетный коэффициент" />

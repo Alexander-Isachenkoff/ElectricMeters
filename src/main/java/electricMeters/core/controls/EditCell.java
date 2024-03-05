@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.util.StringConverter;
+import lombok.RequiredArgsConstructor;
 
 public class EditCell<S, T> extends TableCell<S, T> {
 
@@ -18,20 +19,29 @@ public class EditCell<S, T> extends TableCell<S, T> {
             return string;
         }
     };
+
     // Text field for editing
     // TODO: allow this to be a plugable control.
     private final TextField textField = new TextField();
 
     private final StringConverter<T> converter;
+    private final Mask mask;
 
-    public EditCell(StringConverter<T> converter) {
+    public EditCell(StringConverter<T> converter, Mask mask) {
         textField.getStyleClass().add("table-text-field");
 
+        this.mask = mask;
         this.converter = converter;
 
         setGraphic(textField);
         setContentDisplay(ContentDisplay.TEXT_ONLY);
 
+        textField.setTextFormatter(new TextFormatter<>(change -> {
+            if (EditCell.this.mask != null && EditCell.this.mask.matches(change.getControlNewText())) {
+                return change;
+            }
+            return null;
+        }));
         textField.setOnAction(evt -> commitEdit(this.converter.fromString(textField.getText())));
         textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (!isNowFocused) {
@@ -94,6 +104,18 @@ public class EditCell<S, T> extends TableCell<S, T> {
 
         setContentDisplay(ContentDisplay.TEXT_ONLY);
         getStyleClass().remove("editing-table-cell");
+    }
+
+    @RequiredArgsConstructor
+    public enum Mask {
+        INTEGER("\\d*"),
+        REAL("\\d*\\.?\\d*");
+
+        private final String pattern;
+
+        boolean matches(String string) {
+            return string.matches(pattern);
+        }
     }
 
 }

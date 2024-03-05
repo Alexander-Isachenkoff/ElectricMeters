@@ -27,14 +27,16 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
     private Pos alignment;
     private DataType dataType = DataType.DEFAULT;
     private DisplayType displayType = DisplayType.DEFAULT;
+    private EditCell.Mask mask;
 
     public JsonColumn() {
+        this.setEditable(false);
         this.setCellValueFactory(param -> {
             JSONObject jsonObject = param.getValue();
             Object value = jsonObject.has(field) ? dataType.dataConverter.apply(jsonObject.get(field)) : "";
             return new SimpleObjectProperty<>(value);
         });
-        this.setCellFactory(param -> new EditCell<JSONObject, Object>(EditCell.DEFAULT_CONVERTER) {
+        this.setCellFactory(param -> new EditCell<>(EditCell.DEFAULT_CONVERTER, mask) {
             @Override
             public void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
