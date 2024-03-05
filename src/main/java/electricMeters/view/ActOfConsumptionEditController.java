@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.StringConverter;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,8 +33,9 @@ public class ActOfConsumptionEditController {
     @FXML
     private JsonTable metersTable;
     private TextFormatter<Integer> month;
+    private JsonTable tableToReload;
 
-    public static void show(int year, int month) {
+    static void show(int year, int month, JsonTable tableToReload, Window owner) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/act-of-electricity-consumption-edit.fxml"));
         Parent root;
         try {
@@ -43,7 +45,8 @@ public class ActOfConsumptionEditController {
         }
         ActOfConsumptionEditController controller = loader.getController();
         controller.stage.setScene(new Scene(root));
-        controller.init(year, month);
+        controller.stage.initOwner(owner);
+        controller.init(year, month, tableToReload);
         controller.stage.show();
     }
 
@@ -54,7 +57,7 @@ public class ActOfConsumptionEditController {
         stage.initModality(Modality.WINDOW_MODAL);
 
         yearField.textProperty().bind(year.asString());
-        month = new TextFormatter<>(new StringConverter<Integer>() {
+        month = new TextFormatter<>(new StringConverter<>() {
             @Override
             public String toString(Integer object) {
                 if (object == null) {
@@ -74,7 +77,8 @@ public class ActOfConsumptionEditController {
         metersTable.setEditable(true);
     }
 
-    private void init(int year, int month) {
+    private void init(int year, int month, JsonTable tableToReload) {
+        this.tableToReload = tableToReload;
         this.year.set(year);
         this.month.setValue(month);
         metersTable.setParams(year, month, year, month);
@@ -102,6 +106,7 @@ public class ActOfConsumptionEditController {
             DbHandler.getInstance().insertList(new JSONArray(dataToInsert), "METERS_READINGS");
         }
 
+        tableToReload.reloadFocused();
         stage.close();
     }
 

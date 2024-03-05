@@ -40,14 +40,14 @@ public class ActsOfElectricityConsumptionController {
         YearMonthInputForm form = YearMonthInputForm.instance("Создание акта расхода электроэнергии");
         ButtonType result = form.showAndWait();
         if (result == ButtonType.OK) {
-            ActOfConsumptionEditController.show(form.getYear(), form.getMonth().getValue());
+            ActOfConsumptionEditController.show(form.getYear(), form.getMonth().getValue(), actsTable, actsTable.getScene().getWindow());
         }
     }
 
     @FXML
     private void onEditAct() {
         JSONObject item = actsTable.getSelectedItem();
-        ActOfConsumptionEditController.show(item.getInt("YEAR"), item.getInt("MONTH"));
+        ActOfConsumptionEditController.show(item.getInt("YEAR"), item.getInt("MONTH"), actsTable, actsTable.getScene().getWindow());
     }
 
     @FXML

@@ -6,15 +6,12 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import lombok.Getter;
@@ -47,25 +44,14 @@ public class JsonTable extends TableView<JSONObject> {
         getSelectionModel().setCellSelectionEnabled(true);
         filter.addListener((observable, oldValue, newValue) -> updateVisibleItems());
 
-        this.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent e) {
-                TablePosition<JSONObject, ?> editingCell = getEditingCell();
-                if (e.getCode() == KeyCode.ENTER) { // commit should be performed implicitly via focusedProperty, but isn't
-                    if (editingCell != null) {
-                        e.consume();
-                    }
-                    return;
+        this.setOnKeyPressed(e -> {
+            TablePosition<JSONObject, ?> editingCell = getEditingCell();
+            // switch to edit mode on keypress, but only if we aren't already in edit mode
+            if (editingCell == null) {
+                if (e.getCode().isLetterKey() || e.getCode().isDigitKey()) {
+                    TablePosition<JSONObject, ?> focusedCellPosition = getFocusModel().getFocusedCell();
+                    edit(focusedCellPosition.getRow(), focusedCellPosition.getTableColumn());
                 }
-
-                // switch to edit mode on keypress, but only if we aren't already in edit mode
-                if (editingCell == null) {
-                    if (e.getCode().isLetterKey() || e.getCode().isDigitKey()) {
-                        TablePosition<JSONObject, Object> focusedCellPosition = getFocusModel().getFocusedCell();
-                        edit(focusedCellPosition.getRow(), focusedCellPosition.getTableColumn());
-                    }
-                }
-
             }
         });
     }
@@ -86,7 +72,24 @@ public class JsonTable extends TableView<JSONObject> {
         return filter;
     }
 
+    public void reloadFocused() {
+        int id = getSelectedItem().getInt("ID");
+        reloadFocused(id);
+    }
+
+    public void reloadFocused(int id) {
+        reload(() -> {
+            getItems().stream()
+                    .filter(json -> json.get("ID").equals(id)).findFirst()
+                    .ifPresent(json -> getSelectionModel().select(json));
+        });
+    }
+
     public void reload() {
+        reload(() -> {});
+    }
+
+    public void reload(Runnable onReload) {
         showProgress();
         new Thread(() -> {
             isLoading = true;
@@ -99,6 +102,7 @@ public class JsonTable extends TableView<JSONObject> {
             Platform.runLater(() -> {
                 updateVisibleItems();
                 hideProgress();
+                onReload.run();
             });
         }).start();
     }

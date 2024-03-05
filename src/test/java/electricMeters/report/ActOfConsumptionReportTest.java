@@ -8,7 +8,7 @@ class ActOfConsumptionReportTest {
 
     @Test
     void createAndWrite() {
-        ActOfConsumptionReport.createAndWrite(2023, 11);
+        ActOfConsumptionReport.createAndWrite(2023, 12);
     }
 
 }

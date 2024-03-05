@@ -7,7 +7,7 @@ import javafx.util.StringConverter;
 
 public class EditCell<S, T> extends TableCell<S, T> {
 
-    public static final StringConverter<Object> DEFAULT_CONVERTER = new StringConverter<Object>() {
+    public static final StringConverter<Object> DEFAULT_CONVERTER = new StringConverter<>() {
         @Override
         public String toString(Object object) {
             return String.valueOf(object);
@@ -38,13 +38,6 @@ public class EditCell<S, T> extends TableCell<S, T> {
                 commitEdit(this.converter.fromString(textField.getText()));
             }
         });
-        textField.setOnKeyTyped(event -> {
-            if (event.getCharacter().equals("\r")) {
-                commitEdit(converter.fromString(textField.getText()));
-                event.consume();
-                getTableView().getSelectionModel().clearAndSelect(getTableRow().getIndex() + 1, getTableColumn());
-            }
-        });
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 textField.setText(converter.toString(getItem()));
@@ -56,7 +49,7 @@ public class EditCell<S, T> extends TableCell<S, T> {
                 event.consume();
                 getTableView().getSelectionModel().clearAndSelect(getTableRow().getIndex() - 1, getTableColumn());
             }
-            if (event.getCode() == KeyCode.DOWN) {
+            if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.ENTER) {
                 commitEdit(converter.fromString(textField.getText()));
                 event.consume();
                 getTableView().getSelectionModel().clearAndSelect(getTableRow().getIndex() + 1, getTableColumn());
