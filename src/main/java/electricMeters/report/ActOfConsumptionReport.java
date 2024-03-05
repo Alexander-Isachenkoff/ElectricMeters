@@ -34,7 +34,7 @@ public class ActOfConsumptionReport {
     }
     
     public static JSONObject createReport(int year, int month) {
-        List<JSONObject> actStrings = DbHandler.getInstance().runSqlSelectFile("ACT_CONSUMPTION_STRS_2.sql", year, month, year, month);
+        List<JSONObject> actStrings = DbHandler.getInstance().runSqlSelectFile("ACT_CONSUMPTION_STRS.sql", year, month, year, month);
         return new JSONObject()
                 .put("year", year)
                 .put("month", month)

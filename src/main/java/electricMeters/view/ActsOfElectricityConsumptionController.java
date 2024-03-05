@@ -26,9 +26,9 @@ public class ActsOfElectricityConsumptionController {
         actsTable.setContextMenu(new ContextMenu(print));
         actsTable.addSelectedListener(jsonObject -> {
             if (jsonObject != null) {
-                actStringsTable.setParams(jsonObject.get("YEAR"), jsonObject.get("MONTH"));
+                actStringsTable.setParams(jsonObject.get("YEAR"), jsonObject.get("MONTH"), jsonObject.get("YEAR"), jsonObject.get("MONTH"));
             } else {
-                actStringsTable.setParams(-1, -1);
+                actStringsTable.setParams(-1, -1, -1, -1);
             }
             actStringsTable.reload();
         });

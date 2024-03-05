@@ -92,17 +92,17 @@
             </Label>
          </children>
       </GridPane>
-      <JsonTable fx:id="metersTable" sqlFile="ACT_CONSUMPTION_STRS_2.sql" VBox.vgrow="ALWAYS">
+      <JsonTable fx:id="metersTable" sqlFile="ACT_CONSUMPTION_STRS.sql" VBox.vgrow="ALWAYS">
           <columns>
               <JsonColumn alignment="CENTER_RIGHT" field="NPP" prefWidth="50.0" text="№ п/п" />
               <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="250.0" text="Место установки счетчика" />
               <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" text="Номер счетчика" />
               <JsonColumn alignment="CENTER_LEFT" field="" prefWidth="45.0" text="Код точки" />
-              <JsonColumn alignment="CENTER_RIGHT" editable="true" field="READINGS_VALUE" mask="REAL" prefWidth="135.0" text="Настоящие показания счетчика" />
-              <JsonColumn alignment="CENTER_RIGHT" field="PREV_READINGS" prefWidth="150" text="Предыдущие показания счетчика" />
-              <JsonColumn alignment="CENTER_RIGHT" field="READINGS_DIFFERENCE" prefWidth="150" text="Разность показаний счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" editable="true" field="READINGS_VALUE" mask="REAL" prefWidth="135.0" text="Настоящие показания счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="PREV_READINGS" prefWidth="150" text="Предыдущие показания счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="READINGS_DIFFERENCE" prefWidth="150" text="Разность показаний счетчика" />
               <JsonColumn alignment="CENTER_RIGHT" field="CALC_COEFFICIENT" prefWidth="100.0" text="Рассчетный коэффициент" />
-              <JsonColumn alignment="CENTER_RIGHT" field="CALC_BY_METER" prefWidth="160.0" text="Рассчет электроэнергии по счетчику" />
+              <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="CALC_BY_METER" prefWidth="160.0" text="Рассчет электроэнергии по счетчику" />
           </columns>
       </JsonTable>
       <HBox alignment="TOP_RIGHT" spacing="12.0">

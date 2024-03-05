@@ -1,3 +1,4 @@
+--params: year, month, year, month
 select
     ROW_NUMBER() OVER (ORDER BY REF_METERS.ID) as NPP,
     REF_METERS.ID as METER_ID,
