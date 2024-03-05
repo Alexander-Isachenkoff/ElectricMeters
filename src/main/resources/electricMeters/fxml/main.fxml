@@ -29,7 +29,7 @@
           </TitledPane>
          </children>
       </VBox>
-      <StackPane fx:id="contentPane" style="-fx-background-color: rgb(242,243,248);" HBox.hgrow="ALWAYS">
+      <StackPane fx:id="contentPane" HBox.hgrow="ALWAYS">
          <padding>
             <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
          </padding>

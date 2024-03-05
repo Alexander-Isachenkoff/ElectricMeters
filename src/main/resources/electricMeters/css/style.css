@@ -2,6 +2,10 @@
     -highlight-color: rgb(55, 153, 253);
 }
 
+.root {
+    -fx-background-color: rgb(242,243,248);
+}
+
 .button {
     -fx-background-color: -highlight-color;
     -fx-opacity: 1;
