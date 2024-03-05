@@ -27,6 +27,7 @@ import java.io.IOException;
 
 public class TableHeader extends HBox {
 
+    private static final int SEARCH_FIELD_WIDTH = 150;
     private final BooleanProperty addEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty editEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty deleteEnabled = new SimpleBooleanProperty(false);
@@ -98,12 +99,13 @@ public class TableHeader extends HBox {
     private void onSearch() {
         boolean visible = !searchField.isVisible();
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(0), new KeyValue(searchField.prefWidthProperty(), visible ? 0 : 120)),
-                new KeyFrame(Duration.millis(100), new KeyValue(searchField.prefWidthProperty(), visible ? 120 : 0))
+                new KeyFrame(Duration.millis(0), new KeyValue(searchField.prefWidthProperty(), visible ? 0 : SEARCH_FIELD_WIDTH)),
+                new KeyFrame(Duration.millis(100), new KeyValue(searchField.prefWidthProperty(), visible ? SEARCH_FIELD_WIDTH : 0))
         );
         if (visible) {
             searchField.setVisible(true);
             searchField.setManaged(true);
+            searchField.requestFocus();
         } else {
             timeline.setOnFinished(event -> {
                 searchField.setVisible(false);

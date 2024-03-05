@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="4.0" styleClass="table-header" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="4.0" styleClass="table-header" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
      <Label fx:id="titleLabel" text="Заголовок" textFill="#3e6ca4">
       <font>
          <Font name="System Bold" size="16.0" />
@@ -47,7 +47,7 @@
             </ImageView>
          </graphic>
         </Button>
-      <TextField fx:id="searchField" maxWidth="120.0" prefHeight="22.0" style="-fx-padding: 1 4 2 4;" />
+      <TextField fx:id="searchField" maxWidth="150.0" prefHeight="22.0" promptText="Быстрый поиск" style="-fx-padding: 1 4 2 4;" />
       <Button onAction="#onSearch" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
