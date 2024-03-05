@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import electricMeters.core.controls.MonthComboBox?>
-<VBox prefWidth="350" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.YearMonthInputForm">
+<VBox prefWidth="350" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.YearMonthInputForm">
    <children>
       <GridPane hgap="8.0" vgap="8.0" VBox.vgrow="ALWAYS">
         <columnConstraints>

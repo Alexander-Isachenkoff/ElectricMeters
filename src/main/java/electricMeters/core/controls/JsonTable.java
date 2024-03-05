@@ -7,10 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TablePosition;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -38,6 +35,10 @@ public class JsonTable extends TableView<JSONObject> {
     private boolean isLoading;
     private List<JSONObject> allItems = new ArrayList<>();
 
+    @Getter
+    @Setter
+    private Consumer<JSONObject> onDoubleClick = json -> {};
+
     public JsonTable() {
         progressIndicator.setMaxSize(60, 60);
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -53,6 +54,17 @@ public class JsonTable extends TableView<JSONObject> {
                     edit(focusedCellPosition.getRow(), focusedCellPosition.getTableColumn());
                 }
             }
+        });
+
+        this.setRowFactory(table -> {
+            TableRow<JSONObject> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    JSONObject jsonObject = row.getItem();
+                    onDoubleClick.accept(jsonObject);
+                }
+            });
+            return row;
         });
     }
 

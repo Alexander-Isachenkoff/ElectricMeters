@@ -32,6 +32,7 @@ public class ActsOfElectricityConsumptionController {
             }
             actStringsTable.reload();
         });
+        actsTable.setOnDoubleClick(this::edit);
         actsTable.reload();
     }
 
@@ -47,7 +48,11 @@ public class ActsOfElectricityConsumptionController {
     @FXML
     private void onEditAct() {
         JSONObject item = actsTable.getSelectedItem();
-        ActOfConsumptionEditController.show(item.getInt("YEAR"), item.getInt("MONTH"), actsTable, actsTable.getScene().getWindow());
+        edit(item);
+    }
+
+    private void edit(JSONObject jsonObject) {
+        ActOfConsumptionEditController.show(jsonObject.getInt("YEAR"), jsonObject.getInt("MONTH"), actsTable, actsTable.getScene().getWindow());
     }
 
     @FXML
