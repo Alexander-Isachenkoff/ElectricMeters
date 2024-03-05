@@ -357,3 +357,11 @@
 .table-text-field:hover {
     -fx-border-color: transparent;
 }
+
+.text-error .text {
+    -fx-fill: #dc3545;
+}
+
+.text-success .text {
+    -fx-fill: #198754;
+}

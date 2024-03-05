@@ -3,6 +3,7 @@ package electricMeters.view;
 import electricMeters.CompanyData;
 import electricMeters.core.controls.JsonComboBox;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 
@@ -26,9 +27,12 @@ public class CompanyController {
     private JsonComboBox rateTypeCmb;
     @FXML
     private JsonComboBox voltageLevelCmb;
+    @FXML
+    private Label stateLabel;
 
     @FXML
     private void initialize() {
+        stateLabel.setText("");
         rateTypeCmb.reload();
         voltageLevelCmb.reload();
         loadData();
@@ -45,12 +49,35 @@ public class CompanyController {
         positionField.setText(companyData.getString("POSITION"));
         rateTypeCmb.selectValueById(companyData.optInt("RATE_TYPE_ID"));
         voltageLevelCmb.selectValueById(companyData.optInt("VOLTAGE_LEVEL_ID"));
+        
+        nameField.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        contractNumField.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        addressField.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        phoneField1.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        phoneField2.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        responsiblePersonField.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        positionField.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        rateTypeCmb.valueProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+        voltageLevelCmb.valueProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
+    }
+    
+    private void setStateNotSaved() {
+        stateLabel.setText("Изменения не сохранены");
+        stateLabel.getStyleClass().remove("text-success");
+        stateLabel.getStyleClass().add("text-error");
+    }
+    
+    private void setStateSaved() {
+        stateLabel.setText("Изменения сохранены");
+        stateLabel.getStyleClass().remove("text-error");
+        stateLabel.getStyleClass().add("text-success");
     }
 
     @FXML
     private void onSave() {
         JSONObject jsonObject = createJsonObject();
         CompanyData.saveCompanyData(jsonObject);
+        setStateSaved();
         loadData();
     }
 

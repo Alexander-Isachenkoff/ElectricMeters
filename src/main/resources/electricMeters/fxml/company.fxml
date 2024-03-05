@@ -55,8 +55,9 @@
             <JsonComboBox fx:id="voltageLevelCmb" field="NAME" maxWidth="1.7976931348623157E308" tableName="CAT_VOLTAGE_LEVELS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" />
          </children>
       </GridPane>
-      <HBox alignment="TOP_RIGHT">
+      <HBox alignment="CENTER_RIGHT" spacing="12.0">
          <children>
+            <Label fx:id="stateLabel" text="Изменения не сохранены" textFill="#dc3545" />
             <Button mnemonicParsing="false" onAction="#onSave" text="Сохранить" />
          </children>
       </HBox>
