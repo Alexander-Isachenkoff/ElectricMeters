@@ -1,5 +1,6 @@
 package electricMeters.view;
 
+import electricMeters.CompanyData;
 import electricMeters.Main;
 import electricMeters.core.DbHandler;
 import electricMeters.core.controls.JsonTable;
@@ -22,6 +23,14 @@ import java.util.List;
 public class ActOfConsumptionEditController {
 
     private final Stage stage = new Stage();
+    @FXML
+    private Label contractNumLabel;
+    @FXML
+    private Label companyNameLabel;
+    @FXML
+    private Label phoneLabel;
+    @FXML
+    private Label addressLabel;
     @FXML
     private Label yearLabel;
     @FXML
@@ -55,6 +64,12 @@ public class ActOfConsumptionEditController {
         stage.sizeToScene();
         stage.initModality(Modality.WINDOW_MODAL);
         metersTable.setEditable(true);
+        
+        JSONObject companyData = CompanyData.getCompanyData();
+        companyNameLabel.setText(companyData.getString("CONSUMER_NAME"));
+        contractNumLabel.setText(companyData.getString("CONTRACT_NUMBER"));
+        addressLabel.setText(companyData.getString("CONSUMER_ADDRESS"));
+        phoneLabel.setText(String.format("телефон: %s, %s", companyData.getString("CONSUMER_PHONE_NUMBER_1"), companyData.getString("CONSUMER_PHONE_NUMBER_2")));
     }
 
     private void init(int year, int month, JsonTable tableToReload) {

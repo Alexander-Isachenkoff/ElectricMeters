@@ -63,7 +63,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label text="659" underline="true">
+                  <Label fx:id="contractNumLabel" text="659" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -75,17 +75,17 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="ФГБОУ ВО ИРНИТУ" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <Label fx:id="companyNameLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="ФГБОУ ВО ИРНИТУ" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="телефон: 40-50-73, 40-51-95" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label fx:id="phoneLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="телефон: 40-50-73, 40-51-95" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="Лермонтова 83" GridPane.rowIndex="4">
+            <Label fx:id="addressLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="Лермонтова 83" GridPane.rowIndex="4">
                <font>
                   <Font name="System Italic" size="14.0" />
                </font>
