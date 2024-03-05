@@ -5,29 +5,91 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.ActOfConsumptionEditController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.ActOfConsumptionEditController">
    <children>
-      <GridPane hgap="4.0" vgap="8.0">
-        <columnConstraints>
-          <ColumnConstraints minWidth="-Infinity" />
-          <ColumnConstraints minWidth="-Infinity" />
-            <ColumnConstraints minWidth="-Infinity" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+      <GridPane hgap="8.0" vgap="2.0">
+         <columnConstraints>
+            <ColumnConstraints minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="-Infinity" />
+            <RowConstraints minHeight="-Infinity" />
+            <RowConstraints minHeight="-Infinity" />
+            <RowConstraints minHeight="-Infinity" />
             <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-        </rowConstraints>
+         </rowConstraints>
          <children>
-            <Label text="Год" />
-            <Label text="Месяц" GridPane.rowIndex="1" />
-            <TextField fx:id="yearField" editable="false" prefWidth="100.0" text="2023" GridPane.columnIndex="2" />
-            <TextField fx:id="monthField" editable="false" prefWidth="100.0" text="Январь" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Акт расхода электроэнергии" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" spacing="3.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <children>
+                  <Label text="за">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="monthLabel" text="октябрь" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="yearLabel" text="2022" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="года">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox spacing="3.0" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Контракт №">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="659" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="Наименование потребителя" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="ФГБОУ ВО ИРНИТУ" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="телефон: 40-50-73, 40-51-95" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" text="Лермонтова 83" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
       <JsonTable fx:id="metersTable" sqlFile="ACT_CONSUMPTION_STRS_2.sql" VBox.vgrow="ALWAYS">
@@ -36,14 +98,19 @@
               <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="250.0" text="Место установки счетчика" />
               <JsonColumn alignment="CENTER_LEFT" field="METER_NUMBER" text="Номер счетчика" />
               <JsonColumn alignment="CENTER_LEFT" field="" prefWidth="45.0" text="Код точки" />
-              <JsonColumn alignment="CENTER_RIGHT" field="READINGS_VALUE" editable="true" mask="REAL" prefWidth="135.0" text="Настоящие показания счетчика" />
+              <JsonColumn alignment="CENTER_RIGHT" editable="true" field="READINGS_VALUE" mask="REAL" prefWidth="135.0" text="Настоящие показания счетчика" />
               <JsonColumn alignment="CENTER_RIGHT" field="PREV_READINGS" prefWidth="150" text="Предыдущие показания счетчика" />
               <JsonColumn alignment="CENTER_RIGHT" field="READINGS_DIFFERENCE" prefWidth="150" text="Разность показаний счетчика" />
               <JsonColumn alignment="CENTER_RIGHT" field="CALC_COEFFICIENT" prefWidth="100.0" text="Рассчетный коэффициент" />
               <JsonColumn alignment="CENTER_RIGHT" field="CALC_BY_METER" prefWidth="160.0" text="Рассчет электроэнергии по счетчику" />
           </columns>
       </JsonTable>
-      <Button mnemonicParsing="false" onAction="#onSave" text="Сохранить" />
+      <HBox alignment="TOP_RIGHT" spacing="12.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onSave" text="Сохранить" />
+            <Button mnemonicParsing="false" onAction="#onExport" text="Экспорт" />
+         </children>
+      </HBox>
    </children>
    <padding>
       <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />

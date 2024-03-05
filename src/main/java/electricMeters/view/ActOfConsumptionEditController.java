@@ -3,19 +3,16 @@ package electricMeters.view;
 import electricMeters.Main;
 import electricMeters.core.DbHandler;
 import electricMeters.core.controls.JsonTable;
+import electricMeters.report.ActOfConsumptionReport;
 import electricMeters.util.DateUtil;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.util.StringConverter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,15 +22,17 @@ import java.util.List;
 public class ActOfConsumptionEditController {
 
     private final Stage stage = new Stage();
-    private final IntegerProperty year = new SimpleIntegerProperty();
     @FXML
-    private TextField yearField;
+    private Label yearLabel;
     @FXML
-    private TextField monthField;
+    private Label monthLabel;
     @FXML
     private JsonTable metersTable;
-    private TextFormatter<Integer> month;
+
     private JsonTable tableToReload;
+
+    private int year;
+    private int month;
 
     static void show(int year, int month, JsonTable tableToReload, Window owner) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/act-of-electricity-consumption-edit.fxml"));
@@ -55,38 +54,27 @@ public class ActOfConsumptionEditController {
         stage.setTitle("Акт расхода электроэнергии");
         stage.sizeToScene();
         stage.initModality(Modality.WINDOW_MODAL);
-
-        yearField.textProperty().bind(year.asString());
-        month = new TextFormatter<>(new StringConverter<>() {
-            @Override
-            public String toString(Integer object) {
-                if (object == null) {
-                    return "";
-                } else {
-                    return DateUtil.monthName(object);
-                }
-            }
-
-            @Override
-            public Integer fromString(String string) {
-                return month.getValue();
-            }
-        });
-        monthField.setTextFormatter(month);
-
         metersTable.setEditable(true);
     }
 
     private void init(int year, int month, JsonTable tableToReload) {
         this.tableToReload = tableToReload;
-        this.year.set(year);
-        this.month.setValue(month);
+        this.year = year;
+        this.month = month;
+        yearLabel.setText(String.valueOf(year));
+        monthLabel.setText(DateUtil.monthName(month).toLowerCase());
         metersTable.setParams(year, month, year, month);
         metersTable.reload();
     }
 
     @FXML
     private void onSave() {
+        save();
+        tableToReload.reloadFocused();
+        stage.close();
+    }
+
+    private void save() {
         List<JSONObject> dataToSave = metersTable.getItems().stream()
                 .map(this::toMetersReadings)
                 .toList();
@@ -105,21 +93,24 @@ public class ActOfConsumptionEditController {
         if (!dataToInsert.isEmpty()) {
             DbHandler.getInstance().insertList(new JSONArray(dataToInsert), "METERS_READINGS");
         }
-
-        tableToReload.reloadFocused();
-        stage.close();
     }
 
     private JSONObject toMetersReadings(JSONObject json) {
         JSONObject result = new JSONObject()
-                .put("YEAR", year.get())
-                .put("MONTH", month.getValue())
+                .put("YEAR", year)
+                .put("MONTH", month)
                 .put("METER_ID", json.getInt("METER_ID"))
                 .put("READINGS_VALUE", json.opt("READINGS_VALUE"));
         if (json.has("METERS_READINGS_ID")) {
             result.put("ID", json.getInt("METERS_READINGS_ID"));
         }
         return result;
+    }
+
+    @FXML
+    private void onExport() {
+        save();
+        ActOfConsumptionReport.createAndWrite(year, month);
     }
 
 }
