@@ -179,12 +179,10 @@ public class JsonTable extends TableView<JSONObject> {
     public void deleteSelectedItemsWithConfirmation(String tableName) {
         List<JSONObject> items = this.getSelectedItems();
         if (!items.isEmpty()) {
-            if (UtilAlert.showDeleteConfirmation()) {
-                for (JSONObject item : items) {
-                    DbHandler.getInstance().delete(item.getInt("ID"), tableName);
-                }
-                this.reload();
+            if (UtilAlert.showDeleteConfirmation(items.size())) {
+                DbHandler.getInstance().deleteList(items, tableName);
             }
+            this.reload();
         }
     }
 

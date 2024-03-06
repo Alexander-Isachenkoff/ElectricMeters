@@ -48,7 +48,7 @@ FROM PROFILE_STRS main
          left join PROFILE_STRS t21 on t21.id = main.id and t21.time like '21:00-22:00'
          left join PROFILE_STRS t22 on t22.id = main.id and t22.time like '22:00-23:00'
          left join PROFILE_STRS t23 on t23.id = main.id and t23.time like '23:00-24:00'
-WHERE main.profileEMInfo in (1,5,3)
-and cast(substr(main.date, 4, 2) as Integer) = ? -- Месяц
-and cast(substr(main.date, 7, 4) as Integer) = substr(?, 3, 2) -- Год
+WHERE main.PROFILE_ID in (1,5,3)
+and cast(strftime('%m', main.DATE) as Integer) = ? -- Месяц
+and cast(strftime('%Y', main.DATE) as Integer) = ? -- Год
 group by main.date

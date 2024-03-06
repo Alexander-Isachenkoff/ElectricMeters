@@ -4,6 +4,7 @@ import electricMeters.Main;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.sqlite.JDBC;
+import org.sqlite.SQLiteConfig;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,14 +20,16 @@ import java.util.stream.IntStream;
 
 public class DbHandler {
 
-    private static final String CON_STR = "jdbc:sqlite:ver1.db";
+    private static final String DB_URL = "jdbc:sqlite:ver1.db";
     private static DbHandler instance;
     private final Connection connection;
 
     private DbHandler() {
         try {
             DriverManager.registerDriver(new JDBC());
-            connection = DriverManager.getConnection(CON_STR);
+            SQLiteConfig config = new SQLiteConfig();
+            config.enforceForeignKeys(true);
+            connection = DriverManager.getConnection(DB_URL, config.toProperties());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

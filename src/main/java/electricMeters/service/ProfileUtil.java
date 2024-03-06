@@ -17,7 +17,7 @@ public class ProfileUtil {
         JSONArray childs = (JSONArray) json.remove("childs");
         int id = DbHandler.getInstance().insert(json, "PROFILES");
         for (Object child : childs) {
-            ((JSONObject) child).put("profileEMInfo", id);
+            ((JSONObject) child).put("PROFILE_ID", id);
         }
         DbHandler.getInstance().insertList(childs, "PROFILE_STRS");
     }
