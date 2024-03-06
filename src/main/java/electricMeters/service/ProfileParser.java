@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +48,8 @@ class ProfileParser {
         for (String line : restOfLines) {
             String[] fields = line.split("\t");
             JSONObject json = new JSONObject()
-                    .put("date", DateUtil.convert(fields[0], DateUtil.SHORT_DATE_FORMAT, DateUtil.DB_DATE_FORMAT))
-                    .put("time", fields[1])
+                    .put("DATE", DateUtil.convert(fields[0], DateUtil.SHORT_DATE_FORMAT, DateUtil.DB_DATE_FORMAT))
+                    .put("HOUR", LocalTime.parse(fields[1].split("-")[0]).getHour())
                     .put("aPos", parseDouble(fields[2]))
                     .put("aNeg", parseDouble(fields[3]))
                     .put("rPos", parseDouble(fields[4]))

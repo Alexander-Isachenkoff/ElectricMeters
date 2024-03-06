@@ -48,9 +48,9 @@
                            <children>
                               <JsonTable fx:id="detailsTable">
                                  <columns>
-                                    <JsonColumn alignment="CENTER_RIGHT" field="id" prefWidth="50.0" text="ID" />
-                                    <JsonColumn alignment="CENTER" dataType="DATE" field="date" text="Дата" />
-                                    <JsonColumn alignment="CENTER" field="time" prefWidth="90.0" text="Время" />
+                                    <JsonColumn alignment="CENTER_RIGHT" field="ID" prefWidth="50.0" text="ID" />
+                                    <JsonColumn alignment="CENTER" dataType="DATE" field="DATE" text="Дата" />
+                                    <JsonColumn alignment="CENTER" field="TIME" prefWidth="90.0" text="Время" />
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="aPos" text="А+, кВт" />
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="aNeg" text="А-, кВт" />
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="rPos" text="R+, квар" />
@@ -73,7 +73,7 @@
                            <children>
                               <JsonTable fx:id="detailsTable1" sqlFile="ProfileHourlyReport.sql" VBox.vgrow="ALWAYS">
                                   <columns>
-                                      <JsonColumn alignment="CENTER" dataType="DATE" field="date" />
+                                      <JsonColumn alignment="CENTER" dataType="DATE" field="DATE" />
                                       <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_0" prefWidth="75.0" text="0:00-1:00" />
                                       <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_1" prefWidth="75.0" text="1:00-2:00" />
                                       <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_2" prefWidth="75.0" text="2:00-3:00" />

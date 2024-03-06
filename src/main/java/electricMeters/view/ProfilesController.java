@@ -42,7 +42,7 @@ public class ProfilesController {
         mainTableHeader.addToolButton("import.png", this::onImport);
 
         mainTable.setSqlFile("PROFILES_VW.sql");
-        detailsTable.setSqlFile("PROFILE_STRS.sql");
+        detailsTable.setSqlFile("PROFILE_STRS_VW.sql");
         
         mainTable.addSelectedListener(newValue -> {
             for (JsonTable childTable : Arrays.asList(detailsTable, detailsTable1)) {
