@@ -37,7 +37,11 @@ public class JsonTable extends TableView<JSONObject> {
 
     @Getter
     @Setter
-    private Consumer<JSONObject> onDoubleClick = json -> {};
+    private Consumer<JSONObject> onDoubleClick = jsonObject -> {};
+    
+    @Getter
+    @Setter
+    private Consumer<JSONObject> changeRowListener = jsonObject -> {};
 
     public JsonTable() {
         progressIndicator.setMaxSize(60, 60);

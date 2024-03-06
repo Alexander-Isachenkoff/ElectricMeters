@@ -10,7 +10,7 @@ select
     (MR.READINGS_VALUE - MR_2.READINGS_VALUE) as READINGS_DIFFERENCE,
     REF_METERS.CALC_COEFFICIENT,
     (MR.READINGS_VALUE - MR_2.READINGS_VALUE) * REF_METERS.CALC_COEFFICIENT as CALC_BY_METER,
-    DATE(? || '-' || ? || '-' || '01', '-1 months') as PREV_DATE
+    DATE(? || '-' || substr('00'||?, -2, 2) || '-' || '01', '-1 months') as PREV_DATE
 from REF_METERS
     left join METERS_READINGS MR on (MR.METER_ID = REF_METERS.ID) and (MR.YEAR = ?) and (MR.MONTH = ?)
     left join METERS_READINGS MR_2 on (MR_2.year = strftime('%Y', PREV_DATE) and MR_2.MONTH = strftime('%m', PREV_DATE) and MR_2.METER_ID = REF_METERS.ID)

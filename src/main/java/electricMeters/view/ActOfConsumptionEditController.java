@@ -70,6 +70,20 @@ public class ActOfConsumptionEditController {
         contractNumLabel.setText(companyData.getString("CONTRACT_NUMBER"));
         addressLabel.setText(companyData.getString("CONSUMER_ADDRESS"));
         phoneLabel.setText(String.format("телефон: %s, %s", companyData.getString("CONSUMER_PHONE_NUMBER_1"), companyData.getString("CONSUMER_PHONE_NUMBER_2")));
+        
+        metersTable.setChangeRowListener(jsonObject -> {
+            double prevReadings = jsonObject.optDouble("PREV_READINGS");
+            double calcCoefficient = jsonObject.optInt("CALC_COEFFICIENT", 1);
+            if (jsonObject.has("READINGS_VALUE")) {
+                double difference = jsonObject.optDouble("READINGS_VALUE", 0) - prevReadings;
+                jsonObject.put("READINGS_DIFFERENCE", difference);
+                jsonObject.put("CALC_BY_METER", difference * calcCoefficient);
+            } else {
+                jsonObject.remove("READINGS_DIFFERENCE");
+                jsonObject.remove("CALC_BY_METER");
+            }
+            metersTable.refresh();
+        });
     }
 
     private void init(int year, int month, JsonTable tableToReload) {

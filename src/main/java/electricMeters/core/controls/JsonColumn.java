@@ -4,7 +4,6 @@ import electricMeters.core.DataType;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
@@ -32,12 +31,13 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
         });
         this.setCellFactory(param -> new JsonEditCell(this));
         this.setOnEditCommit(event -> {
-            TableView<JSONObject> tableView = event.getTableView();
-            tableView
+            JsonTable table = getJsonTable();
+            JSONObject jsonObject = table
                     .getItems()
-                    .get(event.getTablePosition().getRow())
-                    .put(field, event.getNewValue());
-            tableView.refresh();
+                    .get(event.getTablePosition().getRow());
+            jsonObject.put(field, event.getNewValue());
+            table.getChangeRowListener().accept(jsonObject);
+            table.refresh();
         });
         styleProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.endsWith(getAlignmentStyleString(this.alignment))) {
@@ -55,6 +55,10 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
         setStyle((getStyle() == null ? "" : getStyle()) + getAlignmentStyleString(alignment));
     }
 
+    private JsonTable getJsonTable() {
+        return ((JsonTable) getTableView());
+    }
+    
     public enum DisplayType {
         DEFAULT, CHECK_BOX
     }
