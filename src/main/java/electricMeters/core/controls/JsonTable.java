@@ -89,8 +89,13 @@ public class JsonTable extends TableView<JSONObject> {
     }
 
     public void reloadFocused() {
-        int id = getSelectedItem().getInt("ID");
-        reloadFocused(id);
+        JSONObject selectedItem = getSelectedItem();
+        if (selectedItem != null) {
+            int id = selectedItem.getInt("ID");
+            reloadFocused(id);
+        } else {
+            reload();
+        }
     }
 
     public void reloadFocused(int id) {

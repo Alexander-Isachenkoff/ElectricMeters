@@ -88,6 +88,17 @@ public class DbHandler {
         }
         return list;
     }
+    
+    public void runSqlUpdate(String sql, Object... params) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 1; i <= params.length; i++) {
+                statement.setObject(i, params[i-1]);
+            }
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public int insert(JSONObject json, String table) {
         List<String> fields = json.keySet().stream().sorted().toList();
@@ -205,9 +216,33 @@ public class DbHandler {
     }
 
     public void delete(int id, String table) {
-        try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM " + table + " WHERE id = ?")) {
+        String sql = "DELETE FROM " + table + " WHERE ID = ?";
+        try (PreparedStatement statement = this.connection.prepareStatement(sql)) {
             statement.setObject(1, id);
             statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void deleteList(List<JSONObject> jsonObjects, String table) {
+        String sql = "DELETE FROM " + table + " WHERE ID = ?";
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        final int BATCH_SIZE = 50;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 1; i <= jsonObjects.size(); i++) {
+                JSONObject json = jsonObjects.get(i - 1);
+                statement.setObject(1, json.getInt("ID"));
+                statement.addBatch();
+                if (i % BATCH_SIZE == 0 || i == jsonObjects.size()) {
+                    statement.executeBatch();
+                    connection.commit();
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

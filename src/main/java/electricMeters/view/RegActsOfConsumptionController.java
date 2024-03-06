@@ -1,6 +1,8 @@
 package electricMeters.view;
 
 import electricMeters.YearMonthInputForm;
+import electricMeters.core.DbHandler;
+import electricMeters.core.UtilAlert;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.report.ActOfConsumptionReport;
 import javafx.fxml.FXML;
@@ -9,7 +11,9 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import org.json.JSONObject;
 
-public class ActsOfElectricityConsumptionController {
+import java.util.List;
+
+public class RegActsOfConsumptionController {
 
     @FXML
     private JsonTable actsTable;
@@ -57,7 +61,16 @@ public class ActsOfElectricityConsumptionController {
 
     @FXML
     private void onDeleteAct() {
-        //actsTable.deleteSelectedItemsWithConfirmation("REG_ACTS_CONSUMPTION");
+        List<JSONObject> selectedActs = actsTable.getSelectedItems();
+        if (!selectedActs.isEmpty()) {
+            if (UtilAlert.showDeleteConfirmation(selectedActs.size())) {
+                String sql = "DELETE FROM METERS_READINGS WHERE YEAR = ? AND MONTH = ?";
+                for (JSONObject act : selectedActs) {
+                    DbHandler.getInstance().runSqlUpdate(sql, act.getInt("YEAR"), act.getInt("MONTH"));
+                }
+                actsTable.reload();
+            }
+        }
     }
 
 }

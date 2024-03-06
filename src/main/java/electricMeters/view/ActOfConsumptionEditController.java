@@ -72,7 +72,7 @@ public class ActOfConsumptionEditController {
         phoneLabel.setText(String.format("телефон: %s, %s", companyData.getString("CONSUMER_PHONE_NUMBER_1"), companyData.getString("CONSUMER_PHONE_NUMBER_2")));
         
         metersTable.setChangeRowListener(jsonObject -> {
-            double prevReadings = jsonObject.optDouble("PREV_READINGS");
+            double prevReadings = jsonObject.optDouble("PREV_READINGS", 0);
             double calcCoefficient = jsonObject.optInt("CALC_COEFFICIENT", 1);
             if (jsonObject.has("READINGS_VALUE")) {
                 double difference = jsonObject.optDouble("READINGS_VALUE", 0) - prevReadings;
@@ -110,10 +110,17 @@ public class ActOfConsumptionEditController {
 
         List<JSONObject> dataToUpdate = dataToSave.stream()
                 .filter(json -> json.has("ID"))
+                .filter(json -> json.has("READINGS_VALUE"))
                 .toList();
 
         List<JSONObject> dataToInsert = dataToSave.stream()
                 .filter(json -> !json.has("ID"))
+                .filter(json -> json.has("READINGS_VALUE"))
+                .toList();
+        
+        List<JSONObject> dataToDelete = dataToSave.stream()
+                .filter(json -> json.has("ID"))
+                .filter(json -> !json.has("READINGS_VALUE"))
                 .toList();
 
         if (!dataToUpdate.isEmpty()) {
@@ -121,6 +128,9 @@ public class ActOfConsumptionEditController {
         }
         if (!dataToInsert.isEmpty()) {
             DbHandler.getInstance().insertList(new JSONArray(dataToInsert), "METERS_READINGS");
+        }
+        if (!dataToDelete.isEmpty()) {
+            DbHandler.getInstance().deleteList(dataToDelete, "METERS_READINGS");
         }
     }
 
