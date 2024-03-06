@@ -117,7 +117,7 @@
 }
 
 .table-column {
-    -fx-padding: 0 4 1 3;
+    -fx-padding: 0 4 1 4;
 }
 
 .table-view:focused .table-cell:selected {
@@ -127,12 +127,12 @@
 }
 
 .editing-table-cell {
-    -fx-padding: -1 0 0 -1;
+    -fx-padding: 0;
 
 }
 
 .editing-table-cell:selected {
-    -fx-padding: -1 0 0 -1;
+    -fx-padding: 0;
 }
 
 .table-column .label {
@@ -353,13 +353,14 @@
 }
 
 .table-text-field {
-    -fx-border-color: transparent;
-    -fx-max-height: 21;
-    -fx-padding: 1 4;
+    -fx-border-color: SKYBLUE;
+    -fx-min-height: 20;
+    -fx-padding: 0 4 1 4;
+    -fx-border-insets: -1;
 }
 
 .table-text-field:hover {
-    -fx-border-color: transparent;
+    -fx-border-color: SKYBLUE;
 }
 
 .text-error .text {
