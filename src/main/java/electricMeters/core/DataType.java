@@ -1,12 +1,11 @@
 package electricMeters.core;
 
 import electricMeters.util.DateUtil;
-import javafx.util.converter.DateStringConverter;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 
 public enum DataType {
@@ -39,12 +38,12 @@ public enum DataType {
     DATE() {
         @Override
         public Object convertFromDB(Object object) {
-            return new DateStringConverter("dd.MM.yy").fromString(object.toString());
+            return DateUtil.toLocalDate(object.toString());
         }
 
         @Override
         public String toString(Object object, String format) {
-            return DateUtil.toString((TemporalAccessor) object);
+            return DateUtil.toString((LocalDate) object);
         }
     },
 

@@ -32,13 +32,14 @@ class ProfileParser {
         String date = header.get(2).substring(beginIndex, beginIndex + 8);
         String time = header.get(2).substring(header.get(2).indexOf(' ') + 10);
         
-        String dateTime = LocalDateTime.parse(date + " " + time, DateUtil.PROFILE_DATE_TIME_FORMAT).format(DateUtil.DB_DATE_TIME_FORMAT);
+        LocalDateTime localDateTime = LocalDateTime.parse(date + " " + time, DateUtil.SHORT_DATE_TIME_FORMAT);
+        String dateTime = localDateTime.format(DateUtil.DB_DATE_TIME_FORMAT);
         
         JSONObject mainJson = new JSONObject()
                 .put("PROFILE_NUM", profileNum)
                 .put("METER_NUMBER", meterNumber)
                 .put("CONSUMER", consumer)
-                .put("DATE", date)
+                .put("DATE", localDateTime.format(DateUtil.DB_DATE_FORMAT))
                 .put("TIME", time)
                 .put("DATE_TIME", dateTime);
         
@@ -46,7 +47,7 @@ class ProfileParser {
         for (String line : restOfLines) {
             String[] fields = line.split("\t");
             JSONObject json = new JSONObject()
-                    .put("date", fields[0])
+                    .put("date", DateUtil.convert(fields[0], DateUtil.SHORT_DATE_FORMAT, DateUtil.DB_DATE_FORMAT))
                     .put("time", fields[1])
                     .put("aPos", parseDouble(fields[2]))
                     .put("aNeg", parseDouble(fields[3]))
