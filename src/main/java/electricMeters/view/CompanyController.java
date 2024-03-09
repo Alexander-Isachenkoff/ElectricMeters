@@ -5,7 +5,6 @@ import electricMeters.core.controls.JsonComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.json.JSONObject;
 
 public class CompanyController {
 
@@ -39,16 +38,16 @@ public class CompanyController {
     }
 
     private void loadData() {
-        JSONObject companyData = CompanyData.getCompanyData();
-        nameField.setText(companyData.getString("CONSUMER_NAME"));
-        contractNumField.setText(companyData.getString("CONTRACT_NUMBER"));
-        addressField.setText(companyData.getString("CONSUMER_ADDRESS"));
-        phoneField1.setText(companyData.getString("CONSUMER_PHONE_NUMBER_1"));
-        phoneField2.setText(companyData.getString("CONSUMER_PHONE_NUMBER_2"));
-        responsiblePersonField.setText(companyData.getString("RESPONSIBLE_PERSON"));
-        positionField.setText(companyData.getString("POSITION"));
-        rateTypeCmb.selectValueById(companyData.optInt("RATE_TYPE_ID"));
-        voltageLevelCmb.selectValueById(companyData.optInt("VOLTAGE_LEVEL_ID"));
+        CompanyData companyData = CompanyData.getCompanyData();
+        nameField.setText(companyData.getConsumerName());
+        contractNumField.setText(companyData.getContractNumber());
+        addressField.setText(companyData.getConsumerAddress());
+        phoneField1.setText(companyData.getConsumerPhoneNumber1());
+        phoneField2.setText(companyData.getConsumerPhoneNumber2());
+        responsiblePersonField.setText(companyData.getResponsiblePerson());
+        positionField.setText(companyData.getPosition());
+        rateTypeCmb.selectValueById(companyData.getRateTypeID());
+        voltageLevelCmb.selectValueById(companyData.getVoltageLevelID());
         
         nameField.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
         contractNumField.textProperty().addListener((observableValue, s, t1) -> setStateNotSaved());
@@ -75,23 +74,24 @@ public class CompanyController {
 
     @FXML
     private void onSave() {
-        JSONObject jsonObject = createJsonObject();
-        CompanyData.saveCompanyData(jsonObject);
+        CompanyData companyData = createCompanyData();
+        companyData.save();
         setStateSaved();
         loadData();
     }
 
-    private JSONObject createJsonObject() {
-        return new JSONObject()
-                .put("CONSUMER_NAME", nameField.getText())
-                .put("CONTRACT_NUMBER", contractNumField.getText())
-                .put("CONSUMER_ADDRESS", addressField.getText())
-                .put("CONSUMER_PHONE_NUMBER_1", phoneField1.getText())
-                .put("CONSUMER_PHONE_NUMBER_2", phoneField2.getText())
-                .put("RESPONSIBLE_PERSON", responsiblePersonField.getText())
-                .put("POSITION", positionField.getText())
-                .put("RATE_TYPE_ID", rateTypeCmb.getSelectedId())
-                .put("VOLTAGE_LEVEL_ID", voltageLevelCmb.getSelectedId());
+    private CompanyData createCompanyData() {
+        return new CompanyData(
+                nameField.getText(),
+                contractNumField.getText(),
+                addressField.getText(),
+                phoneField1.getText(),
+                phoneField2.getText(),
+                responsiblePersonField.getText(),
+                positionField.getText(),
+                rateTypeCmb.getSelectedId(),
+                voltageLevelCmb.getSelectedId()
+        );
     }
 
 }

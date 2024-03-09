@@ -64,12 +64,12 @@ public class ActOfConsumptionEditController {
         stage.sizeToScene();
         stage.initModality(Modality.WINDOW_MODAL);
         metersTable.setEditable(true);
-        
-        JSONObject companyData = CompanyData.getCompanyData();
-        companyNameLabel.setText(companyData.getString("CONSUMER_NAME"));
-        contractNumLabel.setText(companyData.getString("CONTRACT_NUMBER"));
-        addressLabel.setText(companyData.getString("CONSUMER_ADDRESS"));
-        phoneLabel.setText(String.format("телефон: %s, %s", companyData.getString("CONSUMER_PHONE_NUMBER_1"), companyData.getString("CONSUMER_PHONE_NUMBER_2")));
+
+        CompanyData companyData = CompanyData.getCompanyData();
+        companyNameLabel.setText(companyData.getConsumerName());
+        contractNumLabel.setText(companyData.getContractNumber());
+        addressLabel.setText(companyData.getConsumerAddress());
+        phoneLabel.setText(String.format("телефон: %s, %s", companyData.getConsumerPhoneNumber1(), companyData.getConsumerPhoneNumber2()));
         
         metersTable.setChangeRowListener(jsonObject -> {
             double prevReadings = jsonObject.optDouble("PREV_READINGS", 0);

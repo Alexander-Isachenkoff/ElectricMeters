@@ -1,11 +1,11 @@
 {
-  "POSITION": "Какая-то должность",
-  "RATE_TYPE_ID": 5,
-  "CONTRACT_NUMBER": "659",
-  "CONSUMER_PHONE_NUMBER_2": "40-51-95",
-  "CONSUMER_PHONE_NUMBER_1": "40-50-73",
-  "VOLTAGE_LEVEL_ID": 1,
-  "CONSUMER_ADDRESS": "Лермонтова 83",
-  "CONSUMER_NAME": "ФГБОУ ВО ИРНИТУ",
-  "RESPONSIBLE_PERSON": "Чеботнягин Л.М."
+  "consumerName" : "ФГБОУ ВО ИРНИТУ",
+  "contractNumber" : "659",
+  "consumerAddress" : "Лермонтова 83",
+  "consumerPhoneNumber1" : "40-50-73",
+  "consumerPhoneNumber2" : "40-51-95",
+  "responsiblePerson" : "Чеботнягин Л.М.",
+  "position" : "Какая-то должность",
+  "rateTypeID" : 5,
+  "voltageLevelID" : 1
 }

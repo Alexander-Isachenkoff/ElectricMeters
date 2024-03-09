@@ -1,7 +1,6 @@
 package electricMeters.view;
 
 import electricMeters.CompanyData;
-import electricMeters.core.DbHandler;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.controls.MonthComboBox;
 import electricMeters.report.SummaryProfileReport;
@@ -45,12 +44,11 @@ public class SummaryProfileController {
 
     @FXML
     private void onExport() {
-        JSONObject companyData = CompanyData.getCompanyData();
-        JSONObject voltageLevel = DbHandler.getInstance().selectById("CAT_VOLTAGE_LEVELS", companyData.getInt("VOLTAGE_LEVEL_ID"));
+        CompanyData companyData = CompanyData.getCompanyData();
         JSONObject report = new JSONObject()
-                .put("CONSUMER_NAME", companyData.getString("CONSUMER_NAME"))
-                .put("CONTRACT_NUMBER", companyData.getString("CONTRACT_NUMBER"))
-                .put("VOLTAGE_LEVEL_NAME", (voltageLevel == null) ? "" : voltageLevel.getString("NAME"))
+                .put("CONSUMER_NAME", companyData.getConsumerName())
+                .put("CONTRACT_NUMBER", companyData.getContractNumber())
+                .put("VOLTAGE_LEVEL_NAME", companyData.getVoltageLevelName())
                 .put("YEAR", getYear())
                 .put("MONTH", getIntMonth())
                 .put("strings", table.getAllItems());
