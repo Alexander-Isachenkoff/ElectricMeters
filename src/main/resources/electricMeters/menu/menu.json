@@ -27,6 +27,10 @@
         {
           "title": "Суммарный профиль",
           "fxml": "fxml/summary_profile.fxml"
+        },
+        {
+          "title": "Стоимость",
+          "fxml": "fxml/summary_cost.fxml"
         }
       ]
     },
