@@ -33,6 +33,7 @@ public class JsonTable extends TableView<JSONObject> {
     private String tableName;
     private Object[] params = new Object[0];
     private boolean isLoading;
+    @Getter
     private List<JSONObject> allItems = new ArrayList<>();
 
     @Getter

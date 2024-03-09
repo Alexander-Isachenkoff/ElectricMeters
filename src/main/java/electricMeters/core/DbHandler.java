@@ -49,6 +49,9 @@ public class DbHandler {
     public JSONObject selectById(String tableName, int id) {
         String sql = String.format("SELECT * FROM %s WHERE ID = ?", tableName);
         List<JSONObject> jsonObjects = runSqlSelect(sql, id);
+        if (jsonObjects.isEmpty()) {
+            return null;
+        }
         return jsonObjects.get(0);
     }
 
