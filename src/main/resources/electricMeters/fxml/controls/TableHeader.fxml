@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="4.0" styleClass="table-header" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="4.0" styleClass="table-header" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
      <Label fx:id="titleLabel" text="Заголовок" textFill="#3e6ca4">
       <font>
          <Font name="System Bold" size="16.0" />
@@ -20,6 +20,15 @@
          <Font size="16.0" />
       </font></Label>
     <HBox fx:id="toolBar" alignment="CENTER_RIGHT" spacing="4.0" HBox.hgrow="ALWAYS">
+      <Button fx:id="importButton" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/import.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
         <Button fx:id="addButton" prefHeight="22.0" prefWidth="22.0" styleClass="tool-button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">

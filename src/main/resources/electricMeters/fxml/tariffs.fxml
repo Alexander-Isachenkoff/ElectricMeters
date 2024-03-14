@@ -40,7 +40,7 @@
     </GridPane>
     <VBox VBox.vgrow="ALWAYS">
         <children>
-            <TableHeader table="${table}" title="Тарифы" />
+            <TableHeader table="${table}" importEnabled="true" onImport="#onImport" title="Тарифы" />
             <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                 <children>
                     <JsonTable fx:id="table" sqlFile="TARIFF_VW.sql">

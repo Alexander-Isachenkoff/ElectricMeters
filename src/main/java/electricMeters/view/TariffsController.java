@@ -3,9 +3,13 @@ package electricMeters.view;
 import electricMeters.core.controls.ClearableJComboBox;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.controls.MonthComboBox;
+import electricMeters.service.PowerRateParser;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.stream.IntStream;
 
@@ -52,6 +56,14 @@ public class TariffsController {
                 voltageLevelId
         );
         table.reload();
+    }
+
+    @FXML
+    private void onImport() throws IOException {
+        File file = new FileChooser().showOpenDialog(null);
+        if (file != null) {
+            PowerRateParser.readAndInsertPowerRates(file);
+        }
     }
 
 }

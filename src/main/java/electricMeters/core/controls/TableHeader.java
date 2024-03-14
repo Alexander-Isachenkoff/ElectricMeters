@@ -28,25 +28,21 @@ import java.io.IOException;
 public class TableHeader extends HBox {
 
     private static final int SEARCH_FIELD_WIDTH = 150;
+    private final BooleanProperty importEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty addEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty editEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty deleteEnabled = new SimpleBooleanProperty(false);
     private final ObjectProperty<JsonTable> table = new SimpleObjectProperty<>();
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label countLabel;
     private final ListChangeListener<? super JSONObject> listChangeListener = c -> updateCount();
-    @FXML
-    private TextField searchField;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button editButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private HBox toolBar;
+
+    @FXML private Label titleLabel;
+    @FXML private Label countLabel;
+    @FXML private TextField searchField;
+    @FXML private Button addButton;
+    @FXML private Button editButton;
+    @FXML private Button deleteButton;
+    @FXML private Button importButton;
+    @FXML private HBox toolBar;
 
     public TableHeader() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/controls/TableHeader.fxml"));
@@ -63,6 +59,8 @@ public class TableHeader extends HBox {
         editButton.managedProperty().bind(editEnabled);
         deleteButton.visibleProperty().bind(deleteEnabled);
         deleteButton.managedProperty().bind(deleteEnabled);
+        importButton.visibleProperty().bind(importEnabled);
+        importButton.managedProperty().bind(importEnabled);
 
         searchField.visibleProperty().addListener((observable, oldValue, newValue) -> {
             if (!searchField.isVisible()) {
@@ -164,6 +162,14 @@ public class TableHeader extends HBox {
         deleteButton.setOnAction(onDelete);
     }
 
+    public EventHandler<ActionEvent> getOnImport() {
+        return importButton.getOnAction();
+    }
+
+    public void setOnImport(EventHandler<ActionEvent> onDelete) {
+        importButton.setOnAction(onDelete);
+    }
+
     public String getTitle() {
         return titleLabel.getText();
     }
@@ -194,5 +200,17 @@ public class TableHeader extends HBox {
 
     public void setDeleteEnabled(boolean deleteEnabled) {
         this.deleteEnabled.set(deleteEnabled);
+    }
+
+    public boolean isImportEnabled() {
+        return importEnabled.get();
+    }
+
+    public BooleanProperty importEnabledProperty() {
+        return importEnabled;
+    }
+
+    public void setImportEnabled(boolean importEnabled) {
+        this.importEnabled.set(importEnabled);
     }
 }
