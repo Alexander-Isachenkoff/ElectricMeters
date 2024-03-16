@@ -287,14 +287,20 @@
     -fx-fill: white;
 }
 
-.menu-list-view {
-    -fx-background-insets: 0;
+.titled-pane .content {
     -fx-padding: 0 -1 -1 -1;
+}
+
+.menu-list-view {
+    -fx-background-color: rgb(27, 31, 34);
+    -fx-background-radius: 0;
+    -fx-padding: 8;
 }
 
 .menu-list-view .list-cell {
     -fx-background-color: rgb(27, 31, 34);
-    -fx-padding: 8 8 8 16;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
 }
 
 .menu-list-view .list-cell:filled:hover {

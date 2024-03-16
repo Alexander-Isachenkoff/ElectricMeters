@@ -71,7 +71,7 @@ public class MainController {
                 }
             });
             listViews.add(menuList);
-            menuList.setPrefHeight(menuList.getItems().size() * 33 - 1);
+            menuList.setPrefHeight(menuList.getItems().size() * 33 + 16);
         }
     }
     
