@@ -26,7 +26,7 @@
       "items": [
         {
           "title": "Суммарный профиль",
-          "fxml": "fxml/summary_profile.fxml"
+          "fxml": "fxml/summary-profile.fxml"
         },
         {
           "title": "Стоимость",

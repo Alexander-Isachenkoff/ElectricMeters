@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import electricMeters.core.controls.JsonColumn?>
+<?import electricMeters.core.controls.JsonTable?>
+<?import electricMeters.core.controls.TableHeader?>
+<?import javafx.scene.layout.*?>
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="724.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.RegSummaryProfiles">
+   <children>
+      <VBox VBox.vgrow="ALWAYS">
+         <children>
+            <TableHeader table="${table}" showEnabled="true" onShow="#onShow" title="Суммарный профиль"/>
+            <StackPane VBox.vgrow="ALWAYS">
+               <children>
+                  <JsonTable fx:id="table" tableName="REG_SUMMARY_PROFILES_VW">
+                     <columns>
+                        <JsonColumn text="Месяц" alignment="CENTER" dataType="MONTH" field="MONTH"/>
+                        <JsonColumn text="Год" alignment="CENTER" dataType="INTEGER" field="YEAR"/>
+                     </columns>
+                  </JsonTable>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </children>
+</VBox>

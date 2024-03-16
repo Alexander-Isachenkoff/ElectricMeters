@@ -30,6 +30,7 @@ public class TableHeader extends HBox {
     private static final int SEARCH_FIELD_WIDTH = 150;
     private final BooleanProperty importEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty addEnabled = new SimpleBooleanProperty(false);
+    private final BooleanProperty showEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty editEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty deleteEnabled = new SimpleBooleanProperty(false);
     private final ObjectProperty<JsonTable> table = new SimpleObjectProperty<>();
@@ -39,6 +40,7 @@ public class TableHeader extends HBox {
     @FXML private Label countLabel;
     @FXML private TextField searchField;
     @FXML private Button addButton;
+    @FXML private Button showButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private Button importButton;
@@ -55,6 +57,8 @@ public class TableHeader extends HBox {
         }
         addButton.visibleProperty().bind(addEnabled);
         addButton.managedProperty().bind(addEnabled);
+        showButton.visibleProperty().bind(showEnabled);
+        showButton.managedProperty().bind(showEnabled);
         editButton.visibleProperty().bind(editEnabled);
         editButton.managedProperty().bind(editEnabled);
         deleteButton.visibleProperty().bind(deleteEnabled);
@@ -166,8 +170,16 @@ public class TableHeader extends HBox {
         return importButton.getOnAction();
     }
 
-    public void setOnImport(EventHandler<ActionEvent> onDelete) {
-        importButton.setOnAction(onDelete);
+    public void setOnImport(EventHandler<ActionEvent> onImport) {
+        importButton.setOnAction(onImport);
+    }
+
+    public EventHandler<ActionEvent> getOnShow() {
+        return showButton.getOnAction();
+    }
+
+    public void setOnShow(EventHandler<ActionEvent> onShow) {
+        showButton.setOnAction(onShow);
     }
 
     public String getTitle() {
@@ -212,5 +224,13 @@ public class TableHeader extends HBox {
 
     public void setImportEnabled(boolean importEnabled) {
         this.importEnabled.set(importEnabled);
+    }
+
+    public boolean isShowEnabled() {
+        return showEnabled.get();
+    }
+
+    public void setShowEnabled(boolean showEnabled) {
+        this.showEnabled.set(showEnabled);
     }
 }
