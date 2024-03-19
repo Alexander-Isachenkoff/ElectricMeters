@@ -30,7 +30,7 @@
         },
         {
           "title": "Стоимость",
-          "fxml": "fxml/summary_cost.fxml"
+          "fxml": "fxml/summary-cost.fxml"
         }
       ]
     },
