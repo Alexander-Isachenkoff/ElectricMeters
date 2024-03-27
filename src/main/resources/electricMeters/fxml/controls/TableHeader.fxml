@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="4.0" styleClass="table-header" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="4.0" styleClass="table-header" stylesheets="@../../css/style.css" type="HBox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
      <Label fx:id="titleLabel" text="Заголовок" textFill="#3e6ca4">
       <font>
          <Font name="System Bold" size="16.0" />
