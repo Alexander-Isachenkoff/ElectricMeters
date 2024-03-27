@@ -139,6 +139,7 @@
           <ColumnConstraints minWidth="10.0" prefWidth="120.0" />
           <ColumnConstraints minWidth="10.0" prefWidth="120.0" />
             <ColumnConstraints minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
@@ -151,13 +152,9 @@
             <TextField fx:id="powerTF" alignment="CENTER_RIGHT" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="totalWithNdsTF" alignment="CENTER_RIGHT" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label text="Итого с НДС" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#onExport" text="Экспорт" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <HBox alignment="TOP_RIGHT" spacing="12.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#onExport" text="Экспорт" />
-         </children>
-      </HBox>
    </children>
    <padding>
       <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
