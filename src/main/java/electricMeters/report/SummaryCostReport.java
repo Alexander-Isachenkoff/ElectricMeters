@@ -13,14 +13,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class SummaryProfileReport {
+public class SummaryCostReport {
 
-    private static final String TEMPLATE_XLSX = "electricMeters/templates/Суммарный профиль.xlsx";
+    private static final String TEMPLATE_XLSX = "electricMeters/templates/Стоимость.xlsx";
 
     public static void write(JSONObject report) {
         int month = report.getInt("MONTH");
         int year = report.getInt("YEAR");
-        String fileName = String.format("Суммарный профиль (%s %d).xlsx", DateUtil.monthName(month), year);
+        String fileName = String.format("Стоимость (%s %d).xlsx", DateUtil.monthName(month), year);
         File file = new File(fileName);
         try {
             write(report, file);

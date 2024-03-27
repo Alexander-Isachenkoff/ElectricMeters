@@ -4,6 +4,7 @@ import electricMeters.CompanyData;
 import electricMeters.Main;
 import electricMeters.core.DbHandler;
 import electricMeters.core.controls.JsonTable;
+import electricMeters.report.SummaryCostReport;
 import electricMeters.util.DateUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -81,7 +82,15 @@ public class SummaryCostForm {
 
     @FXML
     private void onExport() {
-
+        CompanyData companyData = CompanyData.getCompanyData();
+        JSONObject report = new JSONObject()
+                .put("CONSUMER_NAME", companyData.getConsumerName())
+                .put("CONTRACT_NUMBER", companyData.getContractNumber())
+                .put("VOLTAGE_LEVEL_NAME", companyData.getVoltageLevelName())
+                .put("YEAR", year)
+                .put("MONTH", month)
+                .put("strings", table.getAllItems());
+        SummaryCostReport.write(report);
     }
 
 }
