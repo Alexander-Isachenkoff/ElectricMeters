@@ -1,6 +1,5 @@
 package electricMeters.report;
 
-import electricMeters.Main;
 import electricMeters.util.DateUtil;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -15,7 +14,7 @@ import java.nio.file.Files;
 
 public class SummaryProfileReport {
 
-    private static final String TEMPLATE_XLSX = "templates/Суммарный профиль.xlsx";
+    private static final String TEMPLATE_XLSX = "electricMeters/templates/Суммарный профиль.xlsx";
 
     public static void write(JSONObject report) {
         int month = report.getInt("MONTH");
@@ -31,7 +30,7 @@ public class SummaryProfileReport {
     }
 
     private static void write(JSONObject report, File file) throws IOException {
-        try (Workbook workbook = WorkbookFactory.create(Main.class.getResourceAsStream(TEMPLATE_XLSX))) {
+        try (Workbook workbook = WorkbookFactory.create(ClassLoader.getSystemResourceAsStream(TEMPLATE_XLSX))) {
             Sheet sheet = workbook.getSheetAt(0);
 
             String headerText = String.format("%s (№%s)", report.getString("CONSUMER_NAME"), report.getString("CONTRACT_NUMBER"));

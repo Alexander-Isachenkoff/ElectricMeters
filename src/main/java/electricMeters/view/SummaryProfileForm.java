@@ -2,9 +2,11 @@ package electricMeters.view;
 
 import electricMeters.CompanyData;
 import electricMeters.Main;
+import electricMeters.core.DbHandler;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.report.SummaryProfileReport;
 import electricMeters.util.DateUtil;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -66,6 +68,14 @@ public class SummaryProfileForm {
         periodLabel.setText(String.format("%s %d", DateUtil.monthName(month), year));
         table.setParams(month, year);
         table.reload();
+
+        new Thread(() -> {
+            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SummaryProfileTotalConsumption.sql", month, year).get(0);
+            double total = jsonObject.getDouble("VALUE");
+            Platform.runLater(() -> {
+                totalTF.setText(String.format("%.3f", total));
+            });
+        }).start();
     }
 
     @FXML
