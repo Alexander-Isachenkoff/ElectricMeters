@@ -2,8 +2,10 @@ package electricMeters.view;
 
 import electricMeters.CompanyData;
 import electricMeters.Main;
+import electricMeters.core.DbHandler;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.util.DateUtil;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -64,8 +67,16 @@ public class SummaryCostForm {
         this.month = month;
         periodLabel.setText(String.format("%s %d", DateUtil.monthName(month), year));
         CompanyData companyData = CompanyData.getCompanyData();
-        table.setParams(companyData.getRateTypeID(), companyData.getVoltageLevelID(), month, year);
+        table.setParams(month, year, companyData.getRateTypeID(), companyData.getVoltageLevelID());
         table.reload();
+
+        new Thread(() -> {
+            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("TotalCost.sql", month, year, companyData.getRateTypeID(), companyData.getVoltageLevelID()).get(0);
+            double total = jsonObject.getDouble("SUMMARY_COST");
+            Platform.runLater(() -> {
+                totalTF.setText(String.format("%.3f", total));
+            });
+        }).start();
     }
 
     @FXML
