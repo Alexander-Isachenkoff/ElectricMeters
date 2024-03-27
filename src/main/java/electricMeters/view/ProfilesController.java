@@ -71,7 +71,11 @@ public class ProfilesController {
     @SneakyThrows
     @FXML
     private void onImport() {
-        List<File> files = new FileChooser().showOpenMultipleDialog(mainTable.getScene().getWindow());
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter("Текстовые файлы", "*.txt");
+        fileChooser.getExtensionFilters().add(txtFilter);
+        fileChooser.setSelectedExtensionFilter(txtFilter);
+        List<File> files = fileChooser.showOpenMultipleDialog(mainTable.getScene().getWindow());
         
         if (files == null) {
             return;

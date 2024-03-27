@@ -60,7 +60,11 @@ public class TariffsController {
 
     @FXML
     private void onImport() throws IOException {
-        File file = new FileChooser().showOpenDialog(null);
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter xlsxFilter = new FileChooser.ExtensionFilter("Книга Microsoft Excel", "*.xlsx", "*.xls");
+        fileChooser.getExtensionFilters().add(xlsxFilter);
+        fileChooser.setSelectedExtensionFilter(xlsxFilter);
+        File file = fileChooser.showOpenDialog(table.getScene().getWindow());
         if (file != null) {
             PowerRateParser.readAndInsertPowerRates(file);
         }

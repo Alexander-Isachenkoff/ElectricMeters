@@ -92,7 +92,7 @@ public class PowerRateParser {
     private static void insertPowerRate(JSONObject powerRate) {
         DbHandler db = DbHandler.getInstance();
         JSONArray hourlyRates = (JSONArray) powerRate.remove("hourlyRates");
-        int powerRateId = db.insert(powerRate, "TAR1_MONTHLY_RATES");
+        int powerRateId = db.insert(powerRate, "TAR1_MONTHLY_RATE");
         for (Object hourlyRate : hourlyRates) {
             JSONObject hourlyRateJson = (JSONObject) hourlyRate;
             hourlyRateJson.put("TAR1_ID", powerRateId);
