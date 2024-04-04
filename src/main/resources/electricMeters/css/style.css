@@ -13,6 +13,10 @@
     -fx-background-insets: 0;
 }
 
+.button:disabled {
+    -fx-background-color: #BBB;
+}
+
 .button:hover {
     -fx-opacity: 0.85;
 }
@@ -375,4 +379,17 @@
 
 .text-success .text {
     -fx-fill: #198754;
+}
+
+.progress-bar .track {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.progress-bar .bar {
+    -fx-background-color: -highlight-color;
+    -fx-background-insets: 3;
+    -fx-background-radius: 20;
 }
