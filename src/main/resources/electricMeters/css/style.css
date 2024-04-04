@@ -329,7 +329,11 @@
 .menu-list-view .scroll-bar .increment-arrow,
 .menu-list-view .scroll-bar .decrement-arrow,
 .menu-list-view .scroll-bar .increment-button,
-.menu-list-view .scroll-bar .decrement-button {
+.menu-list-view .scroll-bar .decrement-button,
+.h-filter-list .scroll-bar .increment-arrow,
+.h-filter-list .scroll-bar .decrement-arrow,
+.h-filter-list .scroll-bar .increment-button,
+.h-filter-list .scroll-bar .decrement-button {
     -fx-padding: 0;
 }
 
@@ -392,4 +396,51 @@
     -fx-background-color: -highlight-color;
     -fx-background-insets: 3;
     -fx-background-radius: 20;
+}
+
+.h-filter-list {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 5;
+}
+
+.h-filter-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-pref-width: 75;
+    -fx-alignment: CENTER;
+}
+
+.h-filter-list .list-cell:filled {
+    -fx-border-color: lightgray;
+    -fx-border-width: 0 1 0 0;
+}
+
+.h-filter-list .list-cell .text {
+    -fx-font-weight: bold;
+    -fx-fill: gray;
+}
+
+.h-filter-list .list-cell:filled:hover {
+    -fx-background-color: #ededed;
+}
+
+.h-filter-list .list-cell:selected, .h-filter-list .list-cell:hover:selected {
+    -fx-background-color: -highlight-color;
+}
+
+.h-filter-list .list-cell:selected .text {
+    -fx-fill: white;
+}
+
+.h-filter-list .first-cell {
+    -fx-background-radius: 4 0 0 4;
+}
+
+.h-filter-list .last-cell {
+    -fx-background-radius: 0 4 4 0;
+    -fx-background-insets: 0 2 0 0;
+    -fx-border-width: 0;
 }

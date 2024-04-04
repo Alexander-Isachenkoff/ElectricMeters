@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -42,6 +43,20 @@ public class PeakHoursForm {
         
         yearsTable.addSelectedListener(jsonObject -> updateMonthsTable());
         monthsList.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newMonth) -> updateMonthsTable());
+        
+        Callback<ListView<Month>, ListCell<Month>> cellFactory = monthsList.getCellFactory();
+        monthsList.setCellFactory(monthListView -> {
+            ListCell<Month> cell = cellFactory.call(monthListView);
+            cell.indexProperty().addListener((observableValue, number, t1) -> {
+                if (t1.intValue() == 0) {
+                    cell.getStyleClass().add("first-cell");
+                }
+                if (t1.intValue() == monthListView.getItems().size() - 1) {
+                    cell.getStyleClass().add("last-cell");
+                }
+            });
+            return cell;
+        });
         
         yearsTable.reload();
     }

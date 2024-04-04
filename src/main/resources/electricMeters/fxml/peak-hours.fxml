@@ -3,6 +3,7 @@
 <?import electricMeters.core.controls.JsonColumn?>
 <?import electricMeters.core.controls.JsonTable?>
 <?import electricMeters.core.controls.TableHeader?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -13,7 +14,7 @@
       <items>
          <VBox>
             <children>
-               <TableHeader table="${yearsTable}" title="Часы пиковой нагрузки для расчета величины фактической мощности" importEnabled="true" onImport="#onImport"/>
+               <TableHeader importEnabled="true" onImport="#onImport" table="${yearsTable}" title="Часы пиковой нагрузки для расчета величины фактической мощности" />
                <StackPane VBox.vgrow="ALWAYS">
                   <children>
                      <JsonTable fx:id="yearsTable" tableName="PEAK_HOURS_YEARS_VW">
@@ -27,12 +28,19 @@
          </VBox>
          <VBox>
             <children>
-               <ListView fx:id="monthsList" minHeight="-Infinity" orientation="HORIZONTAL" prefHeight="30.0" />
+               <VBox fillWidth="false">
+                  <children>
+                     <ListView fx:id="monthsList" maxHeight="-Infinity" minHeight="-Infinity" orientation="HORIZONTAL" prefHeight="30.0" prefWidth="900.0" styleClass="h-filter-list" />
+                  </children>
+                  <padding>
+                     <Insets bottom="8.0" />
+                  </padding>
+               </VBox>
                   <StackPane VBox.vgrow="ALWAYS">
                       <children>
                           <JsonTable fx:id="monthsTable" sqlFile="PEAK_HOURS.sql">
                               <columns>
-                                  <JsonColumn alignment="CENTER" field="DATE" dataType="DATE" prefWidth="100" text="Дата" />
+                                  <JsonColumn alignment="CENTER" dataType="DATE" field="DATE" prefWidth="100" text="Дата" />
                                   <JsonColumn alignment="CENTER_RIGHT" field="HOUR" prefWidth="210.0" text="Час максимального совокупного потребления электроэнергии" />
                               </columns>
                           </JsonTable>
