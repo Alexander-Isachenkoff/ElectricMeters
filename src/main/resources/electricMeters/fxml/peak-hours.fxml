@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import electricMeters.core.controls.JsonColumn?>
+<?import electricMeters.core.controls.JsonTable?>
+<?import electricMeters.core.controls.TableHeader?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.PeakHoursForm">
+   <SplitPane dividerPositions="0.35" orientation="VERTICAL">
+      <items>
+         <VBox>
+            <children>
+               <TableHeader table="${yearsTable}" title="Часы пиковой нагрузки для расчета величины фактической мощности" importEnabled="true" onImport="#onImport"/>
+               <StackPane VBox.vgrow="ALWAYS">
+                  <children>
+                     <JsonTable fx:id="yearsTable" tableName="PEAK_HOURS_YEARS_VW">
+                        <columns>
+                           <JsonColumn alignment="CENTER_LEFT" field="YEAR_DESCR" prefWidth="500.0" />
+                        </columns>
+                     </JsonTable>
+                  </children>
+               </StackPane>
+            </children>
+         </VBox>
+         <VBox>
+            <children>
+               <ListView fx:id="monthsList" minHeight="-Infinity" orientation="HORIZONTAL" prefHeight="30.0" />
+                  <StackPane VBox.vgrow="ALWAYS">
+                      <children>
+                          <JsonTable fx:id="monthsTable" sqlFile="PEAK_HOURS.sql">
+                              <columns>
+                                  <JsonColumn alignment="CENTER" field="DATE" dataType="DATE" prefWidth="100" text="Дата" />
+                                  <JsonColumn alignment="CENTER_RIGHT" field="HOUR" prefWidth="210.0" text="Час максимального совокупного потребления электроэнергии" />
+                              </columns>
+                          </JsonTable>
+                      </children>
+                  </StackPane>
+            </children>
+         </VBox>
+      </items>
+   </SplitPane>
+</VBox>

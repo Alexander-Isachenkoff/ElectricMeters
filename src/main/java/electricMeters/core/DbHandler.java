@@ -150,6 +150,10 @@ public class DbHandler {
             throw new RuntimeException(e);
         }
     }
+    
+    public void insertList(List<JSONObject> list, String table) {
+        insertList(new JSONArray(list), table);
+    }
 
     public void insertList(JSONArray jsonArray, String table) {
         List<String> fields = IntStream.range(0, jsonArray.length())

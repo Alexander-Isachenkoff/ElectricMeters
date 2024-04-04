@@ -134,6 +134,7 @@ public class JsonTable extends TableView<JSONObject> {
     }
 
     public void clear() {
+        allItems.clear();
         getItems().clear();
     }
 
