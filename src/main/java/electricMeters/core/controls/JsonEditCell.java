@@ -108,23 +108,39 @@ class JsonEditCell extends TableCell<JSONObject, Object> {
         super.updateItem(item, empty);
         if (!empty && item != null) {
             // так пишут только говнокодеры
-            if (getDisplayType() == JsonColumn.DisplayType.CHECK_BOX) {
-                CheckBox checkBox = new CheckBox();
-                checkBox.getStyleClass().add("table-check-box");
-                checkBox.setDisable(true);
-                checkBox.setSelected(!item.toString().isEmpty() && Integer.parseInt(item.toString()) == 1);
-                setGraphic(checkBox);
-                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            } else {
-                if (!String.valueOf(item).isEmpty()) {
-                    String text = getDataType().toString(item, getFormat());
-                    setText(text);
-                } else {
-                    setText("");
+            switch (getDisplayType()) {
+                case DEFAULT -> {
+                    if (!String.valueOf(item).isEmpty()) {
+                        String text = getDataType().toString(item, getFormat());
+                        setText(text);
+                    } else {
+                        setText("");
+                    }
+                }
+                case CHECK_BOX -> {
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.getStyleClass().add("table-check-box");
+                    checkBox.setDisable(true);
+                    checkBox.setSelected(!item.toString().isEmpty() && Integer.parseInt(item.toString()) == 1);
+                    setGraphic(checkBox);
+                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                }
+                case HYPERLINK -> {
+                    if (!String.valueOf(item).isEmpty()) {
+                        String text = getDataType().toString(item, getFormat());
+                        Hyperlink hyperlink = new Hyperlink(text);
+                        hyperlink.setOnAction(event -> column.getHyperlinkAction().accept(text));
+                        setGraphic(hyperlink);
+                        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    } else {
+                        setGraphic(null);
+                        setText("");
+                    }
                 }
             }
         } else {
             setText("");
+            setGraphic(null);
         }
     }
 

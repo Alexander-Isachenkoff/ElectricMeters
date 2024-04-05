@@ -1,7 +1,9 @@
 package electricMeters.view;
 
+import electricMeters.core.UtilAlert;
+import electricMeters.core.controls.JsonColumn;
 import electricMeters.core.controls.JsonTable;
-import electricMeters.service.PeakHoursParser;
+import electricMeters.service.PeakHoursService;
 import electricMeters.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -24,9 +26,12 @@ public class PeakHoursForm {
     private ListView<Month> monthsList;
     @FXML
     private JsonTable monthsTable;
+    @FXML
+    private JsonColumn filePathColumn;
     
     @FXML
     private void initialize() {
+        filePathColumn.setHyperlinkAction(PeakHoursService::openFile);
         monthsList.getItems().addAll(Month.values());
         monthsList.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -86,13 +91,24 @@ public class PeakHoursForm {
         }
         for (File file : files) {
             try {
-                PeakHoursParser.readAndInsertPeakHours(file);
+                PeakHoursService.readAndInsertPeakHours(file);
             } catch (Exception e) {
                 e.printStackTrace();
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
             }
         }
         yearsTable.reloadFocused();
+    }
+    
+    @FXML
+    private void onDelete() {
+        List<JSONObject> selectedItems = yearsTable.getSelectedItems();
+        if (UtilAlert.showDeleteConfirmation(selectedItems.size())) {
+            for (JSONObject item : selectedItems) {
+                PeakHoursService.delete(item.getInt("ID"));
+            }
+            yearsTable.reload();
+        }
     }
     
 }

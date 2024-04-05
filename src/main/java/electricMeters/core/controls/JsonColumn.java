@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
 
+import java.util.function.Consumer;
+
 @Setter
 @Getter
 public class JsonColumn extends TableColumn<JSONObject, Object> {
@@ -18,6 +20,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
     private String format;
     private DisplayType displayType = DisplayType.DEFAULT;
     private Mask mask;
+    private Consumer<String> hyperlinkAction = s -> {};
 
     public JsonColumn() {
         this.setEditable(false);
@@ -60,7 +63,7 @@ public class JsonColumn extends TableColumn<JSONObject, Object> {
     }
     
     public enum DisplayType {
-        DEFAULT, CHECK_BOX
+        DEFAULT, CHECK_BOX, HYPERLINK
     }
     
 }

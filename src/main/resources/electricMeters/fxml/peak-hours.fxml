@@ -14,12 +14,13 @@
       <items>
          <VBox>
             <children>
-               <TableHeader importEnabled="true" onImport="#onImport" table="${yearsTable}" title="Часы пиковой нагрузки для расчета величины фактической мощности" />
+               <TableHeader importEnabled="true" deleteEnabled="true" onDelete="#onDelete" onImport="#onImport" table="${yearsTable}" title="Часы пиковой нагрузки для расчета величины фактической мощности" />
                <StackPane VBox.vgrow="ALWAYS">
                   <children>
                      <JsonTable fx:id="yearsTable" tableName="PEAK_HOURS_YEARS_VW">
                         <columns>
-                           <JsonColumn alignment="CENTER_LEFT" field="YEAR_DESCR" prefWidth="500.0" />
+                           <JsonColumn text="Документ" alignment="CENTER_LEFT" field="YEAR_DESCR" prefWidth="500.0" />
+                           <JsonColumn text="Файл" fx:id="filePathColumn" displayType="HYPERLINK" alignment="CENTER_LEFT" field="FILE_NAME" prefWidth="500.0" />
                         </columns>
                      </JsonTable>
                   </children>

@@ -182,6 +182,18 @@
     -fx-fill: black;
 }
 
+.table-view .hyperlink {
+    -fx-padding: 0;
+}
+
+.table-view .hyperlink .text {
+    -fx-fill: steelblue;
+}
+
+.table-view .table-row-cell:filled:selected .hyperlink .text {
+    -fx-fill: steelblue;
+}
+
 .table-view:focused {
     -fx-faint-focus-color: lightgray;
     -fx-background-insets: 0, 1, 1;

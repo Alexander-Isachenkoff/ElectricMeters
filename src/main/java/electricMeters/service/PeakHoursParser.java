@@ -1,6 +1,5 @@
 package electricMeters.service;
 
-import electricMeters.core.DbHandler;
 import electricMeters.util.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -12,14 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeakHoursParser {
+class PeakHoursParser {
     
-    public static void readAndInsertPeakHours(File file) throws IOException {
-        List<JSONObject> peakHours = readPeakHours(file);
-        DbHandler.getInstance().insertList(peakHours, "PEAK_HOURS");
-    }
-    
-    private static List<JSONObject> readPeakHours(File file) throws IOException {
+    static List<JSONObject> readPeakHours(File file) throws IOException {
         List<JSONObject> peakHours = new ArrayList<>();
         try (Workbook book = WorkbookFactory.create(file)) {
             book.sheetIterator().forEachRemaining(sheet -> {
