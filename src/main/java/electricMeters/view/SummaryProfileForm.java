@@ -76,6 +76,14 @@ public class SummaryProfileForm {
                 totalTF.setText(String.format("%.3f", total));
             });
         }).start();
+        
+        new Thread(() -> {
+            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SumPeakPower.sql", year, month).get(0);
+            double power = jsonObject.getDouble("POWER");
+            Platform.runLater(() -> {
+                powerTF.setText(String.format("%.3f", power));
+            });
+        }).start();
     }
 
     @FXML
