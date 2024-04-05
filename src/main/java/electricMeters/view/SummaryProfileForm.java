@@ -73,7 +73,7 @@ public class SummaryProfileForm {
             JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SummaryProfileTotalConsumption.sql", year, month).get(0);
             double total = jsonObject.getDouble("VALUE");
             Platform.runLater(() -> {
-                totalTF.setText(String.format("%.3f", total));
+                totalTF.setText(String.format("%,.3f", total));
             });
         }).start();
         
@@ -81,7 +81,7 @@ public class SummaryProfileForm {
             JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SumPeakPower.sql", year, month).get(0);
             double power = jsonObject.getDouble("POWER");
             Platform.runLater(() -> {
-                powerTF.setText(String.format("%.3f", power));
+                powerTF.setText(String.format("%,.3f", power));
             });
         }).start();
     }

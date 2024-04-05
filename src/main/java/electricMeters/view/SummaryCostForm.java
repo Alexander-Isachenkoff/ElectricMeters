@@ -69,9 +69,9 @@ public class SummaryCostForm {
         companyNameLabel.setText(String.format("%s (№%s)", companyData.getConsumerName(), companyData.getContractNumber()));
         voltageLabel.setText(companyData.getVoltageLevelName());
         
-        totalTF.textProperty().bind(totalCost.asString("%.2f ₽"));
-        powerTF.textProperty().bind(powerCost.asString("%.2f ₽"));
-        totalWithNdsTF.textProperty().bind(totalCostWithNDS.asString("%.2f ₽"));
+        totalTF.textProperty().bind(totalCost.asString("%,.2f ₽"));
+        powerTF.textProperty().bind(powerCost.asString("%,.2f ₽"));
+        totalWithNdsTF.textProperty().bind(totalCostWithNDS.asString("%,.2f ₽"));
         
         totalCostWithNDS.bind(totalCost.add(powerCost).multiply(NDS));
     }
