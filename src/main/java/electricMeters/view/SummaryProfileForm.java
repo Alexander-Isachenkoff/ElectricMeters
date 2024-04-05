@@ -70,7 +70,7 @@ public class SummaryProfileForm {
         table.reload();
 
         new Thread(() -> {
-            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SummaryProfileTotalConsumption.sql", month, year).get(0);
+            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SummaryProfileTotalConsumption.sql", year, month).get(0);
             double total = jsonObject.getDouble("VALUE");
             Platform.runLater(() -> {
                 totalTF.setText(String.format("%.3f", total));

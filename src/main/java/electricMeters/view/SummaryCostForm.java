@@ -7,6 +7,8 @@ import electricMeters.core.controls.JsonTable;
 import electricMeters.report.SummaryCostReport;
 import electricMeters.util.DateUtil;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +24,8 @@ import java.io.IOException;
 
 public class SummaryCostForm {
 
+    private static final double NDS = 1.2;
+    
     private final Stage stage = new Stage();
 
     @FXML private Label companyNameLabel;
@@ -34,6 +38,9 @@ public class SummaryCostForm {
     @FXML private TextField powerTF;
     @FXML private TextField totalWithNdsTF;
 
+    private final DoubleProperty totalCost = new SimpleDoubleProperty();
+    private final DoubleProperty powerCost = new SimpleDoubleProperty();
+    private final DoubleProperty totalCostWithNDS = new SimpleDoubleProperty();
     private int year;
     private int month;
 
@@ -61,6 +68,12 @@ public class SummaryCostForm {
         CompanyData companyData = CompanyData.getCompanyData();
         companyNameLabel.setText(String.format("%s (№%s)", companyData.getConsumerName(), companyData.getContractNumber()));
         voltageLabel.setText(companyData.getVoltageLevelName());
+        
+        totalTF.textProperty().bind(totalCost.asString("%.2f ₽"));
+        powerTF.textProperty().bind(powerCost.asString("%.2f ₽"));
+        totalWithNdsTF.textProperty().bind(totalCostWithNDS.asString("%.2f ₽"));
+        
+        totalCostWithNDS.bind(totalCost.add(powerCost).multiply(NDS));
     }
 
     private void init(int year, int month) {
@@ -73,10 +86,14 @@ public class SummaryCostForm {
 
         new Thread(() -> {
             JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("TotalCost.sql", month, year, companyData.getRateTypeID(), companyData.getVoltageLevelID()).get(0);
-            double total = jsonObject.getDouble("SUMMARY_COST");
-            Platform.runLater(() -> {
-                totalTF.setText(String.format("%.3f", total));
-            });
+            double value = jsonObject.getDouble("SUMMARY_COST");
+            Platform.runLater(() -> totalCost.set(value));
+        }).start();
+        
+        new Thread(() -> {
+            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("PeakPowerCost.sql", companyData.getRateTypeID(), year, month).get(0);
+            double value = jsonObject.getDouble("POWER_COST");
+            Platform.runLater(() -> powerCost.set(value));
         }).start();
     }
 
