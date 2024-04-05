@@ -53,6 +53,11 @@ public class SummaryCostReport {
                     row.getCell(h + 1).setCellValue(value);
                 }
             }
+            
+            sheet.getRow(39).getCell(1).setCellValue(report.getDouble("TOTAL_COST"));
+            sheet.getRow(41).getCell(1).setCellValue(report.getDouble("POWER_COST"));
+            workbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
+            
             file.createNewFile();
             file.deleteOnExit();
             workbook.write(Files.newOutputStream(file.toPath()));

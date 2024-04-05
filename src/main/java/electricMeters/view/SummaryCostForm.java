@@ -106,6 +106,8 @@ public class SummaryCostForm {
                 .put("VOLTAGE_LEVEL_NAME", companyData.getVoltageLevelName())
                 .put("YEAR", year)
                 .put("MONTH", month)
+                .put("TOTAL_COST", totalCost.get())
+                .put("POWER_COST", powerCost.get())
                 .put("strings", table.getAllItems());
         SummaryCostReport.write(report);
     }
