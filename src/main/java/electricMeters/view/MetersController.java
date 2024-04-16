@@ -33,7 +33,8 @@ public class MetersController {
         MeterEditForm.showEdit(selectedMeter, table, table.getScene().getWindow());
     }
 
-    public void onDelete() {
+    @FXML
+    private void onDelete() {
         table.deleteSelectedItemsWithConfirmation("REF_METERS");
     }
 
