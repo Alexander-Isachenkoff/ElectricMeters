@@ -141,6 +141,7 @@ class JsonEditCell extends TableCell<JSONObject, Object> {
         } else {
             setText("");
             setGraphic(textField);
+            setContentDisplay(ContentDisplay.TEXT_ONLY);
         }
     }
 
