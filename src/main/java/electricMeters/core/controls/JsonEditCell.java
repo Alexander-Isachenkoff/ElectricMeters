@@ -66,7 +66,7 @@ class JsonEditCell extends TableCell<JSONObject, Object> {
         super.startEdit();
         textField.setAlignment(column.getAlignment());
         if (getItem() != null) {
-            textField.setText(String.valueOf(getItem()));
+            textField.setText(column.getDataType().toString(getItem(), column.getFormat()));
         }
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         getStyleClass().add("editing-table-cell");
@@ -140,7 +140,7 @@ class JsonEditCell extends TableCell<JSONObject, Object> {
             }
         } else {
             setText("");
-            setGraphic(null);
+            setGraphic(textField);
         }
     }
 
