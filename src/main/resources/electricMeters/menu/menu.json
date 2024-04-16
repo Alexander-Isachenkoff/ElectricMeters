@@ -47,16 +47,8 @@
       "title": "Тарифы",
       "items": [
         {
-          "title": "Тарифы 2",
-          "fxml": "fxml/3_price_category.fxml"
-        },
-        {
           "title": "Тарифы",
           "fxml": "fxml/tariffs.fxml"
-        },
-        {
-          "title": "Цены",
-          "fxml": "fxml/prices.fxml"
         },
         {
           "title": "Часы пиковой нагрузки",

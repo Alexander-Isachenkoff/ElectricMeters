@@ -15,16 +15,12 @@ import java.util.stream.IntStream;
 
 public class TariffsController {
 
-    @FXML
-    private JsonTable table;
-    @FXML
-    private JsonComboBox rateTypeCmb;
-    @FXML
-    private JsonComboBox voltageLevelCmb;
-    @FXML
-    private MonthComboBox monthCmb;
-    @FXML
-    private ComboBoxPlus<Integer> yearCmb;
+    @FXML private JsonTable tariffsTable;
+    @FXML private JsonTable hoursTable;
+    @FXML private JsonComboBox rateTypeCmb;
+    @FXML private JsonComboBox voltageLevelCmb;
+    @FXML private MonthComboBox monthCmb;
+    @FXML private ComboBoxPlus<Integer> yearCmb;
 
     @FXML
     private void initialize() {
@@ -36,6 +32,21 @@ public class TariffsController {
         voltageLevelCmb.reload();
         voltageLevelCmb.getSelectionModel().selectFirst();
 
+        tariffsTable.addSelectedListener(jsonObject -> {
+            if (jsonObject != null) {
+                hoursTable.setParams(
+                        jsonObject.getInt("YEAR"),
+                        jsonObject.getInt("MONTH"),
+                        jsonObject.getInt("TYPE_ID"),
+                        jsonObject.getInt("VL_ID")
+                );
+                hoursTable.reload();
+            } else {
+                hoursTable.setParams(-1, -1, -1, -1);
+                hoursTable.clear();
+            }
+        });
+
         onApply();
     }
 
@@ -45,7 +56,7 @@ public class TariffsController {
         Integer month = monthCmb.getSelectionModel().getSelectedItem() != null ? monthCmb.getSelectionModel().getSelectedItem().getValue() : null;
         Integer rateTypeId = rateTypeCmb.getValue() != null ? rateTypeCmb.getValue().getInt("ID") : null;
         Integer voltageLevelId = voltageLevelCmb.getValue() != null ? voltageLevelCmb.getValue().getInt("ID") : null;
-        table.setParams(
+        tariffsTable.setParams(
                 year,
                 year,
                 month,
@@ -55,7 +66,7 @@ public class TariffsController {
                 voltageLevelId,
                 voltageLevelId
         );
-        table.reload();
+        tariffsTable.reload();
     }
 
     @FXML
@@ -64,9 +75,10 @@ public class TariffsController {
         FileChooser.ExtensionFilter xlsxFilter = new FileChooser.ExtensionFilter("Книга Microsoft Excel", "*.xlsx", "*.xls");
         fileChooser.getExtensionFilters().add(xlsxFilter);
         fileChooser.setSelectedExtensionFilter(xlsxFilter);
-        File file = fileChooser.showOpenDialog(table.getScene().getWindow());
+        File file = fileChooser.showOpenDialog(tariffsTable.getScene().getWindow());
         if (file != null) {
             PowerRateParser.readAndInsertPowerRates(file);
+            tariffsTable.reload();
         }
     }
 

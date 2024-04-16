@@ -39,25 +39,68 @@
             <JsonComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="CAT_VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         </children>
     </GridPane>
-    <VBox VBox.vgrow="ALWAYS">
-        <children>
-            <TableHeader table="${table}" importEnabled="true" onImport="#onImport" title="Тарифы" />
-            <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                <children>
-                    <JsonTable fx:id="table" sqlFile="TARIFF_VW.sql">
-                        <columns>
-                            <JsonColumn alignment="CENTER" field="MONTH" dataType="MONTH" prefWidth="85" text="Месяц" />
-                            <JsonColumn alignment="CENTER" field="YEAR" prefWidth="60.0" text="Год" />
-                            <JsonColumn alignment="CENTER_LEFT" field="PR_TYPE_NAME" prefWidth="450" text="Ставка" />
-                            <JsonColumn alignment="CENTER_LEFT" field="VL_NAME" prefWidth="150" text="Уровень напряжения" />
-                            <JsonColumn alignment="CENTER_RIGHT" field="CAP_RATE" dataType="REAL" prefWidth="150" text="Предельная ставка" />
-                        </columns>
-                    </JsonTable>
-                </children>
-            </StackPane>
-        </children>
-        <padding>
-            <Insets top="12.0" />
-        </padding>
-    </VBox>
+
+    <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS" dividerPositions="0.35">
+        <VBox VBox.vgrow="ALWAYS">
+            <children>
+                <TableHeader table="${tariffsTable}" importEnabled="true" onImport="#onImport" title="Тарифы" />
+                <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <JsonTable fx:id="tariffsTable" sqlFile="TARIFF_VW.sql">
+                            <columns>
+                                <JsonColumn alignment="CENTER" field="MONTH" dataType="MONTH" prefWidth="85" text="Месяц" />
+                                <JsonColumn alignment="CENTER" field="YEAR" prefWidth="60.0" text="Год" />
+                                <JsonColumn alignment="CENTER_LEFT" field="PR_TYPE_NAME" prefWidth="450" text="Ставка" />
+                                <JsonColumn alignment="CENTER_LEFT" field="VL_NAME" prefWidth="150" text="Уровень напряжения" />
+                                <JsonColumn alignment="CENTER_RIGHT" field="CAP_RATE" dataType="REAL" prefWidth="150" text="Предельная ставка" />
+                            </columns>
+                        </JsonTable>
+                    </children>
+                </StackPane>
+            </children>
+            <padding>
+                <Insets top="12.0" />
+            </padding>
+        </VBox>
+
+        <VBox VBox.vgrow="ALWAYS">
+            <children>
+                <TableHeader table="${hoursTable}" title="Почасовая ставка" />
+                <StackPane VBox.vgrow="ALWAYS">
+                    <children>
+                        <JsonTable fx:id="hoursTable" sqlFile="TAR3_HOURLY_RATE_VALUES.sql">
+                            <columns>
+                                <JsonColumn alignment="CENTER_RIGHT" field="DAY_OF_MONTH" prefWidth="50" text="Число" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_0" prefWidth="65.0" text="0:00-1:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_1" prefWidth="65.0" text="1:00-2:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_2" prefWidth="65.0" text="2:00-3:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_3" prefWidth="65.0" text="3:00-4:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_4" prefWidth="65.0" text="4:00-5:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_5" prefWidth="65.0" text="5:00-6:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_6" prefWidth="65.0" text="6:00-7:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_7" prefWidth="65.0" text="7:00-8:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_8" prefWidth="65.0" text="8:00-9:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_9" prefWidth="70.0" text="9:00-10:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_10" prefWidth="75.0" text="10:00-11:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_11" prefWidth="75.0" text="11:00-12:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_12" prefWidth="75.0" text="12:00-13:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_13" prefWidth="75.0" text="13:00-14:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_14" prefWidth="75.0" text="14:00-15:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_15" prefWidth="75.0" text="15:00-16:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_16" prefWidth="75.0" text="16:00-17:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_17" prefWidth="75.0" text="17:00-18:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_18" prefWidth="75.0" text="18:00-19:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_19" prefWidth="75.0" text="19:00-20:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_20" prefWidth="75.0" text="20:00-21:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_21" prefWidth="75.0" text="21:00-22:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_22" prefWidth="75.0" text="22:00-23:00" />
+                                <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="T_23" prefWidth="70.0" text="23:00-0:00" />
+                            </columns>
+                        </JsonTable>
+                    </children>
+                </StackPane>
+            </children>
+        </VBox>
+    </SplitPane>
+
 </VBox>
