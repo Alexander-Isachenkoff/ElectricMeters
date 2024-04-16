@@ -1,10 +1,10 @@
 package electricMeters.view;
 
+import electricMeters.core.controls.ComboBoxPlus;
 import electricMeters.core.controls.JsonComboBox;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.controls.MonthComboBox;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 
 import java.time.LocalDate;
 import java.util.stream.IntStream;
@@ -19,7 +19,7 @@ public class PriceCategory3Controller {
     @FXML
     private MonthComboBox monthCmb;
     @FXML
-    private ComboBox<Integer> yearCmb;
+    private ComboBoxPlus<Integer> yearCmb;
 
     @FXML
     private void initialize() {

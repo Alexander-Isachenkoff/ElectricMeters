@@ -1,11 +1,11 @@
 package electricMeters.view;
 
-import electricMeters.core.controls.ClearableJComboBox;
+import electricMeters.core.controls.ComboBoxPlus;
+import electricMeters.core.controls.JsonComboBox;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.core.controls.MonthComboBox;
 import electricMeters.service.PowerRateParser;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -18,13 +18,13 @@ public class TariffsController {
     @FXML
     private JsonTable table;
     @FXML
-    private ClearableJComboBox rateTypeCmb;
+    private JsonComboBox rateTypeCmb;
     @FXML
-    private ClearableJComboBox voltageLevelCmb;
+    private JsonComboBox voltageLevelCmb;
     @FXML
     private MonthComboBox monthCmb;
     @FXML
-    private ComboBox<Integer> yearCmb;
+    private ComboBoxPlus<Integer> yearCmb;
 
     @FXML
     private void initialize() {

@@ -11,6 +11,7 @@
 <?import electricMeters.core.controls.JsonTable?>
 <?import electricMeters.core.controls.JsonColumn?>
 <?import electricMeters.core.controls.MonthComboBox?>
+<?import electricMeters.core.controls.ComboBoxPlus?>
 <VBox fx:controller="electricMeters.view.PriceCategory3Controller" spacing="12.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/style.css">
     <GridPane hgap="8.0" vgap="1.0">
         <columnConstraints>
@@ -29,7 +30,7 @@
             <Label text="Год" GridPane.columnIndex="1" />
             <Label text="Месяц" />
             <MonthComboBox fx:id="monthCmb" prefWidth="120.0" GridPane.rowIndex="2" />
-            <ComboBox fx:id="yearCmb" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBoxPlus fx:id="yearCmb" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Label text="Ставка" GridPane.columnIndex="2" />
             <Label text="Уровень напряжения" GridPane.columnIndex="3" />

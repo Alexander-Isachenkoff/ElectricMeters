@@ -26,7 +26,7 @@
             <Label text="Год" />
             <Label text="Месяц" GridPane.rowIndex="1" />
             <ComboBox fx:id="yearCmb" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" />
-            <MonthComboBox fx:id="monthCmb" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+            <MonthComboBox fx:id="monthCmb" clearable="false" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="12.0">
