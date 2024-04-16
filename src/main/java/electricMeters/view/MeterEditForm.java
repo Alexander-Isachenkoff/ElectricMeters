@@ -3,6 +3,7 @@ package electricMeters.view;
 import electricMeters.Main;
 import electricMeters.core.DbHandler;
 import electricMeters.core.controls.FormCollector;
+import electricMeters.core.controls.JTextField;
 import electricMeters.core.controls.JsonField;
 import electricMeters.core.controls.JsonTable;
 import javafx.fxml.FXML;
@@ -24,13 +25,13 @@ public class MeterEditForm implements FormCollector {
     
     @FXML
     @JsonField(field = "LOCATION")
-    private TextField locationTF;
+    private JTextField locationTF;
     @FXML
     @JsonField(field = "LOCATION_NAME")
     private TextField locationNameTF;
     @FXML
     @JsonField(field = "METER_NUMBER")
-    private TextField numberTF;
+    private JTextField numberTF;
     @FXML
     @JsonField(field = "DATA_TRANS_DEVICE")
     private TextField dataTransDeviceTF;
@@ -99,6 +100,9 @@ public class MeterEditForm implements FormCollector {
     
     @FXML
     private void onSave() {
+        if (!checkRequired()) {
+            return;
+        }
         JSONObject json = collectData();
         if (initialJson == null) {
             int id = DbHandler.getInstance().insert(json, "REF_METERS");

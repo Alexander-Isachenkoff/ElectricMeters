@@ -9,12 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 
 
+<?import electricMeters.core.controls.JTextField?>
 <VBox prefWidth="600.0" spacing="8.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.MeterEditForm">
    <children>
       <VBox>
          <children>
             <Label text="Место установки прибора учета" />
-            <TextField fx:id="locationTF" />
+            <JTextField fx:id="locationTF" required="true" name="Место установки прибора учета"/>
          </children>
       </VBox>
       <VBox>
@@ -26,7 +27,7 @@
       <VBox>
          <children>
             <Label text="№ прибора учета" />
-            <TextField fx:id="numberTF" maxWidth="150.0" />
+            <JTextField fx:id="numberTF" required="true" name="№ прибора учета" maxWidth="150.0" />
          </children>
       </VBox>
       <HBox spacing="12.0">

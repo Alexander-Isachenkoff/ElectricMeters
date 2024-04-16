@@ -10,8 +10,9 @@
 <?import electricMeters.core.controls.JsonTable?>
 <?import electricMeters.core.controls.JsonColumn?>
 <?import javafx.geometry.Insets?>
-<?import electricMeters.core.controls.ClearableJComboBox?>
 <?import electricMeters.core.controls.MonthComboBox?>
+<?import electricMeters.core.controls.JsonComboBox?>
+<?import electricMeters.core.controls.ComboBoxPlus?>
 <VBox fx:controller="electricMeters.view.TariffsController" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/style.css">
     <GridPane hgap="8.0" vgap="1.0">
         <columnConstraints>
@@ -30,12 +31,12 @@
             <Label text="Год" GridPane.columnIndex="1" />
             <Label text="Месяц" />
             <MonthComboBox fx:id="monthCmb" prefWidth="120.0" GridPane.rowIndex="2" />
-            <ComboBox fx:id="yearCmb" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBoxPlus fx:id="yearCmb" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Label text="Ставка" GridPane.columnIndex="2" />
             <Label text="Уровень напряжения" GridPane.columnIndex="3" />
-            <ClearableJComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="CAT_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ClearableJComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="CAT_VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <JsonComboBox fx:id="rateTypeCmb" field="NAME" prefWidth="500.0" tableName="CAT_RATE_TYPES" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JsonComboBox fx:id="voltageLevelCmb" field="NAME" prefHeight="25.0" prefWidth="125.0" tableName="CAT_VOLTAGE_LEVELS" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         </children>
     </GridPane>
     <VBox VBox.vgrow="ALWAYS">

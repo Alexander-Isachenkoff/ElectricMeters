@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonComboBox extends ComboBox<JSONObject> {
+public class JsonComboBox extends ComboBoxPlus<JSONObject> {
 
     @Getter
     @Setter

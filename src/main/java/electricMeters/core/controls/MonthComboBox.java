@@ -1,13 +1,12 @@
 package electricMeters.core.controls;
 
 import electricMeters.util.DateUtil;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 
 import java.time.LocalDate;
 import java.time.Month;
 
-public class MonthComboBox extends ComboBox<Month> {
+public class MonthComboBox extends ComboBoxPlus<Month> {
     
     public MonthComboBox() {
         this.getItems().addAll(Month.values());
