@@ -1,6 +1,6 @@
 package electricMeters.core.controls;
 
-import javafx.scene.control.Alert;
+import electricMeters.core.UtilAlert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
@@ -64,10 +64,7 @@ public interface FormCollector {
                 if (annotation != null) {
                     if (required.isRequired() && required.isEmpty()) {
                         String message = "Обязательное поле \"%s\" не заполнено".formatted(required.getName());
-                        Alert alert = new Alert(Alert.AlertType.WARNING, message);
-                        alert.setTitle("Предупреждение");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
+                        UtilAlert.showWarning(message);
                         return false;
                     }
                 }
@@ -75,7 +72,7 @@ public interface FormCollector {
         }
         return true;
     }
-    
+
     default JSONObject collectData() {
         JSONObject jsonObject = new JSONObject();
         for (Field field : this.getClass().getDeclaredFields()) {

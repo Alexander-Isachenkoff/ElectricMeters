@@ -8,7 +8,7 @@
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.MetersController">
    <children>
-      <TableHeader table="${table}" title="Счётчики" addEnabled="true" onAdd="#onAdd" editEnabled="true" onEdit="#onEdit"/>
+      <TableHeader table="${table}" title="Счётчики" addEnabled="true" onAdd="#onAdd" editEnabled="true" onEdit="#onEdit" deleteEnabled="true" onDelete="#onDelete"/>
       <StackPane VBox.vgrow="ALWAYS">
          <JsonTable fx:id="table" tableName="REF_METERS">
             <columns>

@@ -13,12 +13,19 @@ public class UtilAlert {
     }
     
     public static boolean showDeleteConfirmation(int count) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", new ButtonType("Да", ButtonBar.ButtonData.YES), new ButtonType("Отмена", ButtonBar.ButtonData.CANCEL_CLOSE));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, null, new ButtonType("Да", ButtonBar.ButtonData.YES), new ButtonType("Отмена", ButtonBar.ButtonData.CANCEL_CLOSE));
         alert.setTitle("Подтверждение");
         String headerText = (count > 1) ? String.format("Удалить записи? (%d шт.)", count) : "Удалить запись?";
         alert.setHeaderText(headerText);
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES;
     }
-    
+
+    public static void showWarning(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, message);
+        alert.setTitle("Предупреждение");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
 }

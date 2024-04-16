@@ -231,7 +231,11 @@ public class DbHandler {
             statement.setObject(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("FOREIGN KEY")) {
+                UtilAlert.showWarning("Невозможно удалить запись, так как на нее есть ссылка!");
+            } else {
+                throw new RuntimeException(e);
+            }
         }
     }
     
@@ -254,7 +258,11 @@ public class DbHandler {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("FOREIGN KEY")) {
+                UtilAlert.showWarning("Невозможно удалить запись, так как на нее есть ссылка!");
+            } else {
+                throw new RuntimeException(e);
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package electricMeters.view;
 
 import electricMeters.core.controls.JsonTable;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.json.JSONObject;
 
@@ -31,5 +32,9 @@ public class MetersController {
     private void showEditForm(JSONObject selectedMeter) {
         MeterEditForm.showEdit(selectedMeter, table, table.getScene().getWindow());
     }
-    
+
+    public void onDelete() {
+        table.deleteSelectedItemsWithConfirmation("REF_METERS");
+    }
+
 }
