@@ -1,7 +1,6 @@
 package electricMeters.view;
 
 import electricMeters.core.controls.JsonTable;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.json.JSONObject;
 
