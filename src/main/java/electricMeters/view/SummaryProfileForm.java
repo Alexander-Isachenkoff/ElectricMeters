@@ -69,21 +69,23 @@ public class SummaryProfileForm {
         table.setParams(month, year);
         table.reload();
 
-        new Thread(() -> {
-            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SummaryProfileTotalConsumption.sql", year, month).get(0);
-            double total = jsonObject.getDouble("VALUE");
-            Platform.runLater(() -> {
-                totalTF.setText(String.format("%,.3f", total));
-            });
-        }).start();
-        
-        new Thread(() -> {
-            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("SumPeakPower.sql", year, month).get(0);
-            double power = jsonObject.getDouble("POWER");
-            Platform.runLater(() -> {
-                powerTF.setText(String.format("%,.3f", power));
-            });
-        }).start();
+        DbHandler.getInstance()
+                .runSqlSelectFileAsync("SummaryProfileTotalConsumption.sql", year, month)
+                .thenAccept(jsonObjects -> {
+                    double total = jsonObjects.get(0).getDouble("VALUE");
+                    Platform.runLater(() -> {
+                        totalTF.setText(String.format("%,.3f", total));
+                    });
+                });
+
+        DbHandler.getInstance()
+                .runSqlSelectFileAsync("SumPeakPower.sql", year, month)
+                .thenAccept(jsonObjects -> {
+                    double power = jsonObjects.get(0).getDouble("POWER");
+                    Platform.runLater(() -> {
+                        powerTF.setText(String.format("%,.3f", power));
+                    });
+                });
     }
 
     @FXML

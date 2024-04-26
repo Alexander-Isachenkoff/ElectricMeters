@@ -2,9 +2,9 @@ package electricMeters.view;
 
 import electricMeters.CompanyData;
 import electricMeters.Main;
-import electricMeters.core.DbHandler;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.report.SummaryCostReport;
+import electricMeters.service.CostService;
 import electricMeters.util.DateUtil;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
@@ -84,17 +84,11 @@ public class SummaryCostForm {
         table.setParams(month, year, companyData.getRateTypeID(), companyData.getVoltageLevelID());
         table.reload();
 
-        new Thread(() -> {
-            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("TotalCost.sql", month, year, companyData.getRateTypeID(), companyData.getVoltageLevelID()).get(0);
-            double value = jsonObject.getDouble("SUMMARY_COST");
-            Platform.runLater(() -> totalCost.set(value));
-        }).start();
-        
-        new Thread(() -> {
-            JSONObject jsonObject = DbHandler.getInstance().runSqlSelectFile("PeakPowerCost.sql", companyData.getRateTypeID(), year, month).get(0);
-            double value = jsonObject.getDouble("POWER_COST");
-            Platform.runLater(() -> powerCost.set(value));
-        }).start();
+        CostService.calcTotalCost(year, month, companyData.getRateTypeID(), companyData.getVoltageLevelID())
+                .thenAccept(value -> Platform.runLater(() -> totalCost.set(value)));
+
+        CostService.calcPeakPowerCost(year, month, companyData.getRateTypeID())
+                .thenAccept(value -> Platform.runLater(() -> powerCost.set(value)));
     }
 
     @FXML

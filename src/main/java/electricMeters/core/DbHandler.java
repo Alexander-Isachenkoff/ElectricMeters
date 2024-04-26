@@ -15,6 +15,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -53,6 +54,10 @@ public class DbHandler {
             return null;
         }
         return jsonObjects.get(0);
+    }
+
+    public CompletableFuture<List<JSONObject>> runSqlSelectFileAsync(String sqlFile, Object... params) {
+        return CompletableFuture.supplyAsync(() -> runSqlSelectFile(sqlFile, params));
     }
 
     public List<JSONObject> runSqlSelectFile(String sqlFile, Object... params) {

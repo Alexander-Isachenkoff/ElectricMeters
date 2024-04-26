@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class JsonTable extends TableView<JSONObject> {
@@ -113,20 +114,31 @@ public class JsonTable extends TableView<JSONObject> {
 
     public void reload(Runnable onReload) {
         showProgress();
-        new Thread(() -> {
-            isLoading = true;
+        CompletableFuture.supplyAsync(() -> {
+            List<JSONObject> result;
             if (sqlFile != null) {
-                allItems = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
+                isLoading = true;
+                result = DbHandler.getInstance().runSqlSelectFile(sqlFile, params);
+                isLoading = false;
             } else if (tableName != null) {
-                allItems = DbHandler.getInstance().getAllFrom(tableName);
+                isLoading = true;
+                result = DbHandler.getInstance().getAllFrom(tableName);
+                isLoading = false;
+            } else {
+                throw new RuntimeException("Не указан sql-файл или название таблицы");
             }
-            isLoading = false;
-            Platform.runLater(() -> {
-                updateVisibleItems();
-                hideProgress();
-                onReload.run();
-            });
-        }).start();
+            return result;
+        })
+        .thenAccept(this::setData)
+        .thenRun(onReload);
+    }
+
+    private void setData(List<JSONObject> data) {
+        allItems = data;
+        Platform.runLater(() -> {
+            updateVisibleItems();
+            hideProgress();
+        });
     }
 
     public void setParams(Object... params) {
