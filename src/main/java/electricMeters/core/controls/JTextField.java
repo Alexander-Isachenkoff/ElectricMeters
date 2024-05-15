@@ -14,10 +14,11 @@ import javafx.util.Duration;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Delegate;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class JTextField extends AnchorPane implements Required {
+public class JTextField extends AnchorPane implements RequiredJsonField<String> {
 
     private final BooleanProperty required = new SimpleBooleanProperty(false);
     @FXML
@@ -29,6 +30,9 @@ public class JTextField extends AnchorPane implements Required {
     @Getter
     @Setter
     private String name = "";
+    @Getter
+    @Setter
+    private String key = "";
 
     public JTextField() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/controls/JTextField.fxml"));
@@ -61,6 +65,16 @@ public class JTextField extends AnchorPane implements Required {
     @Override
     public boolean isEmpty() {
         return textField.getText().isEmpty();
+    }
+
+    @Override
+    public String getValue() {
+        return getText();
+    }
+
+    @Override
+    public void setValue(JSONObject json) {
+        setText(String.valueOf(json.get(getKey())));
     }
 
 }

@@ -2,16 +2,11 @@ package electricMeters.view;
 
 import electricMeters.Main;
 import electricMeters.core.DbHandler;
-import electricMeters.core.controls.FormCollector;
-import electricMeters.core.controls.JTextField;
-import electricMeters.core.controls.JsonField;
-import electricMeters.core.controls.JsonTable;
+import electricMeters.core.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -23,39 +18,17 @@ public class MeterEditForm implements FormCollector {
     
     private final Stage stage = new Stage();
     
-    @FXML
-    @JsonField(field = "LOCATION")
-    private JTextField locationTF;
-    @FXML
-    @JsonField(field = "LOCATION_NAME")
-    private TextField locationNameTF;
-    @FXML
-    @JsonField(field = "METER_NUMBER")
-    private JTextField numberTF;
-    @FXML
-    @JsonField(field = "DATA_TRANS_DEVICE")
-    private TextField dataTransDeviceTF;
-    @FXML
-    @JsonField(field = "DATA_TRANS_DEVICE_ADDRESS")
-    private TextField dataTransDeviceAddressTF;
-    @FXML
-    @JsonField(field = "IP_ADDRESS")
-    private TextField ipAddressTF;
-    @FXML
-    @JsonField(field = "COM_PORT")
-    private TextField comPortTF;
-    @FXML
-    @JsonField(field = "YEAR_OF_MANUFACTURE")
-    private TextField yearTF;
-    @FXML
-    @JsonField(field = "IS_TECHNICAL")
-    private CheckBox isTechnicalChb;
-    @FXML
-    @JsonField(field = "IS_COMMERCIAL")
-    private CheckBox isCommercialChb;
-    @FXML
-    @JsonField(field = "IS_PAID")
-    private CheckBox isPaidChb;
+    @FXML private JTextField locationTF;
+    @FXML private JTextField locationNameTF;
+    @FXML private JTextField numberTF;
+    @FXML private JTextField dataTransDeviceTF;
+    @FXML private JTextField dataTransDeviceAddressTF;
+    @FXML private JTextField ipAddressTF;
+    @FXML private JTextField comPortTF;
+    @FXML private JTextField yearTF;
+    @FXML private JCheckBox isTechnicalChb;
+    @FXML private JCheckBox isCommercialChb;
+    @FXML private JCheckBox isPaidChb;
     
     private JSONObject initialJson;
     private JsonTable tableToReload;
@@ -93,9 +66,9 @@ public class MeterEditForm implements FormCollector {
     }
     
     @Override
-    public void fillData(JSONObject meterJson) {
-        FormCollector.super.fillData(meterJson);
-        this.initialJson = meterJson;
+    public void fillData(JSONObject json) {
+        FormCollector.super.fillData(json);
+        this.initialJson = json;
     }
     
     @FXML

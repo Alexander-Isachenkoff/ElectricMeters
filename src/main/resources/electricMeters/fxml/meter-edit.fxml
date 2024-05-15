@@ -2,32 +2,31 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 
 <?import electricMeters.core.controls.JTextField?>
-<VBox prefWidth="600.0" spacing="8.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.MeterEditForm">
+<?import electricMeters.core.controls.JCheckBox?>
+<VBox prefWidth="600.0" spacing="8.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.MeterEditForm">
    <children>
       <VBox>
          <children>
             <Label text="Место установки прибора учета" />
-            <JTextField fx:id="locationTF" required="true" name="Место установки прибора учета"/>
+            <JTextField fx:id="locationTF" key="LOCATION" required="true" name="Место установки прибора учета"/>
          </children>
       </VBox>
       <VBox>
          <children>
             <Label text="Наименование точки учета" />
-            <TextField fx:id="locationNameTF" />
+            <JTextField fx:id="locationNameTF" key="LOCATION_NAME"/>
          </children>
       </VBox>
       <VBox>
          <children>
             <Label text="№ прибора учета" />
-            <JTextField fx:id="numberTF" required="true" name="№ прибора учета" maxWidth="150.0" />
+            <JTextField fx:id="numberTF" key="METER_NUMBER" required="true" name="№ прибора учета" maxWidth="150.0" />
          </children>
       </VBox>
       <HBox spacing="12.0">
@@ -35,13 +34,13 @@
             <VBox>
                <children>
                   <Label text="Прибор передачи данных" />
-                  <TextField fx:id="dataTransDeviceTF" maxWidth="150.0" />
+                  <JTextField fx:id="dataTransDeviceTF" key="DATA_TRANS_DEVICE" maxWidth="150.0" />
                </children>
             </VBox>
             <VBox HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Адрес прибора передачи" />
-                  <TextField fx:id="dataTransDeviceAddressTF" />
+                  <JTextField fx:id="dataTransDeviceAddressTF" key="DATA_TRANS_DEVICE_ADDRESS"/>
                </children>
             </VBox>
          </children>
@@ -51,13 +50,13 @@
             <VBox>
                <children>
                   <Label text="IP-адрес" />
-                  <TextField fx:id="ipAddressTF" maxWidth="150.0" />
+                  <JTextField fx:id="ipAddressTF" key="IP_ADDRESS" maxWidth="150.0" />
                </children>
             </VBox>
             <VBox HBox.hgrow="ALWAYS">
                <children>
                   <Label text="COM-порт" />
-                  <TextField fx:id="comPortTF" />
+                  <JTextField fx:id="comPortTF" key="COM_PORT"/>
                </children>
             </VBox>
          </children>
@@ -67,16 +66,16 @@
             <VBox>
                <children>
                   <Label text="Год выпуска" />
-                  <TextField fx:id="yearTF" maxWidth="150.0" />
+                  <JTextField fx:id="yearTF" key="YEAR_OF_MANUFACTURE" maxWidth="150.0" />
                </children>
             </VBox>
          </children>
       </HBox>
       <VBox spacing="8.0">
          <children>
-            <CheckBox fx:id="isTechnicalChb" mnemonicParsing="false" text="Технический" />
-            <CheckBox fx:id="isCommercialChb" mnemonicParsing="false" text="Коммерческий" />
-            <CheckBox fx:id="isPaidChb" mnemonicParsing="false" text="П" />
+            <JCheckBox fx:id="isTechnicalChb" key="IS_TECHNICAL" text="Технический" />
+            <JCheckBox fx:id="isCommercialChb" key="IS_COMMERCIAL" text="Коммерческий" />
+            <JCheckBox fx:id="isPaidChb" key="IS_PAID" text="П" />
          </children>
          <padding>
             <Insets top="4.0" />

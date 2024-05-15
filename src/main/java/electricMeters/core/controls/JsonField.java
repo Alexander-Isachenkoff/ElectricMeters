@@ -1,12 +1,13 @@
 package electricMeters.core.controls;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.json.JSONObject;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface JsonField {
-    String field();
+interface JsonField<T> {
+
+    String getKey();
+
+    void setValue(JSONObject json);
+
+    T getValue();
+
 }
