@@ -12,7 +12,7 @@
 <fx:root stylesheets="@../../css/style.css" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ComboBox fx:id="comboBox" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <StackPane layoutX="109.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+      <StackPane fx:id="buttonParent" layoutX="109.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text fx:id="requiredSign" fill="RED" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="!">
                <font>

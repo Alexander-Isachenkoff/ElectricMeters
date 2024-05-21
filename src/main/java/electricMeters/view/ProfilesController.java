@@ -1,12 +1,12 @@
 package electricMeters.view;
 
 import electricMeters.Main;
+import electricMeters.core.controls.ComboBoxPlus;
+import electricMeters.core.controls.JsonTable;
+import electricMeters.core.controls.MonthComboBox;
+import electricMeters.core.controls.TableHeader;
 import electricMeters.report.ProfileHourlyReport;
 import electricMeters.service.ProfileUtil;
-import electricMeters.core.controls.JsonTable;
-import electricMeters.core.DbHandler;
-import electricMeters.core.UtilAlert;
-import electricMeters.core.controls.TableHeader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,30 +19,29 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.SneakyThrows;
-import org.json.JSONObject;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 public class ProfilesController {
-
-    @FXML
-    private TableHeader mainTableHeader;
-    @FXML
-    private JsonTable mainTable;
-    @FXML
-    private JsonTable detailsTable;
-    @FXML
-    private JsonTable detailsTable1;
+    
+    @FXML private MonthComboBox monthCmb;
+    @FXML private ComboBoxPlus<Integer> yearCmb;
+    @FXML private TableHeader mainTableHeader;
+    @FXML private JsonTable mainTable;
+    @FXML private JsonTable detailsTable;
+    @FXML private JsonTable detailsTable1;
     
     @FXML
     private void initialize() {
+        yearCmb.getItems().addAll(IntStream.rangeClosed(2018, LocalDate.now().getYear()).boxed().toList());
+        yearCmb.getSelectionModel().selectLast();
+        
         mainTableHeader.addToolButton("import.png", this::onImport);
-
-        mainTable.setSqlFile("PROFILES_VW.sql");
-        detailsTable.setSqlFile("PROFILE_STRS_VW.sql");
         
         mainTable.addSelectedListener(newValue -> {
             for (JsonTable childTable : Arrays.asList(detailsTable, detailsTable1)) {
@@ -55,7 +54,7 @@ public class ProfilesController {
                 }
             }
         });
-
+        
         ContextMenu contextMenu = new ContextMenu();
         MenuItem reportItem = new MenuItem("Сформировать отчёт");
         reportItem.setOnAction(event -> {
@@ -65,9 +64,9 @@ public class ProfilesController {
         contextMenu.getItems().add(reportItem);
         mainTable.setContextMenu(contextMenu);
         
-        mainTable.reload();
+        onApply();
     }
-
+    
     @SneakyThrows
     @FXML
     private void onImport() {
@@ -105,6 +104,13 @@ public class ProfilesController {
             }
             mainTable.reload();
         }).start();
+    }
+    
+    @FXML
+    private void onApply() {
+        Integer month = (monthCmb.getValue() != null) ? monthCmb.getValue().getValue() : null;
+        mainTable.setParams(yearCmb.getValue(), month);
+        mainTable.reload();
     }
     
     @FXML

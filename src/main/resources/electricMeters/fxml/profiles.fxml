@@ -7,22 +7,44 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
+<?import electricMeters.core.controls.MonthComboBox?>
+<?import electricMeters.core.controls.ComboBoxPlus?>
 <VBox prefHeight="720.0" prefWidth="1024.0" spacing="12.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.ProfilesController">
-   <HBox alignment="CENTER_RIGHT">
-      <children>
-         <Button mnemonicParsing="false" onAction="#onImport" text="Импорт" />
-      </children>
-   </HBox>
+
+    <GridPane hgap="8.0" vgap="1.0">
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" halignment="RIGHT"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+            <Label text="Месяц" />
+            <Label text="Год" GridPane.columnIndex="1" />
+            <MonthComboBox fx:id="monthCmb" prefWidth="120.0" GridPane.rowIndex="2" />
+            <ComboBoxPlus fx:id="yearCmb" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button onAction="#onApply" text="Применить" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button onAction="#onImport" text="Импорт" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+        </children>
+    </GridPane>
+
     <SplitPane dividerPositions="0.5" orientation="VERTICAL" VBox.vgrow="ALWAYS">
         <VBox>
             <TableHeader fx:id="mainTableHeader" addEnabled="false" deleteEnabled="true" onDelete="#onProfileDelete" table="${mainTable}" title="Профили" />
          <StackPane VBox.vgrow="ALWAYS">
             <children>
-                  <JsonTable fx:id="mainTable">
+                  <JsonTable fx:id="mainTable" sqlFile="PROFILES_VW.sql">
                       <columns>
                           <JsonColumn alignment="CENTER_RIGHT" field="ID" prefWidth="50.0" text="ID" />
                           <JsonColumn alignment="CENTER_RIGHT" field="PROFILE_NUM" prefWidth="116.0" text="Номер профиля" />
@@ -46,7 +68,7 @@
                         <TableHeader table="${detailsTable}" title="Показатели" />
                         <StackPane VBox.vgrow="ALWAYS">
                            <children>
-                              <JsonTable fx:id="detailsTable">
+                              <JsonTable fx:id="detailsTable" sqlFile="PROFILE_STRS_VW.sql">
                                  <columns>
                                     <JsonColumn alignment="CENTER_RIGHT" field="ID" prefWidth="50.0" text="ID" />
                                     <JsonColumn alignment="CENTER" dataType="DATE" field="DATE" text="Дата" />

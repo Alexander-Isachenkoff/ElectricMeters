@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,8 @@ public class ComboBoxPlus<T> extends AnchorPane implements Required {
     private Button clearButton;
     @FXML
     private Text requiredSign;
+    @FXML
+    private StackPane buttonParent;
 
     @Getter
     @Setter
@@ -41,6 +44,7 @@ public class ComboBoxPlus<T> extends AnchorPane implements Required {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        buttonParent.mouseTransparentProperty().bind(clearButton.visibleProperty().not().and(requiredSign.visibleProperty().not()));
         clearButton.visibleProperty().bind(valueProperty().isNotNull().and(clearable));
         requiredSign.visibleProperty().bind(required.and(valueProperty().isNull()));
     }
