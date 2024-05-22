@@ -55,6 +55,14 @@ public class DbHandler {
         }
         return jsonObjects.get(0);
     }
+    
+    public List<JSONObject> selectAllById(String tableName, Collection<Integer> id) {
+        String inClause = id.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(", "));
+        String sql = String.format("SELECT * FROM %s WHERE ID in (%s)", tableName, inClause);
+        return runSqlSelect(sql);
+    }
 
     public CompletableFuture<List<JSONObject>> runSqlSelectFileAsync(String sqlFile, Object... params) {
         return CompletableFuture.supplyAsync(() -> runSqlSelectFile(sqlFile, params));

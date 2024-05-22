@@ -31,6 +31,10 @@
         {
           "title": "Стоимость",
           "fxml": "fxml/summary-cost.fxml"
+        },
+        {
+          "title": "Поверка",
+          "fxml": "fxml/verifications-reg.fxml"
         }
       ]
     },

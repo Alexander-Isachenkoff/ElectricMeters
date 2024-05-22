@@ -84,6 +84,7 @@ public class JsonTable extends TableView<JSONObject> {
                 .filter(json -> hasValue(json, filter.getValue()))
                 .toList();
         getItems().setAll(filteredItems);
+        getSelectionModel().selectFirst();
     }
 
     public StringProperty filterProperty() {
@@ -133,7 +134,7 @@ public class JsonTable extends TableView<JSONObject> {
         .thenRun(onReload);
     }
 
-    private void setData(List<JSONObject> data) {
+    public void setData(List<JSONObject> data) {
         allItems = data;
         Platform.runLater(() -> {
             updateVisibleItems();

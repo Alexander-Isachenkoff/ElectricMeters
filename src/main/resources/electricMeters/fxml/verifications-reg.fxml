@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import electricMeters.core.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox prefHeight="720.0" prefWidth="1024.0" spacing="12.0" stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="electricMeters.view.Verifications">
+
+    <GridPane hgap="8.0" vgap="1.0">
+        <columnConstraints>
+            <ColumnConstraints/>
+            <ColumnConstraints/>
+            <ColumnConstraints/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <children>
+            <Label text="Период" GridPane.columnSpan="2"/>
+            <Label text="с" GridPane.rowIndex="2"/>
+            <DatePicker fx:id="datePickerFrom" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <Label text="по" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <DatePicker fx:id="datePickerTo" prefWidth="125.0" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            <Button onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+        </children>
+    </GridPane>
+
+    <SplitPane dividerPositions="0.25" VBox.vgrow="ALWAYS">
+        <VBox>
+            <TableHeader table="${mainTable}" title="Поверки" editEnabled="true" onEdit="#onEdit" deleteEnabled="true" onDelete="#onDelete"/>
+            <StackPane VBox.vgrow="ALWAYS">
+                <children>
+                    <JsonTable fx:id="mainTable" sqlFile="VERIFICATIONS.sql">
+                        <columns>
+                            <JsonColumn alignment="CENTER" dataType="DATE" field="DATE" text="Дата" prefWidth="125"/>
+                        </columns>
+                    </JsonTable>
+                </children>
+            </StackPane>
+        </VBox>
+        <VBox>
+            <children>
+                <TableHeader table="${detailsTable}" title="Приборы учета"/>
+                <StackPane VBox.vgrow="ALWAYS">
+                    <children>
+                        <JsonTable fx:id="detailsTable" sqlFile="VERIFICATION_METERS_VW.sql">
+                            <columns>
+                                <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="300.0" text="Место установки прибора учета" />
+                                <JsonColumn alignment="CENTER_RIGHT" field="METER_NUMBER" prefWidth="150.0" text="№ прибора учета" />
+                            </columns>
+                        </JsonTable>
+                    </children>
+                </StackPane>
+            </children>
+        </VBox>
+    </SplitPane>
+</VBox>
