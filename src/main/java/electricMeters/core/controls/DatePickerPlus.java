@@ -7,12 +7,9 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Control;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import lombok.Getter;
@@ -24,13 +21,16 @@ import java.time.LocalDate;
 
 public class DatePickerPlus extends AnchorPane implements Required {
     
+    private final BooleanProperty clearable = new SimpleBooleanProperty(true);
     private final BooleanProperty required = new SimpleBooleanProperty(false);
     
     @FXML
     @Delegate(excludes = Control.class)
     private DatePicker datePicker;
     @FXML
-    private StackPane requiredSign;
+    private Text requiredSign;
+    @FXML
+    private Button clearButton;
     
     @Getter
     @Setter
@@ -76,10 +76,16 @@ public class DatePickerPlus extends AnchorPane implements Required {
                 (ObjectProperty<LocalDate>) datePicker.getEditor().getTextFormatter().valueProperty()
         );
         
+        clearButton.visibleProperty().bind(valueProperty().isNotNull().and(clearable));
         requiredSign.visibleProperty().bind(required.and(valueProperty().isNull()));
         Tooltip tooltip = new Tooltip("Обязательное поле");
         tooltip.setShowDelay(Duration.millis(100));
         Tooltip.install(requiredSign, tooltip);
+    }
+    
+    @FXML
+    public void clear() {
+        setValue(null);
     }
     
     @Override
