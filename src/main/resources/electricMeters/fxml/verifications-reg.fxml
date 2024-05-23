@@ -20,9 +20,9 @@
         <children>
             <Label text="Период" GridPane.columnSpan="2"/>
             <Label text="с" GridPane.rowIndex="2"/>
-            <DatePicker fx:id="datePickerFrom" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <DatePickerPlus fx:id="datePickerFrom" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             <Label text="по" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-            <DatePicker fx:id="datePickerTo" prefWidth="125.0" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            <DatePickerPlus fx:id="datePickerTo" prefWidth="125.0" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
             <Button onAction="#onApply" text="Применить" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
         </children>
     </GridPane>

@@ -1,9 +1,9 @@
 package electricMeters.view;
 
+import electricMeters.core.controls.DatePickerPlus;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.util.DateUtil;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
@@ -11,24 +11,13 @@ import java.util.Optional;
 
 public class Verifications {
     
-    @FXML
-    private DatePicker datePickerFrom;
-    @FXML
-    private DatePicker datePickerTo;
-    @FXML
-    private JsonTable mainTable;
-    @FXML
-    private JsonTable detailsTable;
+    @FXML private DatePickerPlus datePickerFrom;
+    @FXML private DatePickerPlus datePickerTo;
+    @FXML private JsonTable mainTable;
+    @FXML private JsonTable detailsTable;
     
     @FXML
     private void initialize() {
-        // todo: Сделать компонент для даты
-        datePickerTo.getEditor().textProperty().addListener((observableValue, s, t1) -> {
-            if (t1.isEmpty()) {
-                datePickerTo.setValue(null);
-            }
-        });
-        
         datePickerFrom.setValue(LocalDate.now().minusYears(1));
         datePickerTo.setValue(LocalDate.now());
         

@@ -2,14 +2,14 @@ package electricMeters.view;
 
 import electricMeters.Main;
 import electricMeters.core.DbHandler;
+import electricMeters.core.controls.FormCollector;
+import electricMeters.core.controls.JsonDatePicker;
 import electricMeters.core.controls.JsonTable;
 import electricMeters.repository.VerificationRepository;
-import electricMeters.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class VerificationEdit {
+public class VerificationEdit implements FormCollector {
     
     private final Stage stage = new Stage();
     private final DbHandler db = DbHandler.getInstance();
     private final VerificationRepository verificationRepository = new VerificationRepository();
     
-    @FXML private DatePicker datePicker;
+    @FXML private JsonDatePicker datePicker;
     @FXML private JsonTable metersTable;
     
     private JsonTable tableToReload;
@@ -66,7 +66,7 @@ public class VerificationEdit {
         this.id = id;
         this.tableToReload = tableToReload;
         JSONObject verification = db.selectById("VERIFICATIONS", id);
-        datePicker.setValue(DateUtil.toLocalDate(verification.getString("DATE")));
+        this.fillData(verification);
         metersTable.setParams(id);
         metersTable.reload();
         stage.show();
@@ -74,8 +74,10 @@ public class VerificationEdit {
     
     @FXML
     private void onSave() {
-        JSONObject verification = new JSONObject()
-                .put("DATE", DateUtil.DB_DATE_FORMAT.format(datePicker.getValue()));
+        if (!this.checkRequired()) {
+            return;
+        }
+        JSONObject verification = this.collectData();
 
         if (id != 0) {
             verification.put("ID", id);
