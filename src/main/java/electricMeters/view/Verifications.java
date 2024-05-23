@@ -2,12 +2,10 @@ package electricMeters.view;
 
 import electricMeters.core.controls.DatePickerPlus;
 import electricMeters.core.controls.JsonTable;
-import electricMeters.util.DateUtil;
 import javafx.fxml.FXML;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class Verifications {
     
@@ -38,13 +36,7 @@ public class Verifications {
     
     @FXML
     private void onApply() {
-        String dateFrom = Optional.ofNullable(datePickerFrom.getValue())
-                .map(DateUtil.DB_DATE_FORMAT::format)
-                .orElse(null);
-        String dateTo = Optional.ofNullable(datePickerTo.getValue())
-                .map(DateUtil.DB_DATE_FORMAT::format)
-                .orElse(null);
-        mainTable.setParams(dateFrom, dateTo);
+        mainTable.setParams(datePickerFrom.getStringValue(), datePickerTo.getStringValue());
         mainTable.reload();
     }
     

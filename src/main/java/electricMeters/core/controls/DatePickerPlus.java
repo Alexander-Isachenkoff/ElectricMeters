@@ -102,4 +102,9 @@ public class DatePickerPlus extends AnchorPane implements Required {
         this.required.set(required);
     }
     
+    public String getStringValue() {
+        LocalDate value = getValue();
+        return (value != null) ? value.format(DateUtil.DB_DATE_FORMAT) : null;
+    }
+    
 }
