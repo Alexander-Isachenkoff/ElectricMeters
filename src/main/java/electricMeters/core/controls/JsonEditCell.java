@@ -35,7 +35,9 @@ class JsonEditCell extends TableCell<JSONObject, Object> {
         });
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                textField.setText(getDataType().toString(getItem(), getFormat()));
+                if (getItem() != null) {
+                    textField.setText(getDataType().toString(getItem(), getFormat()));
+                }
                 cancelEdit();
                 event.consume();
             }
@@ -64,10 +66,14 @@ class JsonEditCell extends TableCell<JSONObject, Object> {
     @Override
     public void startEdit() {
         super.startEdit();
-        textField.setAlignment(column.getAlignment());
-        if (getItem() != null) {
-            textField.setText(column.getDataType().toString(getItem(), column.getFormat()));
+        String inputText = ((JsonTable) column.getTableView()).getAndDropLastInputText();
+        if (!inputText.isEmpty()) {
+            textField.setText(inputText);
+        } else if (getItem() != null) {
+            textField.setText(getDataType().toString(getItem(), getFormat()));
         }
+        textField.positionCaret(textField.getText().length());
+        textField.setAlignment(column.getAlignment());
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         getStyleClass().add("editing-table-cell");
         textField.requestFocus();

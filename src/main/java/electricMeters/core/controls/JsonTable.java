@@ -45,6 +45,8 @@ public class JsonTable extends TableView<JSONObject> {
     @Setter
     private Consumer<JSONObject> changeRowListener = jsonObject -> {};
 
+    private String lastInputText = "";
+    
     public JsonTable() {
         progressIndicator.setMaxSize(60, 60);
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -53,9 +55,9 @@ public class JsonTable extends TableView<JSONObject> {
 
         this.setOnKeyPressed(e -> {
             TablePosition<JSONObject, ?> editingCell = getEditingCell();
-            // switch to edit mode on keypress, but only if we aren't already in edit mode
             if (editingCell == null) {
                 if (e.getCode().isLetterKey() || e.getCode().isDigitKey()) {
+                    lastInputText = e.getText();
                     TablePosition<JSONObject, ?> focusedCellPosition = getFocusModel().getFocusedCell();
                     edit(focusedCellPosition.getRow(), focusedCellPosition.getTableColumn());
                 }
@@ -72,6 +74,12 @@ public class JsonTable extends TableView<JSONObject> {
             });
             return row;
         });
+    }
+    
+    String getAndDropLastInputText() {
+        String result = lastInputText;
+        lastInputText = "";
+        return result;
     }
 
     private static boolean hasValue(JSONObject json, String value) {
