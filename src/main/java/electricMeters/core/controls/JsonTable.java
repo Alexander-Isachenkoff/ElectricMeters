@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import lombok.Getter;
@@ -45,7 +47,7 @@ public class JsonTable extends TableView<JSONObject> {
     @Setter
     private Consumer<JSONObject> changeRowListener = jsonObject -> {};
 
-    private String lastInputText = "";
+    private String lastInputText;
     
     public JsonTable() {
         progressIndicator.setMaxSize(60, 60);
@@ -55,16 +57,7 @@ public class JsonTable extends TableView<JSONObject> {
         
         this.setPlaceholder(new Label("Нет данных"));
 
-        this.setOnKeyPressed(e -> {
-            TablePosition<JSONObject, ?> editingCell = getEditingCell();
-            if (editingCell == null) {
-                if (e.getCode().isLetterKey() || e.getCode().isDigitKey()) {
-                    lastInputText = e.getText();
-                    TablePosition<JSONObject, ?> focusedCellPosition = getFocusModel().getFocusedCell();
-                    edit(focusedCellPosition.getRow(), focusedCellPosition.getTableColumn());
-                }
-            }
-        });
+        this.setOnKeyPressed(this::onKeyPressed);
 
         this.setRowFactory(table -> {
             TableRow<JSONObject> row = new TableRow<>();
@@ -80,7 +73,7 @@ public class JsonTable extends TableView<JSONObject> {
     
     String getAndDropLastInputText() {
         String result = lastInputText;
-        lastInputText = "";
+        lastInputText = null;
         return result;
     }
 
@@ -194,8 +187,8 @@ public class JsonTable extends TableView<JSONObject> {
                 if (isLoading) {
                     Platform.runLater(() -> {
                         setEffect(new GaussianBlur(4));
-                        if (getParent() instanceof StackPane) {
-                            ObservableList<Node> children = ((StackPane) getParent()).getChildren();
+                        if (getParent() instanceof StackPane parent) {
+                            ObservableList<Node> children = parent.getChildren();
                             if (!children.contains(progressIndicator)) {
                                 children.add(progressIndicator);
                             }
@@ -215,5 +208,30 @@ public class JsonTable extends TableView<JSONObject> {
             this.reload();
         }
     }
-
+    
+    private void onKeyPressed(KeyEvent e) {
+        if (getEditingCell() != null) {
+            return;
+        }
+        TablePosition<JSONObject, ?> focusedCell = getFocusModel().getFocusedCell();
+        if (e.getCode().isLetterKey() || e.getCode().isDigitKey()) {
+            lastInputText = e.getText();
+            edit(focusedCell.getRow(), focusedCell.getTableColumn());
+        } else if (e.getCode() == KeyCode.BACK_SPACE) {
+            lastInputText = "";
+            edit(focusedCell.getRow(), focusedCell.getTableColumn());
+        } else if (e.getCode() == KeyCode.DELETE) {
+            for (TablePosition cell : getSelectionModel().getSelectedCells()) {
+                JsonColumn column = (JsonColumn) cell.getTableColumn();
+                if (column.isEditable()) {
+                    String field = column.getField();
+                    JSONObject item = getItems().get(cell.getRow());
+                    item.remove(field);
+                    changeRowListener.accept(item);
+                    refresh();
+                }
+            }
+        }
+    }
+    
 }

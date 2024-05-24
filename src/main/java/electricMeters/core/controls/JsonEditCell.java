@@ -67,7 +67,7 @@ class JsonEditCell extends TableCell<JSONObject, Object> {
     public void startEdit() {
         super.startEdit();
         String inputText = ((JsonTable) column.getTableView()).getAndDropLastInputText();
-        if (!inputText.isEmpty()) {
+        if (inputText != null) {
             textField.setText(inputText);
         } else if (getItem() != null) {
             textField.setText(getDataType().toString(getItem(), getFormat()));
