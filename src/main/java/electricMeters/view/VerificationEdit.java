@@ -90,7 +90,7 @@ public class VerificationEdit implements FormCollector {
         verificationRepository.saveOrUpdate(verification, metersId);
         
         if (tableToReload != null) {
-            tableToReload.reloadFocused();
+            tableToReload.reload();
         }
         
         stage.close();

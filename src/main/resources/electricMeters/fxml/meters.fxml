@@ -3,29 +3,49 @@
 <?import electricMeters.core.controls.JsonColumn?>
 <?import electricMeters.core.controls.JsonTable?>
 <?import electricMeters.core.controls.TableHeader?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.MetersController">
-   <children>
-      <TableHeader table="${table}" title="Счётчики" addEnabled="true" onAdd="#onAdd" editEnabled="true" onEdit="#onEdit" deleteEnabled="true" onDelete="#onDelete"/>
-      <StackPane VBox.vgrow="ALWAYS">
-         <JsonTable fx:id="table" tableName="REF_METERS_VW">
-            <columns>
-               <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="200.0" text="Место установки прибора учета" />
-               <JsonColumn alignment="CENTER_RIGHT" field="METER_NUMBER" minWidth="6.666656494140625" prefWidth="85.0" text="№ прибора учета" />
-               <JsonColumn alignment="CENTER_LEFT" field="DATA_TRANS_DEVICE" prefWidth="120.0" text="Прибор передачи данных" />
-               <JsonColumn alignment="CENTER_LEFT" field="DATA_TRANS_DEVICE_ADDRESS" prefWidth="150.0" text="Адрес прибора передачи" />
-               <JsonColumn alignment="CENTER_LEFT" field="COM_PORT" prefWidth="100.0" text="COM-порт" />
-               <JsonColumn alignment="CENTER_LEFT" field="IP_ADDRESS" prefWidth="60.0" text="ip-адрес" />
-               <JsonColumn alignment="CENTER_LEFT" field="LOCATION_NAME" minWidth="0.0" prefWidth="200.0" text="Наименование точки учета" />
-               <JsonColumn alignment="CENTER" field="YEAR_OF_MANUFACTURE" text="Год выпуска" />
-               <JsonColumn alignment="CENTER" field="LAST_VERIFICATION_DATE" text="Дата последней поверки" dataType="DATE" prefWidth="120"/>
-               <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_TECHNICAL" text="Т" prefWidth="35.0" />
-               <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_COMMERCIAL" text="К" prefWidth="35.0" />
-               <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_PAID" text="П" prefWidth="35.0" />
-            </columns>
-         </JsonTable>
-      </StackPane>
-   </children>
-</VBox>
+
+<SplitPane dividerPositions="0.75" orientation="VERTICAL" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electricMeters.view.MetersController">
+   <items>
+      <VBox>
+         <children>
+            <TableHeader addEnabled="true" deleteEnabled="true" editEnabled="true" onAdd="#onAdd" onDelete="#onDelete" onEdit="#onEdit" table="${metersTable}" title="Приборы учета" />
+            <StackPane VBox.vgrow="ALWAYS">
+               <JsonTable fx:id="metersTable" tableName="REF_METERS_VW">
+                  <columns>
+                     <JsonColumn alignment="CENTER_LEFT" field="LOCATION" prefWidth="200.0" text="Место установки прибора учета" />
+                     <JsonColumn alignment="CENTER_RIGHT" field="METER_NUMBER" minWidth="6.666656494140625" prefWidth="85.0" text="№ прибора учета" />
+                     <JsonColumn alignment="CENTER_LEFT" field="DATA_TRANS_DEVICE" prefWidth="120.0" text="Прибор передачи данных" />
+                     <JsonColumn alignment="CENTER_LEFT" field="DATA_TRANS_DEVICE_ADDRESS" prefWidth="150.0" text="Адрес прибора передачи" />
+                     <JsonColumn alignment="CENTER_LEFT" field="COM_PORT" prefWidth="100.0" text="COM-порт" />
+                     <JsonColumn alignment="CENTER_LEFT" field="IP_ADDRESS" prefWidth="60.0" text="ip-адрес" />
+                     <JsonColumn alignment="CENTER_LEFT" field="LOCATION_NAME" minWidth="0.0" prefWidth="200.0" text="Наименование точки учета" />
+                     <JsonColumn alignment="CENTER" field="YEAR_OF_MANUFACTURE" text="Год выпуска" />
+                     <JsonColumn alignment="CENTER" dataType="DATE" field="LAST_VERIFICATION_DATE" prefWidth="120" text="Дата последней поверки" />
+                     <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_TECHNICAL" prefWidth="35.0" text="Т" />
+                     <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_COMMERCIAL" prefWidth="35.0" text="К" />
+                     <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_PAID" prefWidth="35.0" text="П" />
+                  </columns>
+               </JsonTable>
+            </StackPane>
+         </children>
+      </VBox>
+      <VBox>
+         <children>
+            <TableHeader table="${verificationsTable}" title="История поверок" editEnabled="true" onEdit="#onVerificationEdit" deleteEnabled="true" onDelete="#onVerificationDelete"/>
+            <StackPane VBox.vgrow="ALWAYS">
+               <children>
+                  <JsonTable fx:id="verificationsTable" sqlFile="meter-verifications.sql">
+                     <columns>
+                        <JsonColumn alignment="CENTER" field="DATE" dataType="DATE" prefWidth="200.0" text="Дата поверки" />
+                     </columns>
+                  </JsonTable>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </items>
+</SplitPane>

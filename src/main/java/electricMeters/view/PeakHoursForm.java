@@ -97,7 +97,7 @@ public class PeakHoursForm {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
             }
         }
-        yearsTable.reloadFocused();
+        yearsTable.reload();
     }
     
     @FXML

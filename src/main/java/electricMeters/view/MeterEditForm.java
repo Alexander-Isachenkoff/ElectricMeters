@@ -79,11 +79,11 @@ public class MeterEditForm implements FormCollector {
         JSONObject json = collectData();
         if (initialJson == null) {
             int id = DbHandler.getInstance().insert(json, "REF_METERS");
-            tableToReload.reloadFocused(id);
+            tableToReload.reloadAndSelect(id);
         } else {
             json.put("ID", initialJson.get("ID"));
             DbHandler.getInstance().update(json, "REF_METERS");
-            tableToReload.reloadFocused();
+            tableToReload.reload();
         }
         stage.close();
     }

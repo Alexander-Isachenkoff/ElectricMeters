@@ -99,7 +99,7 @@ public class ActOfConsumptionEditController {
     @FXML
     private void onSave() {
         save();
-        tableToReload.reloadFocused();
+        tableToReload.reload();
         stage.close();
     }
 

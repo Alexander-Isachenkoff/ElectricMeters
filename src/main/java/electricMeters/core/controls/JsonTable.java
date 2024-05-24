@@ -52,6 +52,8 @@ public class JsonTable extends TableView<JSONObject> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         getSelectionModel().setCellSelectionEnabled(true);
         filter.addListener((observable, oldValue, newValue) -> updateVisibleItems());
+        
+        this.setPlaceholder(new Label("Нет данных"));
 
         this.setOnKeyPressed(e -> {
             TablePosition<JSONObject, ?> editingCell = getEditingCell();
@@ -92,36 +94,41 @@ public class JsonTable extends TableView<JSONObject> {
                 .filter(json -> hasValue(json, filter.getValue()))
                 .toList();
         getItems().setAll(filteredItems);
-        getSelectionModel().selectFirst();
     }
 
     public StringProperty filterProperty() {
         return filter;
     }
-
-    public void reloadFocused() {
+    
+    public void reload() {
         JSONObject selectedItem = getSelectedItem();
-        if (selectedItem != null) {
+        if (selectedItem != null && selectedItem.has("ID")) {
             int id = selectedItem.getInt("ID");
-            reloadFocused(id);
+            reloadAndSelect(id);
         } else {
-            reload();
+            reloadAndSelectFirst();
         }
     }
-
-    public void reloadFocused(int id) {
+    
+    public void reloadAndSelect(int id) {
         reload(() -> {
-            getItems().stream()
-                    .filter(json -> json.get("ID").equals(id)).findFirst()
-                    .ifPresent(json -> getSelectionModel().select(json));
+            Platform.runLater(() -> {
+                getItems().stream()
+                        .filter(json -> json.get("ID").equals(id)).findFirst()
+                        .ifPresent(json -> {
+                            int row = getItems().indexOf(json);
+                            getSelectionModel().select(row);
+                            getFocusModel().focus(row);
+                        });
+            });
         });
     }
-
-    public void reload() {
-        reload(() -> {});
+    
+    private void reloadAndSelectFirst() {
+        reload(() -> Platform.runLater(() -> getSelectionModel().selectFirst()));
     }
-
-    public void reload(Runnable onReload) {
+    
+    private void reload(Runnable onReload) {
         showProgress();
         CompletableFuture.supplyAsync(() -> {
             List<JSONObject> result;

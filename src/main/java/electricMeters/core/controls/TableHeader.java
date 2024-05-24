@@ -5,11 +5,11 @@ import electricMeters.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -34,7 +33,6 @@ public class TableHeader extends HBox {
     private final BooleanProperty editEnabled = new SimpleBooleanProperty(false);
     private final BooleanProperty deleteEnabled = new SimpleBooleanProperty(false);
     private final ObjectProperty<JsonTable> table = new SimpleObjectProperty<>();
-    private final ListChangeListener<? super JSONObject> listChangeListener = c -> updateCount();
 
     @FXML private Label titleLabel;
     @FXML private Label countLabel;
@@ -76,18 +74,12 @@ public class TableHeader extends HBox {
 
         table.addListener((observable, oldValue, newValue) -> {
             if (oldValue != null) {
-                oldValue.getItems().removeListener(listChangeListener);
                 oldValue.filterProperty().unbindBidirectional(searchField.textProperty());
             }
-            newValue.getItems().addListener(listChangeListener);
             newValue.filterProperty().bind(searchField.textProperty());
+            countLabel.textProperty().unbind();
+            countLabel.textProperty().bind(Bindings.size(getTable().getItems()).asString("(%d)"));
         });
-    }
-
-    private void updateCount() {
-        if (getTable() != null) {
-            countLabel.setText("(" + getTable().getItems().size() + ")");
-        }
     }
 
     @FXML
