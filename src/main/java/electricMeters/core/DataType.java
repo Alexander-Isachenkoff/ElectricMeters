@@ -20,12 +20,16 @@ public enum DataType {
     },
 
     REAL() {
+        private final static DecimalFormat DEFAULT_FORMAT = new DecimalFormat("0.000", DecimalFormatSymbols.getInstance(Locale.US));
+        
         @Override
         public String toString(Object object, String format) {
+            DecimalFormat decimalFormat;
             if (format == null) {
-                format = "0.000";
+                decimalFormat = DEFAULT_FORMAT;
+            } else {
+                decimalFormat = new DecimalFormat(format, DecimalFormatSymbols.getInstance(Locale.US));
             }
-            DecimalFormat decimalFormat = new DecimalFormat(format, DecimalFormatSymbols.getInstance(Locale.US));
             return decimalFormat.format(object);
         }
 
