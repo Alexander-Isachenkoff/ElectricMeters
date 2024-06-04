@@ -5,7 +5,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Delegate;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -22,7 +20,6 @@ public class JTextField extends AnchorPane implements RequiredJsonField<String> 
 
     private final BooleanProperty required = new SimpleBooleanProperty(false);
     @FXML
-    @Delegate(excludes = Control.class)
     private TextField textField;
     @FXML
     private StackPane requiredSign;
@@ -71,10 +68,18 @@ public class JTextField extends AnchorPane implements RequiredJsonField<String> 
     public String getValue() {
         return getText();
     }
-
+    
     @Override
     public void setValue(JSONObject json) {
         setText(String.valueOf(json.get(getKey())));
     }
-
+    
+    public String getText() {
+        return textField.getText();
+    }
+    
+    public void setText(String text) {
+        textField.setText(text);
+    }
+    
 }

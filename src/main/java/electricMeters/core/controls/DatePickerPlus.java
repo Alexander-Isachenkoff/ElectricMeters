@@ -14,7 +14,6 @@ import javafx.util.Duration;
 import javafx.util.StringConverter;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Delegate;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -25,7 +24,6 @@ public class DatePickerPlus extends AnchorPane implements Required {
     private final BooleanProperty required = new SimpleBooleanProperty(false);
     
     @FXML
-    @Delegate(excludes = Control.class)
     private DatePicker datePicker;
     @FXML
     private Text requiredSign;
@@ -105,6 +103,18 @@ public class DatePickerPlus extends AnchorPane implements Required {
     public String getStringValue() {
         LocalDate value = getValue();
         return (value != null) ? value.format(DateUtil.DB_DATE_FORMAT) : null;
+    }
+    
+    public LocalDate getValue() {
+        return datePicker.getValue();
+    }
+    
+    public void setValue(LocalDate localDate) {
+        datePicker.setValue(localDate);
+    }
+    
+    public ObjectProperty<LocalDate> valueProperty() {
+        return datePicker.valueProperty();
     }
     
 }
