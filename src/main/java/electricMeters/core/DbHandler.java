@@ -94,11 +94,15 @@ public class DbHandler {
         List<JSONObject> list = new ArrayList<>();
         try {
             ResultSetMetaData metaData = resultSet.getMetaData();
+            String[] columnNames = new String[metaData.getColumnCount()];
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                columnNames[i - 1] = metaData.getColumnName(i);
+            }
             while (resultSet.next()) {
                 JSONObject json = new JSONObject();
-                for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                    String key = metaData.getColumnName(i);
-                    json.put(key, resultSet.getObject(i));
+                for (int i = 0; i < columnNames.length; i++) {
+                    String key = columnNames[i];
+                    json.put(key, resultSet.getObject(i + 1));
                 }
                 list.add(json);
             }
