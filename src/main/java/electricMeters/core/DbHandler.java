@@ -12,16 +12,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class DbHandler {
 
-    private static final String DB_URL = "jdbc:sqlite:ver1.db";
+    public static String DB_URL = "jdbc:sqlite:ver1.db";
     private static DbHandler instance;
     private final Connection connection;
 
@@ -71,7 +69,7 @@ public class DbHandler {
     public List<JSONObject> runSqlSelectFile(String sqlFile, Object... params) {
         try {
             Path path = Paths.get(Main.class.getResource("sql/" + sqlFile).toURI());
-            String sql = String.join("\n", Files.readAllLines(path));
+            String sql = Files.readString(path);
             return runSqlSelect(sql, params);
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
