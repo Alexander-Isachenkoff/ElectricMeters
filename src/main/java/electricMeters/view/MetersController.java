@@ -2,6 +2,7 @@ package electricMeters.view;
 
 import electricMeters.core.controls.JsonTable;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import org.json.JSONObject;
@@ -10,11 +11,13 @@ import java.util.List;
 
 public class MetersController {
     
+    @FXML private CheckBox isActualChb;
     @FXML private JsonTable metersTable;
     @FXML private JsonTable verificationsTable;
     
     @FXML
     private void initialize() {
+        isActualChb.selectedProperty().addListener((observableValue, aBoolean, t1) -> update());
         metersTable.addSelectedListener(newValue -> {
             if (newValue != null) {
                 int id = newValue.getInt("ID");
@@ -44,6 +47,11 @@ public class MetersController {
         
         verificationsTable.setOnDoubleClick(this::showEditVerification);
         
+        update();
+    }
+    
+    private void update() {
+        metersTable.setParams(isActualChb.isSelected() ? 1 : 0);
         metersTable.reload();
     }
     

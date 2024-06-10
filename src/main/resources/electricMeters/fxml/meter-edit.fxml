@@ -81,6 +81,7 @@
             <JCheckBox fx:id="isTechnicalChb" key="IS_TECHNICAL" text="Технический" />
             <JCheckBox fx:id="isCommercialChb" key="IS_COMMERCIAL" text="Коммерческий" />
             <JCheckBox fx:id="isPaidChb" key="IS_PAID" text="П" />
+            <JCheckBox fx:id="isArchiveChb" key="IS_ARCHIVE" text="Архивный" />
          </children>
          <padding>
             <Insets top="4.0" />

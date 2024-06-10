@@ -30,6 +30,7 @@ public class MeterEditForm implements FormCollector {
     @FXML private JCheckBox isTechnicalChb;
     @FXML private JCheckBox isCommercialChb;
     @FXML private JCheckBox isPaidChb;
+    @FXML private JCheckBox isArchiveChb;
     
     private JSONObject initialJson;
     private JsonTable tableToReload;
