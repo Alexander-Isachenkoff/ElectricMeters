@@ -24,6 +24,7 @@
                      <JsonColumn alignment="CENTER_LEFT" field="IP_ADDRESS" prefWidth="60.0" text="ip-адрес" />
                      <JsonColumn alignment="CENTER_LEFT" field="LOCATION_NAME" minWidth="0.0" prefWidth="200.0" text="Наименование точки учета" />
                      <JsonColumn alignment="CENTER" field="YEAR_OF_MANUFACTURE" text="Год выпуска" />
+                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" format="#.###" field="CALC_COEFFICIENT" prefWidth="100" text="Расчетный коэффициент" />
                      <JsonColumn alignment="CENTER" dataType="DATE" field="LAST_VERIFICATION_DATE" prefWidth="120" text="Дата последней поверки" />
                      <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_TECHNICAL" prefWidth="35.0" text="Т" />
                      <JsonColumn alignment="CENTER" displayType="CHECK_BOX" field="IS_COMMERCIAL" prefWidth="35.0" text="К" />

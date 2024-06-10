@@ -26,6 +26,7 @@ public class MeterEditForm implements FormCollector {
     @FXML private JTextField ipAddressTF;
     @FXML private JTextField comPortTF;
     @FXML private JTextField yearTF;
+    @FXML private JTextField calcCoefficientTF;
     @FXML private JCheckBox isTechnicalChb;
     @FXML private JCheckBox isCommercialChb;
     @FXML private JCheckBox isPaidChb;

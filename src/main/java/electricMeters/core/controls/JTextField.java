@@ -5,7 +5,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -30,6 +32,9 @@ public class JTextField extends AnchorPane implements RequiredJsonField<String> 
     @Getter
     @Setter
     private String key = "";
+    @Getter
+    @Setter
+    private Mask mask;
 
     public JTextField() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/controls/JTextField.fxml"));
@@ -44,6 +49,16 @@ public class JTextField extends AnchorPane implements RequiredJsonField<String> 
 
     @FXML
     private void initialize() {
+        textField.setTextFormatter(new TextFormatter<>(change -> {
+            if (getMask() != null) {
+                if (getMask().matches(change.getControlNewText())) {
+                    return change;
+                } else {
+                    return null;
+                }
+            }
+            return change;
+        }));
         requiredSign.visibleProperty().bind(required.and(textField.textProperty().isEmpty()));
         Tooltip tooltip = new Tooltip("Обязательное поле");
         tooltip.setShowDelay(Duration.millis(100));
@@ -80,6 +95,14 @@ public class JTextField extends AnchorPane implements RequiredJsonField<String> 
     
     public void setText(String text) {
         textField.setText(text);
+    }
+    
+    public final Pos getAlignment() {
+        return textField.getAlignment();
+    }
+    
+    public final void setAlignment(Pos value) {
+        textField.setAlignment(value);
     }
     
 }
