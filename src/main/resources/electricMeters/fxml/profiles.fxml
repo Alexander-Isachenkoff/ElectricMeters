@@ -77,7 +77,7 @@
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="aNeg" text="А-, кВт" />
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="rPos" text="R+, квар" />
                                     <JsonColumn alignment="CENTER_RIGHT" dataType="REAL" field="rNeg" text="R-, квар" />
-                                    <JsonColumn alignment="CENTER_LEFT" dataType="DATE" field="status" prefWidth="120.0" text="Статус" />
+                                    <JsonColumn alignment="CENTER_LEFT" field="status" prefWidth="120.0" text="Статус" />
                                  </columns>
                               </JsonTable>
                            </children>
