@@ -86,7 +86,7 @@ public class JTextField extends AnchorPane implements RequiredJsonField<String> 
     
     @Override
     public void setValue(JSONObject json) {
-        setText(String.valueOf(json.get(getKey())));
+        setText(json.optString(getKey()));
     }
     
     public String getText() {
