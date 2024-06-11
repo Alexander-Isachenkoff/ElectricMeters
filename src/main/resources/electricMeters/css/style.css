@@ -389,7 +389,10 @@
     -fx-border-color: SKYBLUE;
 }
 
-.text-error .text {
+.text-error .text,
+.table-view .text-error .text,
+.table-view .text-error:filled:selected .text,
+.table-view:focused .text-error:filled:selected .text {
     -fx-fill: #dc3545;
 }
 

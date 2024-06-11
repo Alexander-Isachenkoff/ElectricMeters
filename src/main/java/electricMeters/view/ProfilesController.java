@@ -55,6 +55,8 @@ public class ProfilesController {
             }
         });
         
+        mainTable.addStylePredicate(item -> item.optInt("HAS_STATUS") == 1, "text-error");
+        
         ContextMenu contextMenu = new ContextMenu();
         MenuItem reportItem = new MenuItem("Сформировать отчёт");
         reportItem.setOnAction(event -> {

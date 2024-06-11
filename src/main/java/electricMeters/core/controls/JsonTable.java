@@ -13,6 +13,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class JsonTable extends TableView<JSONObject> {
 
@@ -49,6 +51,8 @@ public class JsonTable extends TableView<JSONObject> {
 
     private String lastInputText;
     
+    private final List<Pair<Predicate<JSONObject>, String>> stylesPredicates = new ArrayList<>();
+    
     public JsonTable() {
         progressIndicator.setMaxSize(60, 60);
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -60,7 +64,22 @@ public class JsonTable extends TableView<JSONObject> {
         this.setOnKeyPressed(this::onKeyPressed);
 
         this.setRowFactory(table -> {
-            TableRow<JSONObject> row = new TableRow<>();
+            TableRow<JSONObject> row = new TableRow<>() {
+                @Override
+                protected void updateItem(JSONObject item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null) {
+                        return;
+                    }
+                    stylesPredicates.forEach(pair -> {
+                        if (pair.getKey().test(item)) {
+                            getStyleClass().add(pair.getValue());
+                        } else {
+                            getStyleClass().remove(pair.getValue());
+                        }
+                    });
+                }
+            };
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     JSONObject jsonObject = row.getItem();
@@ -69,6 +88,10 @@ public class JsonTable extends TableView<JSONObject> {
             });
             return row;
         });
+    }
+    
+    public void addStylePredicate(Predicate<JSONObject> predicate, String styleName) {
+        stylesPredicates.add(new Pair<>(predicate, styleName));
     }
     
     String getAndDropLastInputText() {
