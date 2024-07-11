@@ -6,13 +6,15 @@ import org.json.JSONObject;
 import org.sqlite.JDBC;
 import org.sqlite.SQLiteConfig;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -67,16 +69,21 @@ public class DbHandler {
     }
 
     public List<JSONObject> runSqlSelectFile(String sqlFile, Object... params) {
-        try {
-            Path path = Paths.get(Main.class.getResource("sql/" + sqlFile).toURI());
-            String sql = Files.readString(path);
-            return runSqlSelect(sql, params);
-        } catch (IOException | URISyntaxException e) {
+        try (InputStream is = Main.class.getResourceAsStream("sql/" + sqlFile)) {
+            if (is == null) {
+                return new ArrayList<>();
+            }
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+                String sql = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                return runSqlSelect(sql, params);
+            }
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public List<JSONObject> runSqlSelect(String sql, Object... params) {
+        System.out.println(sql + "; " + Arrays.toString(params));
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             for (int i = 1; i <= params.length; i++) {
                 statement.setObject(i, params[i-1]);
