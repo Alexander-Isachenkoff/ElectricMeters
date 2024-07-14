@@ -42,6 +42,41 @@
     -fx-opacity: 1
 }
 
+.date-picker {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: rgb(250, 250, 250);
+    -fx-background-insets: 0;
+    -fx-border-color: lightgray;
+    -fx-border-width: 1 1 1 0;
+    -fx-border-radius: 0 3 3 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: rgb(240, 240, 240);
+}
+.date-picker .date-cell:hover {
+    -fx-background-color: -highlight-color;
+}
+
+.date-picker .selected {
+    -fx-background-color: -highlight-color;
+}
+
+.date-picker-popup .spinner .button,
+.date-picker-popup .spinner .button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .spinner .button:hover,
+.date-picker-popup .spinner .button:hover {
+    -fx-border-color: rgb(192, 192, 192);
+}
+
 .tab-pane .tab {
     -fx-padding: 10;
     -fx-background-color: white;
