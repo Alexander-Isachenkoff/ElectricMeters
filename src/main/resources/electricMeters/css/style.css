@@ -31,6 +31,17 @@
     -fx-background-insets: 0, 1, 2;
 }
 
+.clear-button {
+    -fx-padding: 0;
+    -fx-background-color: none;
+    -fx-cursor: HAND;
+    -fx-opacity: 0.75;
+}
+
+.clear-button:hover {
+    -fx-opacity: 1
+}
+
 .tab-pane .tab {
     -fx-padding: 10;
     -fx-background-color: white;
